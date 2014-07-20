@@ -1,12 +1,22 @@
 //reset and base styles go here
 body {
-	background: #016f30;	
+	background: #016f30;
+	font-family: 'Raleway';
+	color: #fff;
 }
 
 h1 {
-	color: #fff;
 	font-size: 200%;
-	font-family: 'Raleway';
 	font-weight: 300;
 	letter-spacing: 2px;
+	text-align: center;
+}
+
+.wrapper {
+	width: 500px;
+	margin: auto;
+}
+
+.box {
+	height: 150px;
 }
