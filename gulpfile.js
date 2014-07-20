@@ -18,7 +18,7 @@ gulp.task('connect', function() {
 
 gulp.task('html', function () {
 	return gulp.src('*.html')
-		.pipe(connect.reload());
+		.pipe(connect.reload())
 		.pipe(notify({
 			message: 'HTML has been refreshed'
 		}));
