@@ -1,9 +1,12 @@
 body {
-  background: #016f30;
+  background: #016f30; }
+
+h1 {
   color: #fff;
-  font-size: 20px;
+  font-size: 200%;
   font-family: 'Raleway';
-  font-weight: 300; }
+  font-weight: 300;
+  letter-spacing: 2px; }
 
 @font-face {
   font-family: 'Raleway';
