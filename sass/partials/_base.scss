@@ -1,43 +1,43 @@
-//reset and base styles go here
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-	background: #016f30;
-	font-family: 'Raleway';
-	color: #fff;
+	line-height: 1;
 }
-
-h1 {
-	font-size: 200%;
-	font-weight: 300;
-	letter-spacing: 2px;
-	text-align: center;
+ol, ul {
+	list-style: none;
 }
-
-.wrapper {
-	width: 500px;
-	margin: auto;
+blockquote, q {
+	quotes: none;
 }
-
-.box {
-	height: 100px;
-	margin-bottom: 5px;
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
 }
-
-.card {
-	border: 1px solid #fff;
-	width: 60px;
-	height: 100%;
-	margin: auto;
-	border-radius: 5px;
-}
-
-.deal-button {
-	background: #ff0;
-	border: none;
-	font-size: 20px;
-	padding: 20px;
-	width: 100%;
-
-	&:hover {
-		cursor: pointer;
-	}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }

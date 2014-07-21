@@ -1,0 +1,68 @@
+$green: #016f30;
+
+body {
+	background: $green;
+	font-family: 'Raleway';
+	color: #fff;
+	padding: 20px;
+}
+
+h1 {
+	font-size: 200%;
+	font-weight: 300;
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+h2 {
+	font-size: 150%;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.wrapper {
+	width: 500px;
+	margin: 20px auto;
+}
+
+.box {
+	margin-bottom: 5px;
+	background: darken($green, 4%);
+	padding: 20px;
+}
+
+.card {
+	border: 1px solid #fff;
+	width: 120px;
+	height: 180px;
+	margin: auto;
+	border-radius: 5px;
+}
+
+.deal-button {
+	background: #ff0;
+	border: none;
+	font-size: 20px;
+	padding: 20px;
+	width: 100%;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.card-wrapper {
+	display: block;
+
+	.card {
+		display: inline-block;
+	}
+}

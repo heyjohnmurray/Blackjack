@@ -1,5 +1,4 @@
 //inspiration: http://www.addictinggames.com/puzzle-games/blackjack.jsp
-
 function createCard (){
   	//generate suit
 	var suits = ['diamonds','hearts','spades','clubs'];
@@ -11,18 +10,20 @@ function createCard (){
 
 	//your card is ...
 	return cards[randomCard] + " of " + suits[randomSuit];
-	console.log(cards[randomCard] + " of " + suits[randomSuit])
+	//console.log(cards[randomCard] + " of " + suits[randomSuit])
 }
 
 //when you hit the deal button :: not sure if this needs to be wrapped in a function
 var dealButton = document.getElementById('deal-button');
 
-dealButton.addEventListener('click', function(){
-	
-	//cards to the dealer
-	document.getElementById('dealer-cards').innerHTML = createCard();
+dealButton.addEventListener('click', function(e){
 
-	//cards to the player
-	document.getElementById('player-cards').innerHTML = createCard();
+	//cards to the dealer :: start with one card
+	document.querySelector('.dealer-cards .card-0').innerHTML = createCard();
+
+
+	//cards to the player :: start with two cards
+	document.querySelector('.player-cards .card-0').innerHTML = createCard();
+	document.querySelector('.player-cards .card-1').innerHTML = createCard();
 
 }, false);
