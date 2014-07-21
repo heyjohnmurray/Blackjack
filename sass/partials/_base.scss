@@ -18,14 +18,26 @@ h1 {
 }
 
 .box {
-	height: 250px;
+	height: 100px;
 	margin-bottom: 5px;
 }
 
 .card {
 	border: 1px solid #fff;
-	width: 180px;
+	width: 60px;
 	height: 100%;
 	margin: auto;
 	border-radius: 5px;
+}
+
+.deal-button {
+	background: #ff0;
+	border: none;
+	font-size: 20px;
+	padding: 20px;
+	width: 100%;
+
+	&:hover {
+		cursor: pointer;
+	}
 }
