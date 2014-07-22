@@ -76,7 +76,7 @@ h2 {
 
 .wrapper {
   width: 500px;
-  margin: 20px auto; }
+  margin: 10px auto; }
 
 .box {
   margin-bottom: 5px;
@@ -85,8 +85,8 @@ h2 {
 
 .card {
   border: 1px solid #fff;
-  width: 73px;
-  height: 98px;
+  width: 120px;
+  height: 180px;
   margin: auto;
   border-radius: 5px; }
 
@@ -101,9 +101,13 @@ h2 {
 
 .card-wrapper {
   display: block; }
-  .card-wrapper .card {
-    color: #222;
-    background: #fff;
-    border: 1px solid #222;
-    display: inline-block; }
 
+.card {
+  color: #222;
+  background: #fff;
+  border: 1px solid #222;
+  display: inline-block; }
+  .card div {
+    padding: 10px 5px 3px 5px;
+    text-align: center;
+    width: 30px; }
