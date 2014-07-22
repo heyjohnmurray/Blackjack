@@ -111,3 +111,7 @@ h2 {
     padding: 10px 5px 3px 5px;
     text-align: center;
     width: 30px; }
+    .card div.red {
+      color: #FF0008; }
+    .card div.black {
+      color: #000; }

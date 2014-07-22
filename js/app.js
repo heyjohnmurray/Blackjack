@@ -117,7 +117,7 @@ function createCard(){
 		cards[randomCardNumber];
 	}
 
-	return '<div class="number' + suits[randomSuit]['color'] + '">' + cards[randomCardNumber]['value'] + '</div><div class="suit">' + suits[randomSuit]['symbol'] +'</div> ';
+	return '<div class="number ' + suits[randomSuit]['color'] + '">' + cards[randomCardNumber]['value'] + '</div><div class="suit ' + suits[randomSuit]['color'] +'">' + suits[randomSuit]['symbol'] +'</div> ';
 }
 
 
