@@ -44,7 +44,7 @@ function createCard(){
 
 	//GENERATE RANDOME CARD NUMBER
 	//generate random number between 2 and 15
-	var randomCardNumber = Math.floor(Math.random() * 14) + 2;
+	var randomCardNumber = Math.floor(Math.random() * 13) + 2;
 
 	var cards = {
 		2: {
@@ -117,7 +117,7 @@ function createCard(){
 		cards[randomCardNumber];
 	}
 
-	return '<div class="number">' + cards[randomCardNumber]['value'] + '</div><div class="suit">' + suits[randomSuit]['sybmol'] +'</div> ';
+	return '<div class="number">' + cards[randomCardNumber]['value'] + '</div><div class="suit">' + suits[randomSuit]['symbol'] +'</div> ';
 }
 
 
