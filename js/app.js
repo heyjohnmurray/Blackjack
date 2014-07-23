@@ -32,6 +32,8 @@ function cardCheck(a){
 	} else {
 		
 		//I need to do something here. Just not sure what.
+		//Probably need to check for the number of 
+		//cards in the dealer-cards and player-cards divs
 
 	}
 }
