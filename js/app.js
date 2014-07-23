@@ -16,13 +16,16 @@
 
 var dealerCards = document.querySelector('.dealer-cards');
 var playerCards = document.querySelector('.player-cards');
+var cardValues = [];
 
+//have we dealt any cards yet?
 function cardCheck(a){	
 	var newDiv = document.createElement('div');
 
+	//if not, then create cards
 	if (a.firstChild == null) {
 		
-		newDiv.className = 'card ' + suits[randomSuit]['color'];
+		newDiv.className = 'card';
 
 		return a.appendChild(newDiv);
 
@@ -71,7 +74,7 @@ function createCard(){
 		 suits[randomSuit];
 	}
 
-	//GENERATE RANDOME CARD NUMBER
+	//GENERATE RANDOM CARD NUMBER
 	//generate random number between 2 and 15
 	var randomCardNumber = Math.floor(Math.random() * 13) + 2;
 
@@ -146,6 +149,9 @@ function createCard(){
 		cards[randomCardNumber];
 	}
 
+	cardValues.push(cards[randomCardNumber]['value']);
+	console.log(cardValues);
+
 	return '<div class="number ' + suits[randomSuit]['color'] + '">' + cards[randomCardNumber]['value'] + '</div><div class="suit ' + suits[randomSuit]['color'] +'">' + suits[randomSuit]['symbol'] +'</div> ';
 }
 
@@ -154,14 +160,20 @@ var dealButton = document.getElementById('deal-button');
 
 dealButton.addEventListener('click', function(e){
 
+	//deal cards!
 	cardCheck(dealerCards);
 	cardCheck(playerCards);
+
+	//var totalCards = document.querySelectorAll('.dealer-cards .card');
+
+	//for (var i = 0; i < totalCards.length; i++) {
+	//	console.log('hey');
+	//};
 
 	//cards to the dealer :: start with one card
 	document.querySelector('.dealer-cards .card').innerHTML = createCard();
 
 	//cards to the player :: start with two cards
 	document.querySelector('.player-cards .card').innerHTML = createCard();
-	//document.querySelector('.player-cards .card-1').innerHTML = createCard();
 
 }, false);
