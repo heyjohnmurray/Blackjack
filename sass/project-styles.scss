@@ -30,8 +30,20 @@ h2 {
 }
 
 .wrapper {
-	width: 500px;
 	margin: 10px auto;
+	width: 100%;
+
+	@media screen and (min-width: 481px) {
+		width: 100%;
+	}
+
+	@media screen and (min-width: 769px) {
+		width: 80%;
+	}	
+
+	@media screen and (min-width: 960px) {
+		width: 50%;
+	}
 }
 
 .box {

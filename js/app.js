@@ -4,11 +4,12 @@
 
 /* 
 
-	right now the cards are hard-coded, but you should 
-	probably create a function that checks for the number of 
-	cards in the dealer-cards and player-cards divs, then if no cards
-	exist deal cards, then check the value of the cards dealt every time
-	the deal button is hit until the value of one of them is 21 or higher.
+	[fixed] right now the cards are hard-coded, 
+
+			but you should probably create a function that checks for the number of 
+			cards in the dealer-cards and player-cards divs, then if no cards
+			exist deal cards, then check the value of the cards dealt every time
+			the deal button is hit until the value of one of them is 21 or higher.
 
 	after that you'll need a 'stay' button to and then add in betting and what not.
 
@@ -24,10 +25,13 @@ function cardCheck(a){
 
 	//if not, then create cards
 	if (a.firstChild == null) {
-		
-		newDiv.className = 'card';
 
+		newDiv.className = 'card';
 		return a.appendChild(newDiv);
+
+	} else {
+		
+		//I need to do something here. Just not sure what.
 
 	}
 }
@@ -150,7 +154,7 @@ function createCard(){
 	}
 
 	cardValues.push(cards[randomCardNumber]['value']);
-	console.log(cardValues);
+	//console.log(cardValues);
 
 	return '<div class="number ' + suits[randomSuit]['color'] + '">' + cards[randomCardNumber]['value'] + '</div><div class="suit ' + suits[randomSuit]['color'] +'">' + suits[randomSuit]['symbol'] +'</div> ';
 }
@@ -163,12 +167,6 @@ dealButton.addEventListener('click', function(e){
 	//deal cards!
 	cardCheck(dealerCards);
 	cardCheck(playerCards);
-
-	//var totalCards = document.querySelectorAll('.dealer-cards .card');
-
-	//for (var i = 0; i < totalCards.length; i++) {
-	//	console.log('hey');
-	//};
 
 	//cards to the dealer :: start with one card
 	document.querySelector('.dealer-cards .card').innerHTML = createCard();

@@ -75,8 +75,17 @@ h2 {
   float: right; }
 
 .wrapper {
-  width: 500px;
-  margin: 10px auto; }
+  margin: 10px auto;
+  width: 100%; }
+  @media screen and (min-width: 481px) {
+    .wrapper {
+      width: 100%; } }
+  @media screen and (min-width: 769px) {
+    .wrapper {
+      width: 80%; } }
+  @media screen and (min-width: 960px) {
+    .wrapper {
+      width: 50%; } }
 
 .box {
   margin-bottom: 5px;
