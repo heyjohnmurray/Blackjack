@@ -1,5 +1,34 @@
 //inspiration: http://www.addictinggames.com/puzzle-games/blackjack.jsp
 
+//NEXT STEPS:
+
+/* 
+
+	right now the cards are hard-coded, but you should 
+	probably create a function that checks for the number of 
+	cards in the dealer-cards and player-cards divs, then if no cards
+	exist deal cards, then check the value of the cards dealt every time
+	the deal button is hit until the value of one of them is 21 or higher.
+
+	after that you'll need a 'stay' button to and then add in betting and what not.
+
+*/
+
+var dealerCards = document.querySelector('.dealer-cards');
+var playerCards = document.querySelector('.player-cards');
+
+function cardCheck(a){	
+	var newDiv = document.createElement('div');
+
+	if (a.firstChild == null) {
+		
+		newDiv.className = 'card ' + suits[randomSuit]['color'];
+
+		return a.appendChild(newDiv);
+
+	}
+}
+
 function createCard(){
 	//originally this was two separate functions but I couldn't echo out the values 
 	//after I returned objects for each function. Getting rid of the functions made
@@ -120,22 +149,19 @@ function createCard(){
 	return '<div class="number ' + suits[randomSuit]['color'] + '">' + cards[randomCardNumber]['value'] + '</div><div class="suit ' + suits[randomSuit]['color'] +'">' + suits[randomSuit]['symbol'] +'</div> ';
 }
 
-
 //when you hit the deal button :: not sure if this needs to be wrapped in a function
 var dealButton = document.getElementById('deal-button');
 
 dealButton.addEventListener('click', function(e){
 
+	cardCheck(dealerCards);
+	cardCheck(playerCards);
+
 	//cards to the dealer :: start with one card
-	document.querySelector('.dealer-cards .card-0').innerHTML = createCard();
+	document.querySelector('.dealer-cards .card').innerHTML = createCard();
 
 	//cards to the player :: start with two cards
-	document.querySelector('.player-cards .card-0').innerHTML = createCard();
-	document.querySelector('.player-cards .card-1').innerHTML = createCard();
-
-	var dealtCards = document.querySelectorAll('.player-cards .card .number');
-	for (var i = 0; i < dealtCards.length; i++) {
-		//console.log(dealtCards[i].innerHTML);
-	};
+	document.querySelector('.player-cards .card').innerHTML = createCard();
+	//document.querySelector('.player-cards .card-1').innerHTML = createCard();
 
 }, false);

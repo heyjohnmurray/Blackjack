@@ -40,6 +40,10 @@ h2 {
 	padding: 20px;
 }
 
+.card-wrapper {
+	height: 190px;
+}
+
 .card {
 	border: 1px solid #fff;
 	width: 120px;
@@ -71,9 +75,9 @@ h2 {
 	display: inline-block;
 
 	div {
-		padding: 10px 5px 3px 5px;
+		padding: 25px 5px 3px 5px;
 		text-align: center;
-		width: 30px;
+		font-size: 200%;
 
 		&.red {
 			color: $red;

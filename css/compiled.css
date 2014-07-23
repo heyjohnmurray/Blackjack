@@ -83,6 +83,9 @@ h2 {
   background: #015b26;
   padding: 20px; }
 
+.card-wrapper {
+  height: 190px; }
+
 .card {
   border: 1px solid #fff;
   width: 120px;
@@ -108,9 +111,9 @@ h2 {
   border: 1px solid #222;
   display: inline-block; }
   .card div {
-    padding: 10px 5px 3px 5px;
+    padding: 25px 5px 3px 5px;
     text-align: center;
-    width: 30px; }
+    font-size: 200%; }
     .card div.red {
       color: #FF0008; }
     .card div.black {
