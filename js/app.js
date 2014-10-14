@@ -21,7 +21,7 @@ var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
 
-function createCard(){
+function createCardValue(){
 	// choose random suit
 	var suitType = Math.floor(Math.random() * 4); // generate random number between 0 and 3
 
@@ -143,23 +143,31 @@ function createCard(){
 	};
 
 	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
-}// close createCard()
+}// close createCardValue()
+
+function createCard(whichUser) {
+	var newCard = document.createElement('div');
+	newCard.className = 'card';
+	whichUser.appendChild(newCard);
+	whichUser.lastChild.innerHTML = createCardValue();
+}
 
 function dealCards(whichUser, cardsDealt){ // should accept user and number parameters	
 
 	for (var i = 0; i < cardsDealt; i++) {
-		var userName = whichUser.className;
-		var newCard = document.createElement('div');
 		var children = whichUser.children;
-	
+
+		// whenever i try to use createCard() instead of the code below my browser dies.
+		var newCard = document.createElement('div');
 		newCard.className = 'card';
 		whichUser.appendChild(newCard);
 
-		// this prints to multiple cards but only lets deal print one at a time
-		// for (var i = 0; i < children.length; i++) {
-		// 	children[i].innerHTML = createCard();
-		// 	console.log(children.length);
-		// }
+		// this prints to multiple cards but only lets 'dealCards' deal one at a time
+		for (var i = 0; i < children.length; i++) {
+			children[i].innerHTML = createCardValue();
+			console.log(children.length); 
+		}
+		// the problem is that it thinks each  user div only has one child
 	}
 }
 
@@ -176,11 +184,8 @@ dealButton.addEventListener('click', function(e){
 
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
-	// this code works perfectly. but some of the code needs consolidation.
-	var newCard = document.createElement('div');
-	newCard.className = 'card';
-	player.appendChild(newCard);
-	player.lastChild.innerHTML = createCard();
+
+	createCard(player);
 
 }, false);
 
