@@ -1,8 +1,8 @@
 // Necessary Ojbects
-	// deck 	:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
+	// deck		:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
 				//	:: Ace has 2 values (1, 11)
-	// dealt 	:: check if cards have been dealt, then deal 2 cards
-	// value 	:: sum the value of the cards you have [this can be reused]
+	// dealt	:: check if cards have been dealt, then deal 2 cards
+	// value	:: sum the value of the cards you have [this can be reused]
 	// hit		:: generate random new card that hasn't been dealt yet add its value to the existing cards
 	// stay		:: give dealer random numer of cards
 
@@ -24,7 +24,7 @@ var stayButton = document.getElementById('stay');
 function createCard(){
 	// choose random suit
 	var suitType = Math.floor(Math.random() * 4); // generate random number between 0 and 3
-  		
+
 	// possible suits
 	var suits = { // originally this was an array, but an object lets me store more info for this
 		0: {
@@ -50,7 +50,7 @@ function createCard(){
 			'symbol': '&spadesuit;',
 			'color': 'black'
 		}
-	}
+	};
 
 	// chose random card number
 	var cardNumber = Math.floor(Math.random() * 14) + 1; // generate random number between 1 and 14
@@ -140,23 +140,27 @@ function createCard(){
 			'face': 'A',
 			'value': 11
 		}
-	}
+	};
 
 	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
-} // close createCard()
+}// close createCard()
 
 function dealCards(whichUser, cardsDealt){ // should accept user and number parameters	
+
 	for (var i = 0; i < cardsDealt; i++) {
 		var userName = whichUser.className;
 		var newCard = document.createElement('div');
+		var children = whichUser.children;
+	
 		newCard.className = 'card';
 		whichUser.appendChild(newCard);
-		/* 
-			I also need it to add the createCard() code to the new card.
-				document.querySelector('.' + userName + ' .card').innerHTML = createCard(); 
-				I need it to print the value on EVERY card not just one
-		*/
-	};	
+
+		// this prints to multiple cards but only lets deal print one at a time
+		// for (var i = 0; i < children.length; i++) {
+		// 	children[i].innerHTML = createCard();
+		// 	console.log(children.length);
+		// }
+	}
 }
 
 // Deal Button Click :: Only hit once. Hide after click. Can deal multiple cards
@@ -172,7 +176,12 @@ dealButton.addEventListener('click', function(e){
 
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
-	dealCards(player, 1);
+	// this code works perfectly. but some of the code needs consolidation.
+	var newCard = document.createElement('div');
+	newCard.className = 'card';
+	player.appendChild(newCard);
+	player.lastChild.innerHTML = createCard();
+
 }, false);
 
 // Stay Button Click

@@ -29,6 +29,15 @@ h2 {
 	float: right;
 }
 
+.button {
+	border: none;
+	font-size: 20px;
+	padding: 20px;
+	display: inline-block;
+	cursor: pointer;
+	width: 32%;
+}
+
 .wrapper {
 	margin: 10px auto;
 	width: 100%;
@@ -66,10 +75,6 @@ h2 {
 
 .deal-button {
 	background: #ff0;
-	border: none;
-	font-size: 20px;
-	padding: 20px;
-	width: 100%;
 
 	&:hover {
 		cursor: pointer;
