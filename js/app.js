@@ -1,3 +1,7 @@
+// dom manipulation in one function
+// business logic in another
+
+
 // Necessary Ojbects
 	// deck		:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
 				//	:: Ace has 2 values (1, 11)
@@ -142,10 +146,22 @@ function createCardValue(){
 		}
 	};
 
+	// return {
+	// 	color: red,
+	// 	suite: hearts,
+	// 	value: king
+	// };
+
+	// this needs to be separated out. always separate dom manipulation from business logic
 	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
 }// close createCardValue()
 
 function createCard(whichUser) {
+	// var myCard = createCardValue();
+
+	// myCard.color;
+	// myCard.suite;
+
 	var newCard = document.createElement('div');
 	newCard.className = 'card';
 	whichUser.appendChild(newCard);
@@ -153,21 +169,8 @@ function createCard(whichUser) {
 }
 
 function dealCards(whichUser, cardsDealt){ // should accept user and number parameters	
-
 	for (var i = 0; i < cardsDealt; i++) {
-		var children = whichUser.children;
-
-		// whenever i try to use createCard() instead of the code below my browser dies.
-		var newCard = document.createElement('div');
-		newCard.className = 'card';
-		whichUser.appendChild(newCard);
-
-		// this prints to multiple cards but only lets 'dealCards' deal one at a time
-		for (var i = 0; i < children.length; i++) {
-			children[i].innerHTML = createCardValue();
-			console.log(children.length); 
-		}
-		// the problem is that it thinks each  user div only has one child
+		createCard(whichUser);
 	}
 }
 
