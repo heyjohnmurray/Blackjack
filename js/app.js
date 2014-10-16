@@ -24,20 +24,8 @@ var player = document.querySelector('.player-cards');
 var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
+var card = cardInfo();
 var cardPoints = [];
-
-// new objects you need. :: try to find the notes james took on this and use them to create these constructors
-var Deck = function(){
-
-}
-
-var Player = function(){
-
-}
-
-var Dealer = function(){
-
-}
 
 function cardInfo(){
 	// choose random suit
@@ -160,22 +148,19 @@ function cardInfo(){
 		}
 	};
 
-	var cardData = {
+	return {
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
 		suit: suits[suitType]['name'],
 		value: cards[cardNumber]['value'],
 		symbol: suits[suitType]['symbol']
-	};
-
-	//console.log(cardData);
-	return cardData; // return an object so you can keep this logic separate from the html-generated logic in cardRender()
+	}; // return an object so you can keep this logic separate from the html-generated logic in cardRender()
 
 }// close cardInfo()
 
-function cardRender(color, face, suit, value, symbol) { // creates the html that goes in the card
-	var card = cardInfo(); // bring in the cardInfo object that we generated.
+function cardRender(card) { // creates the html that goes in the card
 	return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
+	//console.log(card);
 }
 
 function createCard(whichUser) { // deals a single card
@@ -183,18 +168,13 @@ function createCard(whichUser) { // deals a single card
 	
 	newCard.className = 'card';
 	whichUser.appendChild(newCard);
-	whichUser.lastChild.innerHTML = cardRender();
+	whichUser.lastChild.innerHTML = cardRender(card);
 }
 
 function dealCards(whichUser, cardsDealt){ // deals multiple cards
 	for (var i = 0; i < cardsDealt; i++) {
 		createCard(whichUser);
 	}
-}
-
-function calcScore(whichUser, totalPoints) {
-	var card = cardInfo; // bring in the cardInfo object that we generated.
-	console.log(card); // PICK UP WHERE YOU LEFT OFF HERE
 }
 
 function scoreRender(whichUser) {
@@ -216,8 +196,7 @@ dealButton.addEventListener('click', function(e){
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
 
-	//createCard(player);
-	calcScore();
+	createCard(player);
 
 }, false);
 
