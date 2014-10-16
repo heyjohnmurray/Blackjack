@@ -1,7 +1,3 @@
-// http://jsbin.com/jisukibenaqo/2/edit
-
-
-
 // dom manipulation in one function
 // business logic in another
 
@@ -28,33 +24,22 @@ var player = document.querySelector('.player-cards');
 var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
-<<<<<<< HEAD
-<<<<<<< HEAD
-var card = cardInfo();
 var cardPoints = [];
 
 // new objects you need. :: try to find the notes james took on this and use them to create these constructors
-var Deck = {
+var Deck = function(){
 
 }
 
-var Player = {
+var Player = function(){
 
 }
 
-var Dealer = {
+var Dealer = function(){
 
 }
 
 function cardInfo(){
-=======
-
-function createCardValue(){
->>>>>>> parent of a177874... trying to figure out score keeping
-=======
-
-function createCardValue(){
->>>>>>> parent of a177874... trying to figure out score keeping
 	// choose random suit
 	var suitType = Math.floor(Math.random() * 4); // generate random number between 0 and 3
 
@@ -175,97 +160,48 @@ function createCardValue(){
 		}
 	};
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	return {
+	var cardData = {
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
 		suit: suits[suitType]['name'],
 		value: cards[cardNumber]['value'],
 		symbol: suits[suitType]['symbol']
-	}; // return an object so you can keep this logic separate from the html-generated logic in cardRender()
+	};
+
+	//console.log(cardData);
+	return cardData; // return an object so you can keep this logic separate from the html-generated logic in cardRender()
 
 }// close cardInfo()
 
-var myCard = getNewCard();
-
-function getNewCard() {
-	return {
-		color: 'red',
-		face: 'hearts',
-		symbol: 'heartyshapedthing.png',
-		value: '12'
-	};
+function cardRender(color, face, suit, value, symbol) { // creates the html that goes in the card
+	var card = cardInfo(); // bring in the cardInfo object that we generated.
+	return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
 }
 
-function renderMe(myCard) { // creates the html that goes in the card
-	console.log(myCard);
-}
-
-
-
-
-function cardRender(card) { // creates the html that goes in the card
-	//return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
-}
-=======
-	// return {
-	// 	color: red,
-	// 	suite: hearts,
-	// 	value: king
-	// };
-
-	// this needs to be separated out. always separate dom manipulation from business logic
-	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
-}// close createCardValue()
-
-function createCard(whichUser) {
-	// var myCard = createCardValue();
-
-	// myCard.color;
-	// myCard.suite;
->>>>>>> parent of a177874... trying to figure out score keeping
-=======
-	// return {
-	// 	color: red,
-	// 	suite: hearts,
-	// 	value: king
-	// };
-
-	// this needs to be separated out. always separate dom manipulation from business logic
-	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
-}// close createCardValue()
-
-function createCard(whichUser) {
-	// var myCard = createCardValue();
-
-	// myCard.color;
-	// myCard.suite;
->>>>>>> parent of a177874... trying to figure out score keeping
-
+function createCard(whichUser) { // deals a single card
 	var newCard = document.createElement('div');
+	
 	newCard.className = 'card';
 	whichUser.appendChild(newCard);
-	whichUser.lastChild.innerHTML = createCardValue();
+	whichUser.lastChild.innerHTML = cardRender();
 }
 
-function dealCards(whichUser, cardsDealt){ // should accept user and number parameters	
+function dealCards(whichUser, cardsDealt){ // deals multiple cards
 	for (var i = 0; i < cardsDealt; i++) {
 		createCard(whichUser);
 	}
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+function calcScore(whichUser, totalPoints) {
+	var card = cardInfo; // bring in the cardInfo object that we generated.
+	console.log(card); // PICK UP WHERE YOU LEFT OFF HERE
+}
+
 function scoreRender(whichUser) {
 	return "Score Goes Here"; 
 	//return whichUser + totalPoints; this is tentative
 }
 
-=======
->>>>>>> parent of a177874... trying to figure out score keeping
-=======
->>>>>>> parent of a177874... trying to figure out score keeping
 // Deal Button Click :: Only hit once. Hide after click. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
 
@@ -280,11 +216,15 @@ dealButton.addEventListener('click', function(e){
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
 
-	createCard(player);
+	//createCard(player);
+	calcScore();
 
 }, false);
 
 // Stay Button Click
 stayButton.addEventListener('click', function(e){
-	// this should do math. create custom function to add up card values
+
+	document.querySelector('.dealer-box .score').innerHTML = scoreRender(dealer);
+	document.querySelector('.player-box .score').innerHTML = scoreRender(player);
+
 }, false);

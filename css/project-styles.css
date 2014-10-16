@@ -21,6 +21,14 @@ h2 {
 .float-right {
   float: right; }
 
+.button {
+  border: none;
+  font-size: 20px;
+  padding: 20px;
+  display: inline-block;
+  cursor: pointer;
+  width: 32%; }
+
 .wrapper {
   margin: 10px auto;
   width: 100%; }
@@ -36,7 +44,7 @@ h2 {
 
 .box {
   margin-bottom: 5px;
-  background: #015b27;
+  background: #015b26;
   padding: 20px; }
 
 .card-wrapper {
@@ -50,11 +58,7 @@ h2 {
   border-radius: 5px; }
 
 .deal-button {
-  background: #ff0;
-  border: none;
-  font-size: 20px;
-  padding: 20px;
-  width: 40%; }
+  background: #ff0; }
   .deal-button:hover {
     cursor: pointer; }
 
@@ -71,6 +75,6 @@ h2 {
     text-align: center;
     font-size: 200%; }
     .card div.red {
-      color: #ff0008; }
+      color: #FF0008; }
     .card div.black {
       color: #000; }
