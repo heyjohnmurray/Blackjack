@@ -29,6 +29,7 @@ var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
 <<<<<<< HEAD
+<<<<<<< HEAD
 var card = cardInfo();
 var cardPoints = [];
 
@@ -46,6 +47,10 @@ var Dealer = {
 }
 
 function cardInfo(){
+=======
+
+function createCardValue(){
+>>>>>>> parent of a177874... trying to figure out score keeping
 =======
 
 function createCardValue(){
@@ -171,6 +176,7 @@ function createCardValue(){
 	};
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return {
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
@@ -219,6 +225,23 @@ function createCard(whichUser) {
 	// myCard.color;
 	// myCard.suite;
 >>>>>>> parent of a177874... trying to figure out score keeping
+=======
+	// return {
+	// 	color: red,
+	// 	suite: hearts,
+	// 	value: king
+	// };
+
+	// this needs to be separated out. always separate dom manipulation from business logic
+	return	'<div class="number ' + suits[suitType]['color'] + '">' + cards[cardNumber]['face'] + '</div>' + '<div class="suit ' + suits[suitType]['color'] +'">' + suits[suitType]['symbol'] + '</div>';
+}// close createCardValue()
+
+function createCard(whichUser) {
+	// var myCard = createCardValue();
+
+	// myCard.color;
+	// myCard.suite;
+>>>>>>> parent of a177874... trying to figure out score keeping
 
 	var newCard = document.createElement('div');
 	newCard.className = 'card';
@@ -233,11 +256,14 @@ function dealCards(whichUser, cardsDealt){ // should accept user and number para
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function scoreRender(whichUser) {
 	return "Score Goes Here"; 
 	//return whichUser + totalPoints; this is tentative
 }
 
+=======
+>>>>>>> parent of a177874... trying to figure out score keeping
 =======
 >>>>>>> parent of a177874... trying to figure out score keeping
 // Deal Button Click :: Only hit once. Hide after click. Can deal multiple cards
