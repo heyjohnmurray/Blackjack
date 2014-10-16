@@ -1,7 +1,6 @@
 // dom manipulation in one function
 // business logic in another
 
-
 // Necessary Ojbects
 	// deck		:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
 				//	:: Ace has 2 values (1, 11)
@@ -159,8 +158,8 @@ function cardInfo(){
 }// close cardInfo()
 
 function cardRender(card) { // creates the html that goes in the card
+	// it's printing one b/c card render is used in the loop in dealCards so it's doing the same thing several times
 	return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
-	//console.log(card);
 }
 
 function createCard(whichUser) { // deals a single card
@@ -179,7 +178,6 @@ function dealCards(whichUser, cardsDealt){ // deals multiple cards
 
 function scoreRender(whichUser) {
 	return "Score Goes Here"; 
-	//return whichUser + totalPoints; this is tentative
 }
 
 // Deal Button Click :: Only hit once. Hide after click. Can deal multiple cards
