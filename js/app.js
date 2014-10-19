@@ -1,24 +1,5 @@
-// dom manipulation in one function
-// business logic in another
 // http://jsbin.com/jisukibenaqo/2/edit?js
-
-// Necessary Ojbects
-	// deck		:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
-				//	:: Ace has 2 values (1, 11)
-	// dealt	:: check if cards have been dealt, then deal 2 cards
-	// value	:: sum the value of the cards you have [this can be reused]
-	// hit		:: generate random new card that hasn't been dealt yet add its value to the existing cards
-	// stay		:: give dealer random numer of cards
-
-	// bet		:: allow user to choose value to wager
-				//	:: keep track of amount wagered (add multiple token clicks)
-				//	:: subtract wager from existing cash in hand (start out with 1500)
-
 //inspiration: http://www.addictinggames.com/puzzle-games/blackjack.jsp
-
-// players
-var dealer = document.querySelector('.dealer-cards');
-var player = document.querySelector('.player-cards');
 
 // buttons
 var dealButton = document.getElementById('deal-button');
