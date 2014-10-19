@@ -23,7 +23,22 @@ var player = document.querySelector('.player-cards');
 var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
-var cardPoints = [];
+
+// I need more advice on how this logic will work
+var Player = {
+	cards: [],
+	domElement: document.querySelector('.player-cards')
+};
+
+var Dealer = {
+	cards: [],
+	domElement: document.querySelector('.dealer-cards')
+};
+
+var Deck = {
+
+};
+// close new logic
 
 function cardInfo(){
 	// choose random suit
@@ -146,29 +161,28 @@ function cardInfo(){
 		}
 	};
 
-	return {
+	return { // cardInfo object
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
 		suit: suits[suitType]['name'],
 		value: cards[cardNumber]['value'],
 		symbol: suits[suitType]['symbol']
-	}; // return an object so you can keep this logic separate from the html-generated logic in cardRender()
+	};
 
 }// close cardInfo()
 
-function cardRender(card) { // creates the html that goes in the card
-	return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
+function cardRender(obj) { // creates the html that goes in the card
+	return	'<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>';
 }
 
 function createCard(whichUser) { // deals a single card
 	var newCard = document.createElement('div');
-	var card = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
+	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newCard.className = 'card';
 	whichUser.appendChild(newCard);
-	whichUser.lastChild.innerHTML = cardRender(card);
-
-	scoreValue(card);
+	whichUser.lastChild.innerHTML = cardRender(cardObj);
+	cardPoints(whichUser, cardObj);
 }
 
 function dealCards(whichUser, cardsDealt){ // deals multiple cards
@@ -177,8 +191,16 @@ function dealCards(whichUser, cardsDealt){ // deals multiple cards
 	}
 }
 
-function scoreValue(card) {
-	console.log(card.value);
+function cardPoints(whichUser, obj) {
+	console.log(obj.value);
+	console.log(whichUser);
+}
+
+function aceValChoice() {
+	console.log(obj.name);
+	if (obj.name == 'ace') {
+		alert('do you want 1 point or 11?');
+	};
 }
 
 function scoreRender(whichUser) {
