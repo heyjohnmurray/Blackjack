@@ -1,5 +1,6 @@
 // dom manipulation in one function
 // business logic in another
+// http://jsbin.com/jisukibenaqo/2/edit?js
 
 // Necessary Ojbects
 	// deck		:: 52 cards : 14cards : 4 suits : 2 red [clubs, spades] : 2 black [hearts, diamonds] 
@@ -161,7 +162,7 @@ function cardInfo(){
 		}
 	};
 
-	return { // cardInfo object
+	return { // cardObj
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
 		suit: suits[suitType]['name'],
@@ -170,6 +171,32 @@ function cardInfo(){
 	};
 
 }// close cardInfo()
+
+
+///////////////////////////////////////////////////////
+////  NOTE :: make score update on every 'hit me'  ////
+///////////////////////////////////////////////////////
+
+function cardPoints(whichUser, obj) { // .push() works. not sure if 'return' makes sense
+	whichUser['cards'].push(obj.value);
+	//console.log(whichUser['cards']);
+	return whichUser['cards'];
+}
+
+function aceValChoice(whichUser, obj) { // still working on this
+	//console.log(obj.name);
+	
+	// if (obj.name == 'ace') {
+	// 	alert('do you want 1 point or 11?');
+	// };
+}
+
+function scoreRender(whichUser) {
+	var userScore = whichUser['cards'].reduce(function(prev, curr){ // reduce works for IE9+. for loop is an alternate
+	  	return prev + curr;
+	});
+	return userScore;
+}
 
 function cardRender(obj) { // creates the html that goes in the card
 	return	'<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>';
@@ -180,9 +207,10 @@ function createCard(whichUser) { // deals a single card
 	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newCard.className = 'card';
-	whichUser.appendChild(newCard);
-	whichUser.lastChild.innerHTML = cardRender(cardObj);
+	whichUser['domElement'].appendChild(newCard);
+	whichUser['domElement'].lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
+	aceValChoice(whichUser, cardObj);
 }
 
 function dealCards(whichUser, cardsDealt){ // deals multiple cards
@@ -191,44 +219,28 @@ function dealCards(whichUser, cardsDealt){ // deals multiple cards
 	}
 }
 
-function cardPoints(whichUser, obj) {
-	console.log(obj.value);
-	console.log(whichUser);
-}
-
-function aceValChoice() {
-	console.log(obj.name);
-	if (obj.name == 'ace') {
-		alert('do you want 1 point or 11?');
-	};
-}
-
-function scoreRender(whichUser) {
-	return "Score Goes Here"; 
-}
-
-// Deal Button Click :: Only hit once. Hide after click. Can deal multiple cards
+// Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
 
 	// Deal mutliple cards 
-	dealCards(dealer, 1);
-	dealCards(player, 2);
+	dealCards(Dealer, 1);
+	dealCards(Player, 2);
 	
-	e.target.style.display = "none"; // Hide after click
+	e.target.style.display = "none";
 
 }, false);
 
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
 
-	createCard(player);
+	createCard(Player); // right now this is passing through an entire object and that seems unnecessary. what should i do?
 
 }, false);
 
 // Stay Button Click
 stayButton.addEventListener('click', function(e){
 
-	document.querySelector('.dealer-box .score').innerHTML = scoreRender(dealer);
-	document.querySelector('.player-box .score').innerHTML = scoreRender(player);
+	document.querySelector('.dealer-box .score').innerHTML = scoreRender(Dealer);
+	document.querySelector('.player-box .score').innerHTML = scoreRender(Player);
 
 }, false);

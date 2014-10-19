@@ -131,3 +131,6 @@ h2 {
       color: #FF0008; }
     .card div.black {
       color: #000; }
+
+.score {
+  font-weight: bold; }
