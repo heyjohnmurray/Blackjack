@@ -198,11 +198,7 @@ function scoreRender(whichUser) {
 	return userScore;
 }
 
-function cardRender(obj) { // creates the html that goes in the card
-	return	'<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>';
-}
-
-function createCard(whichUser) { // deals a single card
+function createCard(whichUser) {
 	var newCard = document.createElement('div');
 	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
@@ -213,7 +209,11 @@ function createCard(whichUser) { // deals a single card
 	aceValChoice(whichUser, cardObj);
 }
 
-function dealCards(whichUser, cardsDealt){ // deals multiple cards
+function cardRender(obj) {
+	return	'<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>';
+}
+
+function dealCards(whichUser, cardsDealt){
 	for (var i = 0; i < cardsDealt; i++) {
 		createCard(whichUser);
 	}
@@ -233,7 +233,7 @@ dealButton.addEventListener('click', function(e){
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){
 
-	createCard(Player); // right now this is passing through an entire object and that seems unnecessary. what should i do?
+	dealCards(Player, 1); // right now this is passing through an entire object and that seems unnecessary. what should i do?
 
 }, false);
 
