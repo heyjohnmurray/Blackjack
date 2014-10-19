@@ -243,4 +243,6 @@ stayButton.addEventListener('click', function(e){
 	document.querySelector('.dealer-box .score').innerHTML = scoreRender(Dealer);
 	document.querySelector('.player-box .score').innerHTML = scoreRender(Player);
 
+	// still need to add dealer card creation logic
+
 }, false);
