@@ -9,18 +9,19 @@ var stayButton = document.getElementById('stay');
 // I need more advice on how this logic will work
 var Player = {
 	cards: [],
-	domElement: document.querySelector('.player-cards')
+	cardDomElement: document.querySelector('.player-cards'),
+	scoreDomElement: document.querySelector('.player-box .score')
 };
 
 var Dealer = {
 	cards: [],
-	domElement: document.querySelector('.dealer-cards')
+	cardDomElement: document.querySelector('.dealer-cards'),
+	scoreDomElement: document.querySelector('.dealer-box .score')
 };
 
 var Deck = {
 
 };
-// close new logic
 
 function cardInfo(){
 	// choose random suit
@@ -29,25 +30,25 @@ function cardInfo(){
 	// possible suits
 	var suits = { // originally this was an array, but an object lets me store more info for this
 		0: {
-			'name': 'diamonds',
+			'suit': 'diamonds',
 			'symbol': '&diamondsuit;',
 			'color': 'red'
 		},
 
 		1: {
-			'name': 'hearts',
+			'suit': 'hearts',
 			'symbol': '&heartsuit;',
 			'color': 'red'
 		},
 
 		2: {
-			'name': 'clubs',
+			'suit': 'clubs',
 			'symbol': '&clubsuit;',
 			'color': 'black'
 		},
 
 		3: {
-			'name': 'spades',
+			'suit': 'spades',
 			'symbol': '&spadesuit;',
 			'color': 'black'
 		}
@@ -143,12 +144,13 @@ function cardInfo(){
 		}
 	};
 
-	return { // cardObj
+	return { // saved as 'var cardObj'
+		suit: suits[suitType]['suit'],
+		symbol: suits[suitType]['symbol'],
 		color: suits[suitType]['color'],
 		face: cards[cardNumber]['face'],
-		suit: suits[suitType]['name'],
+		name: cards[cardNumber]['name'],
 		value: cards[cardNumber]['value'],
-		symbol: suits[suitType]['symbol']
 	};
 
 }// close cardInfo()
@@ -158,18 +160,23 @@ function cardInfo(){
 ////  NOTE :: make score update on every 'hit me'  ////
 ///////////////////////////////////////////////////////
 
-function cardPoints(whichUser, obj) { // .push() works. not sure if 'return' makes sense
+function cardPoints(whichUser, obj) {
 	whichUser['cards'].push(obj.value);
-	//console.log(whichUser['cards']);
 	return whichUser['cards'];
 }
 
-function aceValChoice(whichUser, obj) { // still working on this
-	//console.log(obj.name);
-	
-	// if (obj.name == 'ace') {
-	// 	alert('do you want 1 point or 11?');
-	// };
+function aceValChoice(whichUser, obj) { // still working on this :: make it only apply to Player
+	if (obj.name == 'ace') {
+		var aceAnswer = prompt('Do you want your ace to count as one point or 11?');
+		parseInt(aceAnswer);
+		if(aceAnswer == 1){
+			alert('One point, then!');
+		} else if(aceAnswer == 11){
+			alert('Eleven points, cool!');
+		} else {
+			prompt('Please enter the number 1 or 11?');
+		}
+	};
 }
 
 function scoreRender(whichUser) {
@@ -184,8 +191,8 @@ function createCard(whichUser) {
 	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newCard.className = 'card';
-	whichUser['domElement'].appendChild(newCard);
-	whichUser['domElement'].lastChild.innerHTML = cardRender(cardObj);
+	whichUser['cardDomElement'].appendChild(newCard);
+	whichUser['cardDomElement'].lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
 	aceValChoice(whichUser, cardObj);
 }
@@ -221,8 +228,8 @@ hitButton.addEventListener('click', function(e){
 // Stay Button Click
 stayButton.addEventListener('click', function(e){
 
-	document.querySelector('.dealer-box .score').innerHTML = scoreRender(Dealer);
-	document.querySelector('.player-box .score').innerHTML = scoreRender(Player);
+	Dealer.scoreDomElement.innerHTML = scoreRender(Dealer); // find a way to incorporate the dom element into the functions
+	Player.scoreDomElement.innerHTML = scoreRender(Player); // so that you only call the function and pass the argument
 
 	// still need to add dealer card creation logic
 
