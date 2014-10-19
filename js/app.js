@@ -23,7 +23,6 @@ var player = document.querySelector('.player-cards');
 var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
-var card = cardInfo();
 var cardPoints = [];
 
 function cardInfo(){
@@ -158,22 +157,28 @@ function cardInfo(){
 }// close cardInfo()
 
 function cardRender(card) { // creates the html that goes in the card
-	// it's printing one b/c card render is used in the loop in dealCards so it's doing the same thing several times
 	return	'<div class="number ' + card.color + '">' + card.face + '</div>' + '<div class="suit ' + card.color +'">' + card.symbol + '</div>';
 }
 
 function createCard(whichUser) { // deals a single card
 	var newCard = document.createElement('div');
-	
+	var card = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
+
 	newCard.className = 'card';
 	whichUser.appendChild(newCard);
 	whichUser.lastChild.innerHTML = cardRender(card);
+
+	scoreValue(card);
 }
 
 function dealCards(whichUser, cardsDealt){ // deals multiple cards
 	for (var i = 0; i < cardsDealt; i++) {
 		createCard(whichUser);
 	}
+}
+
+function scoreValue(card) {
+	console.log(card.value);
 }
 
 function scoreRender(whichUser) {
