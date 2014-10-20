@@ -171,8 +171,10 @@ function aceValChoice(whichUser, obj) { // still working on this :: make it only
 		parseInt(aceAnswer);
 		if(aceAnswer == 1){
 			alert('One point, then!');
+			//console.log(aceAnswer);
 		} else if(aceAnswer == 11){
 			alert('Eleven points, cool!');
+			//console.log(aceAnswer);
 		} else {
 			prompt('Please enter the number 1 or 11?');
 		}
@@ -195,6 +197,7 @@ function createCard(whichUser) {
 	whichUser['cardDomElement'].lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
 	aceValChoice(whichUser, cardObj);
+	whichUser.scoreDomElement.innerHTML = scoreRender(whichUser);
 }
 
 function cardRender(obj) {
@@ -227,9 +230,6 @@ hitButton.addEventListener('click', function(e){
 
 // Stay Button Click
 stayButton.addEventListener('click', function(e){
-
-	Dealer.scoreDomElement.innerHTML = scoreRender(Dealer); // find a way to incorporate the dom element into the functions
-	Player.scoreDomElement.innerHTML = scoreRender(Player); // so that you only call the function and pass the argument
 
 	// still need to add dealer card creation logic
 
