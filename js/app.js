@@ -207,6 +207,20 @@ function dealCards(whichUser, cardsDealt){
 
 // Betting
 
+// keep working on this it's not quite right
+var playerWager = [];
+var betAnchors = document.querySelector('.bets').getElementsByTagName('a')
+for (var i = 0; i < betAnchors.length; i++) {
+	betAnchors[i].addEventListener('click', function(e){
+		e.preventDefault();
+		var chipValue = e.target.dataset.value;
+		playerWager.push(chipValue); // this is a little buggy
+		var totalWager = playerWager.reduce(function(prev, curr){
+		  	return prev + curr;
+		});
+		return totalWager; // this isn't converting the array values to numbers even though i tried parseInt();
+	});
+};
 
 // Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
@@ -217,7 +231,7 @@ dealButton.addEventListener('click', function(e){
 	
 	e.target.style.display = "none";
 
-}, false);
+});
 
 // Hit Button Click :: Only deal one card at a time
 hitButton.addEventListener('click', function(e){

@@ -152,9 +152,11 @@ a.chip {
 	font-weight: 600;
 	font-size: 20px;
 
-	span {
+	// used :before because doing spans were causing click issues
+	&:before {
 		position: relative;
 		top: (100%/3);
+		content: attr(data-value);
 	}
 
 	&[data-value="1"]{

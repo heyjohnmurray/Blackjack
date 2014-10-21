@@ -116,9 +116,10 @@ a.chip {
   text-decoration: none;
   font-weight: 600;
   font-size: 20px; }
-  a.chip span {
+  a.chip:before {
     position: relative;
-    top: 33.33333%; }
+    top: 33.33333%;
+    content: attr(data-value); }
   a.chip[data-value="1"] {
     background-color: #f00; }
   a.chip[data-value="5"] {
