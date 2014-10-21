@@ -155,11 +155,6 @@ function cardInfo(){
 
 }// close cardInfo()
 
-
-///////////////////////////////////////////////////////
-////  NOTE :: make score update on every 'hit me'  ////
-///////////////////////////////////////////////////////
-
 function cardPoints(whichUser, obj) {
 	whichUser['cards'].push(obj.value);
 	return whichUser['cards'];
@@ -209,6 +204,9 @@ function dealCards(whichUser, cardsDealt){
 		createCard(whichUser);
 	}
 }
+
+// Betting
+
 
 // Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
