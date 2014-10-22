@@ -5,8 +5,27 @@
 		<link rel="stylesheet" href="css/compiled.css">
 	</head>
 	<body>
-		<h1>Welcome to Blackjack!</h1>
 		<div class="wrapper">
+			<div class="wager-total">
+				<div class="amount">
+					<h3>Cash</h3>
+					<div class="cash">1500</div>
+				</div>
+				<div class="amount">
+					<h3>Bet</h3>
+					<div class="bet">0</div>
+				</div>
+				<button id="reset">Reset</button>
+			</div>
+			<ul class="bets">
+				<li><a href="/" class="chip" data-value="1"></a></li>
+				<li><a href="/" class="chip" data-value="5"></a></li>
+				<li><a href="/" class="chip" data-value="25"></a></li>
+				<li><a href="/" class="chip" data-value="100"></a></li>
+				<li><a href="/" class="chip" data-value="500"></a></li>
+				<li><a href="/" class="chip" data-value="1000"></a></li>
+			</ul>
+			<!-- /.bets -->
 			<div class="dealer-box box">
 				<h2>Dealer <span class="score"></span></h2>
 				<div class="card-wrapper">
@@ -19,24 +38,13 @@
 					<div class="player-cards"></div>
 				</div>
 			</div>
-			<div class="actions">
-				<ul class="bets">
-					<li><a href="/" class="chip" data-value="1"></a></li>
-					<li><a href="/" class="chip" data-value="5"></a></li>
-					<li><a href="/" class="chip" data-value="25"></a></li>
-					<li><a href="/" class="chip" data-value="100"></a></li>
-					<li><a href="/" class="chip" data-value="500"></a></li>
-					<li><a href="/" class="chip" data-value="1000"></a></li>
-				</ul>
-				<!-- /.bets -->
-				<div class="in-game">
-					<button id="deal-button" class="deal-button button">Deal</button>
-					<button id="hit-me" class="hit-button button">Hit Me!</button>
-					<button id="stay" class="stand-button button">I'll Stay!</button>
+			<div class="actions js-actions">
+				<button id="deal-button" class="deal-button button">Deal</button>
+				<div class="secondary-actions js-secondary-actions">
+					<button id="hit-me" class="hit-button button">Hit</button>
+					<button id="stay" class="stand-button button">Stay</button>
 				</div>
-				<!-- /.game-actions -->
 			</div>
-			<!-- /.actions -->
 		</div>
 	</body>
 	<script src="js/app.js"></script>

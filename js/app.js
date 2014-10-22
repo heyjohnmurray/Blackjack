@@ -1,10 +1,16 @@
 // http://jsbin.com/jisukibenaqo/2/edit?js
 //inspiration: http://www.addictinggames.com/puzzle-games/blackjack.jsp
 
+// wager vars
+var playerWager = 0;
+var cashLeftOver = 1500;
+var betAnchors = document.querySelector('.bets').getElementsByTagName('a');
+
 // buttons
 var dealButton = document.getElementById('deal-button');
 var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
+var resetButton = document.getElementById('reset');
 
 // I need more advice on how this logic will work
 var Player = {
@@ -155,8 +161,9 @@ function cardInfo(){
 
 }// close cardInfo()
 
-function cardPoints(whichUser, obj) {
+function cardPoints(whichUser, obj) { // consider changing this to an updating variable like you did with bet()
 	whichUser['cards'].push(obj.value);
+	console.log(whichUser['cards']);
 	return whichUser['cards'];
 }
 
@@ -166,10 +173,8 @@ function aceValChoice(whichUser, obj) { // still working on this :: make it only
 		parseInt(aceAnswer);
 		if(aceAnswer == 1){
 			alert('One point, then!');
-			//console.log(aceAnswer);
 		} else if(aceAnswer == 11){
 			alert('Eleven points, cool!');
-			//console.log(aceAnswer);
 		} else {
 			prompt('Please enter the number 1 or 11?');
 		}
@@ -206,15 +211,36 @@ function dealCards(whichUser, cardsDealt){
 }
 
 // Betting
+function bet(e) { // compute player's chip wager
+	chipValue = e.target.dataset.value;
+	playerWager += parseInt(chipValue, 10);
+}
 
-// keep working on this it's not quite right
-var playerWager = null;
-var betAnchors = document.querySelector('.bets').getElementsByTagName('a')
-for (var i = 0; i < betAnchors.length; i++) {
+function betUpdate(value) { // update the scoreboard with chip wager
+	document.querySelector('.wager-total .bet').innerHTML = playerWager;
+}
+
+function cashOnHand(value) { // compute player's cash on hand
+	cashLeftOver -= playerWager;
+	if(cashLeftOver < 0){
+		document.querySelector('.wager-total .cash').classList.add('warning');
+		document.getElementById('deal-button').classList.add('is-hidden');
+	}
+	return cashLeftOver;
+}
+
+function cashUpdate(value) { // dynamically update cash on hand
+	document.querySelector('.wager-total .cash').innerHTML = cashLeftOver;
+}
+
+for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor tags in "bets" list
 	betAnchors[i].addEventListener('click', function(e){
+		document.querySelector('.js-actions').classList.add('is-shown');
+		bet(e);
+		betUpdate(playerWager);
+		cashOnHand(playerWager);
+		cashUpdate(cashLeftOver);
 		e.preventDefault();
-		var chipValue = e.target.dataset.value;
-		playerWager += parseInt(chipValue, 10);
 	});
 };
 
@@ -224,8 +250,8 @@ dealButton.addEventListener('click', function(e){
 	// Deal mutliple cards 
 	dealCards(Dealer, 1);
 	dealCards(Player, 2);
-	
-	e.target.style.display = "none";
+	document.querySelector('.js-secondary-actions').classList.add('is-shown');
+	this.classList.add('is-hidden');
 
 });
 
@@ -241,4 +267,8 @@ stayButton.addEventListener('click', function(e){
 
 	// still need to add dealer card creation logic
 
+}, false);
+
+resetButton.addEventListener('click', function(e){
+	this.classList.add('is-shown');
 }, false);
