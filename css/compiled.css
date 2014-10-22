@@ -80,7 +80,7 @@ h2 {
   padding: 20px;
   display: inline-block;
   cursor: pointer;
-  width: 32%; }
+  width: 100%; }
 
 .wrapper {
   margin: 10px auto;
@@ -155,6 +155,8 @@ h2 {
   display: none; }
   .actions.is-shown {
     display: inline-block; }
+  .actions .button {
+    width: 32%; }
 
 .secondary-actions {
   display: none; }

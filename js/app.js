@@ -221,7 +221,7 @@ function betUpdate(value) { // update the scoreboard with chip wager
 }
 
 function cashOnHand(value) { // compute player's cash on hand
-	cashLeftOver -= playerWager;
+	cashLeftOver -= playerWager; // MATH IS OFF HERE. THIS NEEDS TO BE FIXED!!!!!!
 	if(cashLeftOver < 0){
 		document.querySelector('.wager-total .cash').classList.add('warning');
 		document.getElementById('deal-button').classList.add('is-hidden');
@@ -270,5 +270,7 @@ stayButton.addEventListener('click', function(e){
 }, false);
 
 resetButton.addEventListener('click', function(e){
-	this.classList.add('is-shown');
+	document.querySelector('.wager-total .cash').classList.remove('warning');
+	document.querySelector('.wager-total .cash').innerHTML = 1500;
+	document.querySelector('.wager-total .bet').innerHTML = 0;
 }, false);

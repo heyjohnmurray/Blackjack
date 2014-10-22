@@ -35,7 +35,7 @@ h2 {
 	padding: 20px;
 	display: inline-block;
 	cursor: pointer;
-	width: 32%;
+	width: 100%;
 }
 
 .wrapper {
@@ -136,6 +136,10 @@ h2 {
 
 	&.is-shown {
 		display: inline-block;
+	}
+
+	.button {
+		width: 32%;
 	}
 }
 
