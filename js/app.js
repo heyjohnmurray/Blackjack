@@ -211,12 +211,6 @@ function dealCards(whichUser, cardsDealt){
 }
 
 // Betting
-function bet(e) { // compute player's chip wager
-	chipValue = e.target.dataset.value;
-	playerWager += parseInt(chipValue, 10);	
-	return playerWager; // this still works with out a "return" value. why?
-}
-
 function disableBetting() { // creates a transparent div over the chips to prevent user from clicking
 	newDiv.className ='bets-off';
 	var firstItem = document.querySelector('.bets').firstChild;
@@ -228,9 +222,8 @@ function betUpdate(value) { // update the scoreboard with chip wager
 }
 
 function cashOnHand(value) { // compute player's cash on hand
-
 	cashLeftOver = maxCashToStart - playerWager;
-	return cashLeftOver;
+	return cashLeftOver; // this doesn't seem to need a 'return' valeu to work. why?
 }
 
 function cashUpdate(value) { // dynamically update cash on hand
@@ -242,13 +235,18 @@ document.querySelector('.wager-total .cash').innerHTML = maxCashToStart; // set 
 for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor tags in "bets" list
 	betAnchors[i].addEventListener('click', function(e){
 		document.querySelector('.js-actions').classList.add('is-shown');
-		bet(e);
+		
+		// this was in a function called bet but it didn't work unless 'e' was a param of the function and that seemed wrong
+		chipValue = e.target.dataset.value;
+		playerWager += parseInt(chipValue, 10);	
+
+		// i broke these functions out, but maybe they don't need to be individual functions.
 		betUpdate(playerWager);
 		cashOnHand(playerWager);
 		cashUpdate(cashLeftOver);
 
 		if(cashLeftOver <= 0){
-			// if you don't have anymore money left
+			// if you don't have anymore money left ...
 			disableBetting();
 
 			// instead of letting wagers go into negative values
@@ -264,13 +262,11 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 
 // Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
-
 	disableBetting();
 	dealCards(Dealer, 1);
 	dealCards(Player, 2);
-	document.querySelector('.js-secondary-actions').classList.add('is-shown');
-	this.classList.add('is-hidden');
-
+	document.querySelector('.js-secondary-actions').classList.add('is-shown'); // display 'hit me' and 'stay' buttons
+	this.classList.add('is-hidden'); // hide 'deal' button so it can't be clicked more than once
 });
 
 // Hit Button Click :: Only deal one card at a time
@@ -284,5 +280,6 @@ hitButton.addEventListener('click', function(e){
 stayButton.addEventListener('click', function(e){
 
 	// still need to add dealer card creation logic
+	// the dealer needs to get at least one card but how do i make this actually challenging?
 
 }, false);
