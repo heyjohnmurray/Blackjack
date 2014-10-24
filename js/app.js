@@ -226,24 +226,7 @@ function betUpdate(value) { // update the scoreboard with chip wager
 }
 
 function cashOnHand(value) { // compute player's cash on hand
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	cashLeftOver = maxCashToStart - playerWager;
-=======
-=======
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-=======
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-=======
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-	cashLeftOver -= playerWager;
-	if(cashLeftOver < 0){
-		document.querySelector('.wager-total .cash').classList.add('warning');
-		document.getElementById('deal-button').classList.add('is-hidden');
-	}
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
 	return cashLeftOver;
 }
 
@@ -307,23 +290,7 @@ stayButton.addEventListener('click', function(e){
 }, false);
 
 resetButton.addEventListener('click', function(e){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	document.querySelector('.wager-total .cash').classList.remove('warning');
 	document.querySelector('.wager-total .cash').innerHTML = maxCashToStart;
 	document.querySelector('.wager-total .bet').innerHTML = 0;
-=======
-	this.classList.add('is-shown');
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-=======
-	this.classList.add('is-shown');
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-=======
-	this.classList.add('is-shown');
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
-=======
-	this.classList.add('is-shown');
->>>>>>> parent of b29d825... math is off. made a note to go back and fix.
 }, false);
