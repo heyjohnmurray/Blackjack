@@ -129,6 +129,15 @@ h2 {
 	}
 }
 
+.bets-off {
+	position: fixed;
+	top: 10px;
+	left: 0;
+	z-index: 20;
+	width: 250px;
+	height: 400px;
+}
+
 .actions {
 	z-index: 5;
 	width: 100%;
@@ -203,6 +212,7 @@ a.chip {
 	top: 0;
 	right: 0;
 	width: 160px;
+	height: 265px;
 	padding: 10px;
 	background-color: #323232;
 	color: #fff;

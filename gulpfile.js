@@ -26,7 +26,7 @@ gulp.task('html', function () {
 
 gulp.task('sass', function(){
 
-	return gulp.src('sass/**/*.scss')
+	return gulp.src('sass/**/compiled.scss')
 		.pipe(sass())
 		.pipe(gulp.dest('css/'))
 		.pipe(connect.reload())

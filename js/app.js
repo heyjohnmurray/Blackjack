@@ -3,8 +3,9 @@
 
 // wager vars
 var playerWager = 0;
-var cashLeftOver = 1500;
+var maxCashToStart = 1500;
 var betAnchors = document.querySelector('.bets').getElementsByTagName('a');
+var newDiv = document.createElement('div');
 
 // buttons
 var dealButton = document.getElementById('deal-button');
@@ -188,12 +189,11 @@ function scoreRender(whichUser) {
 	return userScore;
 }
 
-function createCard(whichUser) {
-	var newCard = document.createElement('div');
+function createCard(whichUser) {	
 	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
-	newCard.className = 'card';
-	whichUser['cardDomElement'].appendChild(newCard);
+	newDiv.className = 'card';
+	whichUser['cardDomElement'].appendChild(newDiv);
 	whichUser['cardDomElement'].lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
 	aceValChoice(whichUser, cardObj);
@@ -213,7 +213,12 @@ function dealCards(whichUser, cardsDealt){
 // Betting
 function bet(e) { // compute player's chip wager
 	chipValue = e.target.dataset.value;
-	playerWager += parseInt(chipValue, 10);
+	playerWager += parseInt(chipValue, 10);	
+	return playerWager; // this still works with out a "return" value. why?
+}
+
+function betOff() {
+	
 }
 
 function betUpdate(value) { // update the scoreboard with chip wager
@@ -221,17 +226,15 @@ function betUpdate(value) { // update the scoreboard with chip wager
 }
 
 function cashOnHand(value) { // compute player's cash on hand
-	cashLeftOver -= playerWager; // MATH IS OFF HERE. THIS NEEDS TO BE FIXED!!!!!!
-	if(cashLeftOver < 0){
-		document.querySelector('.wager-total .cash').classList.add('warning');
-		document.getElementById('deal-button').classList.add('is-hidden');
-	}
+	cashLeftOver = maxCashToStart - playerWager;
 	return cashLeftOver;
 }
 
 function cashUpdate(value) { // dynamically update cash on hand
 	document.querySelector('.wager-total .cash').innerHTML = cashLeftOver;
 }
+
+document.querySelector('.wager-total .cash').innerHTML = maxCashToStart; // set default cash on hand value
 
 for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor tags in "bets" list
 	betAnchors[i].addEventListener('click', function(e){
@@ -240,6 +243,23 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 		betUpdate(playerWager);
 		cashOnHand(playerWager);
 		cashUpdate(cashLeftOver);
+
+		if(cashLeftOver <= 0){
+			// if you don't have anymore money left
+			// create a clear div called 'bets-off' that has a higher z-index than your chips
+			// overlay 'bets-off' on top of 'bets' so that
+			// wagers can't be made anymore
+			newDiv.className ='bets-off';
+			var firstItem = document.querySelector('.bets').firstChild;
+			document.querySelector('.bets').insertBefore(newDiv, firstItem);
+
+			// instead of letting wagers go into negative values
+			// just set bet and cash values to max and 0, respectively
+			document.querySelector('.wager-total .cash').classList.add('warning');
+			document.querySelector('.wager-total .cash').innerHTML = 0;
+			document.querySelector('.wager-total .bet').innerHTML = maxCashToStart;
+		}
+		//console.log(cashLeftOver);
 		e.preventDefault();
 	});
 };
@@ -271,6 +291,6 @@ stayButton.addEventListener('click', function(e){
 
 resetButton.addEventListener('click', function(e){
 	document.querySelector('.wager-total .cash').classList.remove('warning');
-	document.querySelector('.wager-total .cash').innerHTML = 1500;
+	document.querySelector('.wager-total .cash').innerHTML = maxCashToStart;
 	document.querySelector('.wager-total .bet').innerHTML = 0;
 }, false);
