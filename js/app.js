@@ -217,6 +217,12 @@ function bet(e) { // compute player's chip wager
 	return playerWager; // this still works with out a "return" value. why?
 }
 
+function disableBetting() { // creates a transparent div over the chips to prevent user from clicking
+	newDiv.className ='bets-off';
+	var firstItem = document.querySelector('.bets').firstChild;
+	document.querySelector('.bets').insertBefore(newDiv, firstItem);
+}
+
 function betUpdate(value) { // update the scoreboard with chip wager
 	document.querySelector('.wager-total .bet').innerHTML = playerWager;
 }
@@ -243,12 +249,7 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 
 		if(cashLeftOver <= 0){
 			// if you don't have anymore money left
-			// create a clear div called 'bets-off' that has a higher z-index than your chips
-			// overlay 'bets-off' on top of 'bets' so that
-			// wagers can't be made anymore
-			newDiv.className ='bets-off';
-			var firstItem = document.querySelector('.bets').firstChild;
-			document.querySelector('.bets').insertBefore(newDiv, firstItem);
+			disableBetting();
 
 			// instead of letting wagers go into negative values
 			// just set bet and cash values to max and 0, respectively
@@ -264,7 +265,7 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 // Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
 
-	// Deal mutliple cards 
+	disableBetting();
 	dealCards(Dealer, 1);
 	dealCards(Player, 2);
 	document.querySelector('.js-secondary-actions').classList.add('is-shown');
