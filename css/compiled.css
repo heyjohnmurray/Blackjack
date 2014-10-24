@@ -155,8 +155,7 @@ h2 {
   left: 0;
   z-index: 20;
   width: 250px;
-  height: 400px;
-  background-color: #000; }
+  height: 400px; }
 
 .actions {
   z-index: 5;

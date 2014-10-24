@@ -9,6 +9,13 @@ var livereload = require('gulp-livereload');
 
 gulp.task('default', ['connect','watch']);
 
+gulp.task('connect', function() {
+  connect.server({
+    root: '/',
+    livereload: true
+  });
+});
+
 gulp.task('html', function () {
 	return gulp.src('*.html')
 		.pipe(connect.reload())
@@ -25,12 +32,12 @@ gulp.task('sass', function(){
 		.pipe(connect.reload())
 		.pipe(notify({
 			message: 'SASS has been compiled'
-	}));
+		}));
 });
 
 gulp.task('watch', function(){
-	livereload.listen();
-	
-	gulp.watch('*.html').on('change', livereload.changed);
-	gulp.watch('sass/**/*.scss', ['sass']).on('change', livereload.changed);
+
+	gulp.watch('*.html', ['html']);
+	gulp.watch('sass/**/*.scss', ['sass']);
+
 });
