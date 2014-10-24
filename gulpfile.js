@@ -7,14 +7,7 @@ var jshint = require('gulp-jshint');
 var connect = require('gulp-connect');
 var livereload = require('gulp-livereload');
 
-gulp.task('default', ['connect','watch']);
-
-gulp.task('connect', function() {
-  connect.server({
-    root: '/',
-    livereload: true
-  });
-});
+gulp.task('default', ['watch']);
 
 gulp.task('html', function () {
 	return gulp.src('*.html')
@@ -36,8 +29,7 @@ gulp.task('sass', function(){
 });
 
 gulp.task('watch', function(){
-
-	gulp.watch('*.html', ['html']);
-	gulp.watch('sass/**/*.scss', ['sass']);
-
+	livereload.listen();
+	gulp.watch('*.html').on('change', livereload.changed);
+	gulp.watch('sass/**/*.scss', ['sass']).on('change', livereload.changed);
 });
