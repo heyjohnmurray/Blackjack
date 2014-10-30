@@ -4,7 +4,7 @@
 // wager vars
 var playerWager = 0;
 var maxCashToStart = 1500;
-var betAnchors = document.querySelector('.bets').getElementsByTagName('a');
+var betAnchors = document.querySelector('.bets').getElementsByTagName('a'); // wager chips
 var newDiv = document.createElement('div');
 
 // buttons
@@ -162,8 +162,9 @@ function cardInfo(){
 
 }// close cardInfo()
 
-function cardPoints(whichUser, obj) { // consider changing this to an updating variable like you did with bet()
+function cardPoints(whichUser, obj) {
 	whichUser['cards'].push(obj.value);
+	whichUser = [];
 	return whichUser['cards'];
 }
 
@@ -255,7 +256,6 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 			document.querySelector('.wager-total .cash').innerHTML = 0;
 			document.querySelector('.wager-total .bet').innerHTML = maxCashToStart;
 		}
-		//console.log(cashLeftOver);
 		e.preventDefault();
 	});
 };
@@ -278,8 +278,10 @@ hitButton.addEventListener('click', function(e){
 
 // Stay Button Click
 stayButton.addEventListener('click', function(e){
-
-	// still need to add dealer card creation logic
-	// the dealer needs to get at least one card but how do i make this actually challenging?
+	// save user player points value
+	// give dealer a card then test whether it's greater or less than player's score
+	var cardObj = cardInfo();
+	cardPoints(Player, cardObj);
+	cardPoints(Dealer, cardObj);
 
 }, false);
