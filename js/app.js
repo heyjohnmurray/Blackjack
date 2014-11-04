@@ -13,7 +13,6 @@ var hitButton = document.getElementById('hit-me');
 var stayButton = document.getElementById('stay');
 var resetButton = document.getElementById('reset');
 
-// I need more advice on how this logic will work
 var Player = {
 	cards: [],
 	cardDomElement: document.querySelector('.player-cards'),
@@ -46,6 +45,8 @@ function Card(definedCard) {
 }
 
 // deck constructor function
+// putting deck in its own constructor function keeps you from recreating it every time you call it further down the page
+// as it is, it's used modularly and as a reference 
 function Deck() {
 	// possible suits
 	this.suits = { // originally this was an array, but an object lets me store more info for this
@@ -172,7 +173,8 @@ Deck.prototype.getRandomCard = function() {
 	// chose random card number
 	var cardNumber = Math.floor(Math.random() * 14) + 1; // generate random number between 1 and 14
 
-	var myCard = newCard({
+	// use constructor function. apply our randomized values to the object and return the object
+	var myCard = new Card({
 		suit: this.suits[suitType].suit,
 		symbol: suits[suitType].symbol,
 		color: suits[suitType].color,
@@ -181,6 +183,7 @@ Deck.prototype.getRandomCard = function() {
 		value: cards[cardNumber].value
 	});
 
+	// pass instance of Deck to the method
 	var myDeck = new Deck();
 };
 
@@ -204,7 +207,7 @@ function createCard(whichUser) {
 	whichUser.cardDomElement.appendChild(newDiv);
 	whichUser.cardDomElement.lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
-	aceValChoice(whichUser, cardObj);
+	//aceValChoice(whichUser, cardObj);
 	whichUser.scoreDomElement.innerHTML = scoreRender(whichUser);
 }
 
