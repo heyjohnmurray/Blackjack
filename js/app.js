@@ -189,20 +189,6 @@ function cardPoints(whichUser, obj) {
 	return whichUser.cards;
 }
 
-function aceValChoice(whichUser, obj) { // still working on this :: make it only apply to Player
-	// if (obj.name == 'ace') {
-	// 	var aceAnswer = prompt('Do you want your ace to count as one point or 11?');
-	// 	parseInt(aceAnswer);
-	// 	if(aceAnswer == 1){
-	// 		alert('One point, then!');
-	// 	} else if(aceAnswer == 11){
-	// 		alert('Eleven points, cool!');
-	// 	} else {
-	// 		prompt('Please enter the number 1 or 11?');
-	// 	}
-	// };
-}
-
 function scoreRender(whichUser) {
 	var userScore = whichUser.cards.reduce(function(prev, curr){ // reduce works for IE9+. for loop is an alternate
 	  	return prev + curr;
