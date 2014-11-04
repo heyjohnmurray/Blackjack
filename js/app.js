@@ -176,11 +176,11 @@ Deck.prototype.getRandomCard = function() {
 	// use constructor function. apply our randomized values to the object and return the object
 	var myCard = new Card({
 		suit: this.suits[suitType].suit,
-		symbol: suits[suitType].symbol,
-		color: suits[suitType].color,
-		face: cards[cardNumber].face,
-		name: cards[cardNumber].name,
-		value: cards[cardNumber].value
+		symbol: this.suits[suitType].symbol,
+		color: this.suits[suitType].color,
+		face: this.cards[cardNumber].face,
+		name: this.cards[cardNumber].name,
+		value: this.cards[cardNumber].value
 	});
 
 	// pass instance of Deck to the method
@@ -201,6 +201,8 @@ function scoreRender(whichUser) {
 
 function createCard(whichUser) {
 	var newDiv = document.createElement('div'); // working code has this
+	// pass instance of Deck to the method
+	//var myDeck = new Deck();
 	var cardObj = myDeck.getRandomCard(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newDiv.className = 'card';
