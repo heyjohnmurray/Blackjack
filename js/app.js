@@ -26,16 +26,29 @@ var Dealer = {
 	scoreDomElement: document.querySelector('.dealer-box .score')
 };
 
-var Deck = {
+// constructor function
+// this makes what used to be cardInfo object local and reusable
+function Card(definedCard) {
+	// ensure that we're always passing an object to Card
+	// this keeps us from getting errors later on
+	if (definedCard !== undefined && 'object' !== typeof definedCard) {
+		throw new Error('');
+	}
 
-};
+	definedCard = definedCard || {};
 
-function cardInfo(){
-	// choose random suit
-	var suitType = Math.floor(Math.random() * 4); // generate random number between 0 and 3
+	this.suit = definedCard.suit;
+	this.symbol = undefined;
+	this.color = undefined;
+	this.face = undefined;
+	this.name = undefined;
+	this.value = undefined;
+}
 
+// deck constructor function
+function Deck() {
 	// possible suits
-	var suits = { // originally this was an array, but an object lets me store more info for this
+	this.suits = { // originally this was an array, but an object lets me store more info for this
 		0: {
 			'suit': 'diamonds',
 			'symbol': '&diamondsuit;',
@@ -61,11 +74,8 @@ function cardInfo(){
 		}
 	};
 
-	// chose random card number
-	var cardNumber = Math.floor(Math.random() * 14) + 1; // generate random number between 1 and 14
-
 	// possible cards
-	var cards = {
+	this.cards = {
 		1: {
 			'name': 'ace',
 			'face': 'A',
@@ -150,22 +160,33 @@ function cardInfo(){
 			'value': 11
 		}
 	};
+}
 
-	return { // saved as 'var cardObj'
-		suit: suits[suitType]['suit'],
-		symbol: suits[suitType]['symbol'],
-		color: suits[suitType]['color'],
-		face: cards[cardNumber]['face'],
-		name: cards[cardNumber]['name'],
-		value: cards[cardNumber]['value'],
-	};
+// Prototypes like deck don't have to be static.
+// You can assign attributes like suit, color, and value, but
+// you can also add methods to them like getRandomCard() below
+Deck.prototype.getRandomCard = function() {
+	// choose random suit
+	var suitType = Math.floor(Math.random() * 4); // generate random number between 0 and 3
 
-}// close cardInfo()
+	// chose random card number
+	var cardNumber = Math.floor(Math.random() * 14) + 1; // generate random number between 1 and 14
+
+	var myCard = newCard({
+		suit: this.suits[suitType].suit,
+		symbol: suits[suitType].symbol,
+		color: suits[suitType].color,
+		face: cards[cardNumber].face,
+		name: cards[cardNumber].name,
+		value: cards[cardNumber].value
+	});
+
+	var myDeck = new Deck();
+};
 
 function cardPoints(whichUser, obj) {
-	whichUser['cards'].push(obj.value);
-	whichUser = [];
-	return whichUser['cards'];
+	whichUser.cards.push(cardObj.value);
+	return whichUser.cards;
 }
 
 function aceValChoice(whichUser, obj) { // still working on this :: make it only apply to Player
@@ -183,7 +204,7 @@ function aceValChoice(whichUser, obj) { // still working on this :: make it only
 }
 
 function scoreRender(whichUser) {
-	var userScore = whichUser['cards'].reduce(function(prev, curr){ // reduce works for IE9+. for loop is an alternate
+	var userScore = whichUser.cards.reduce(function(prev, curr){ // reduce works for IE9+. for loop is an alternate
 	  	return prev + curr;
 	});
 	return userScore;
@@ -191,11 +212,11 @@ function scoreRender(whichUser) {
 
 function createCard(whichUser) {
 	var newDiv = document.createElement('div'); // working code has this
-	var cardObj = cardInfo(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
+	var cardObj = myDeck.getRandomCard(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newDiv.className = 'card';
-	whichUser['cardDomElement'].appendChild(newDiv);
-	whichUser['cardDomElement'].lastChild.innerHTML = cardRender(cardObj);
+	whichUser.cardDomElement.appendChild(newDiv);
+	whichUser.cardDomElement.lastChild.innerHTML = cardRender(cardObj);
 	cardPoints(whichUser, cardObj);
 	aceValChoice(whichUser, cardObj);
 	whichUser.scoreDomElement.innerHTML = scoreRender(whichUser);
@@ -258,7 +279,7 @@ for (var i = 0; i < betAnchors.length; i++) { // prevent default on all anchor t
 		}
 		e.preventDefault();
 	});
-};
+}
 
 // Deal Button Click :: Only clicked once. Can deal multiple cards
 dealButton.addEventListener('click', function(e){
@@ -280,8 +301,7 @@ hitButton.addEventListener('click', function(e){
 stayButton.addEventListener('click', function(e){
 	// save user player points value
 	// give dealer a card then test whether it's greater or less than player's score
-	var cardObj = cardInfo();
-	cardPoints(Player, cardObj);
-	cardPoints(Dealer, cardObj);
+	// cardPoints(Player);
+	// cardPoints(Dealer);
 
 }, false);
