@@ -135,5 +135,4 @@ function Deck(){
 }
 
 var playerOne = new Player('Bobby');
-
 console.log(playerOne.name);
