@@ -11,7 +11,11 @@ function PlayerUI(){
   	this.scoreDom = undefined;
 }
 
-function Card() {
+function Card(definedCard) {
+	if (definedCard !== undefined && 'object' !== typeof definedCard) {
+		throw new Error('');
+	}
+
 	this.suit = undefined;
 	this.symbol = undefined;
 	this.color = undefined;
@@ -134,5 +138,16 @@ function Deck(){
 	}; // close cards
 }
 
-var playerOne = new Player('Bobby');
-console.log(playerOne.name);
+Deck.prototype.getRandomCard = function(){
+	var suitType = Math.floor(Math.random() * 4);
+	var cardNumber = Math.floor(Math.random() * 14) + 1;
+
+	console.log(suitType);
+	console.log(cardNumber);
+};
+
+var playerOne = new Player('John');
+
+var myDeck = new Deck();
+
+myDeck.getRandomCard();
