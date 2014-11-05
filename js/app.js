@@ -202,7 +202,7 @@ function scoreRender(whichUser) {
 function createCard(whichUser) {
 	var newDiv = document.createElement('div'); // working code has this
 	// pass instance of Deck to the method
-	//var myDeck = new Deck();
+	// var myDeck = new Deck();
 	var cardObj = myDeck.getRandomCard(); // return card info object, by being here it will be called every time in the loop when you call dealCards().
 
 	newDiv.className = 'card';
