@@ -139,15 +139,25 @@ function Deck(){
 }
 
 Deck.prototype.getRandomCard = function(){
+	var scope = this;
 	var suitType = Math.floor(Math.random() * 4);
-	var cardNumber = Math.floor(Math.random() * 14) + 1;
+	var cardNumber = Math.floor(Math.random() * 13) + 1;
+
+	var randomCard = new Card({
+		suit: scope.suits[suitType].suit,
+		symbol: scope.suits[suitType].symbol,
+		color: scope.suits[suitType].color,
+		face: scope.cards[cardNumber].face,
+		name: scope.cards[cardNumber].name,
+		value: scope.cards[cardNumber].value
+	});
 
 	console.log(suitType);
 	console.log(cardNumber);
+	console.log(randomCard);
 };
 
 var playerOne = new Player('John');
-
 var myDeck = new Deck();
 
 myDeck.getRandomCard();
