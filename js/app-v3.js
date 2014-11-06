@@ -5,6 +5,8 @@ function Player() {
 	this.wager = 0;
 }
 
+
+
 // constructor
 function PlayerUI(name){
 	this.name = name;
@@ -12,6 +14,18 @@ function PlayerUI(name){
   	this.scoreDom = undefined;
 }
 
+// setCardDom method 
+// 		James, why does this need to be a method?
+//		Why can't it just be assigned like a variable?
+PlayerUI.prototype.setCardDom = function(element){
+  	this.cardDom = element;
+};
+
+PlayerUI.prototype.setScoreDom = function(element){
+  	this.scoreDom = element;
+};
+
+// constructor
 function GameUI(){
 	this.dealButton = document.getElementById('deal-button');
 	this.hitButton = document.getElementById('hit-me');
@@ -34,6 +48,7 @@ function Card(definedCard) {
 	this.value = definedCard.value;
 }
 
+// constructor
 function Deck(){
 	this.suits = {
 		0: {
@@ -152,7 +167,7 @@ Deck.prototype.getRandomCard = function(){
 	var suitType = Math.floor(Math.random() * 4);
 	var cardNumber = Math.floor(Math.random() * 13) + 1;
 
-	var randomCard = new Card({
+	var card = new Card({
 		suit: this.suits[suitType].suit,
 		symbol: this.suits[suitType].symbol,
 		color: this.suits[suitType].color,
@@ -161,8 +176,8 @@ Deck.prototype.getRandomCard = function(){
 		value: this.cards[cardNumber].value
 	});
 
-	// console.log(randomCard);
-	return randomCard;
+	console.log(card);
+	return card;
 };
 
 var playerOne = new Player();
