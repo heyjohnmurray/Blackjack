@@ -1,3 +1,13 @@
+// James, I've put comments with your name on parts of code that I have questions for.
+// Some of the logic issues I have involve where the betting functions need to be stored. Their own prototype? On the playerOne
+// instance but not on the Dealer instance? etc ...
+// I created a GameUI constructor b/c it seems weird to not have those similar items stored somewhere
+// even if that may change down the line. What do I do with all of the eventListeners and stuff? Can that code go 
+// down at the bottom of the page just sort of loose and unassociated with a prototype.
+
+// Overall, I feel confident with how and why my code needs to be structured this way. I understand why and how the code I've writtien
+// works. I just know that the decision-making and organization are skills that will come with time.
+
 // constructor
 function Player() {
 	this.cards = [];
@@ -165,6 +175,8 @@ function Deck(){
 	}; // close cards
 }
 
+// James, I'm starting to combine methods under one prototype. I saw this syntax and it makes sense to me. It also 
+// kind of answers my question about the use of "constructor: 'constructorName' " as a syntax
 Deck.prototype = {
 	constructor: Deck,
 	dealRandomCard: function(){
@@ -186,7 +198,7 @@ Deck.prototype = {
 	dealCards: function(user, number){
 		for (var i = 0; i < number; i++) {
 			this.dealRandomCard(user);
-
+			// James, I'm in the process of making this logic work. 
 			// this doesn't return correctly ... yet
 		}
 	}
