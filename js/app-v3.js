@@ -5,7 +5,9 @@ function Player() {
 	this.wager = 0;
 }
 
+Player.prototype.receiveCard = function(card){
 
+};
 
 // constructor
 function PlayerUI(name){
@@ -163,21 +165,29 @@ function Deck(){
 	}; // close cards
 }
 
-Deck.prototype.getRandomCard = function(){
-	var suitType = Math.floor(Math.random() * 4);
-	var cardNumber = Math.floor(Math.random() * 13) + 1;
+Deck.prototype = {
+	constructor: Deck,
+	dealRandomCard: function(){
+		var suitType = Math.floor(Math.random() * 4);
+		var cardNumber = Math.floor(Math.random() * 13) + 1;
 
-	var card = new Card({
-		suit: this.suits[suitType].suit,
-		symbol: this.suits[suitType].symbol,
-		color: this.suits[suitType].color,
-		face: this.cards[cardNumber].face,
-		name: this.cards[cardNumber].name,
-		value: this.cards[cardNumber].value
-	});
+		var randomCard = new Card({
+			suit: this.suits[suitType].suit,
+			symbol: this.suits[suitType].symbol,
+			color: this.suits[suitType].color,
+			face: this.cards[cardNumber].face,
+			name: this.cards[cardNumber].name,
+			value: this.cards[cardNumber].value
+		});
 
-	console.log(card);
-	return card;
+		// console.log(randomCard);
+		return randomCard;
+	},
+	dealCards: function(user, number){
+		for (var i = 0; i < number; i++) {
+			this.dealRandomCard(user);
+		}
+	}
 };
 
 var playerOne = new Player();
@@ -188,4 +198,5 @@ var dealerRender = new PlayerUI('Dealer');
 
 var myDeck = new Deck();
 
-myDeck.getRandomCard();
+myDeck.dealRandomCard();
+myDeck.dealCards(Player, 2);
