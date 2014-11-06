@@ -1,9 +1,18 @@
 // James, I've put comments with your name on parts of code that I have questions for.
 // Some of the logic issues I have involve where the betting functions need to be stored. Their own prototype? On the playerOne
 // instance but not on the Dealer instance? etc ...
+/*
+  @james-huston my initial thought on the betting would be to have it as something seperate that way the player logic could all
+  be shared between the player/dealer. You might consider a game "controller" class like your game UI that you attach the dealer
+  and any players to. when the UI needs to do something like place a bet it asks the game controller to handle it and the game
+  controller to make a bet for that player or something like that.
+*/
 // I created a GameUI constructor b/c it seems weird to not have those similar items stored somewhere
 // even if that may change down the line. What do I do with all of the eventListeners and stuff? Can that code go 
 // down at the bottom of the page just sort of loose and unassociated with a prototype.
+/*
+  @james-huston I would attach all of the event listeners to your gameui prototype
+*/
 
 // Overall, I feel confident with how and why my code needs to be structured this way. I understand why and how the code I've writtien
 // works. I just know that the decision-making and organization are skills that will come with time.
@@ -16,7 +25,7 @@ function Player() {
 }
 
 Player.prototype.receiveCard = function(card){
-
+	this.card.push(card);
 };
 
 // constructor
@@ -29,6 +38,13 @@ function PlayerUI(name){
 // setCardDom method 
 // 		James, why does this need to be a method?
 //		Why can't it just be assigned like a variable?
+/*
+  @james-huston the reason to do this is so you have a chance to validate it and make sure that it is actually
+  a dom element you can manipulate. remember you don't have jquery doing all of it's "magical" silent checking
+  on elements when you try to modify them so you need to make sure you have a valid element that you can work
+  with whatever way you plan to work with it. Maybe not 100% relevent for your project but in shared/reusable
+  code it would be a good thing to be safe with.
+*/
 PlayerUI.prototype.setCardDom = function(element){
   	this.cardDom = element;
 };
@@ -177,6 +193,11 @@ function Deck(){
 
 // James, I'm starting to combine methods under one prototype. I saw this syntax and it makes sense to me. It also 
 // kind of answers my question about the use of "constructor: 'constructorName' " as a syntax
+/*
+  @james-huston this if fine if you are more comfortable with it and working in your own project/setting your
+  own coding standards. Just make sure you are comfortable with other styles so you recognize them and can
+  work with other code comfortably and you are good.
+*/
 Deck.prototype = {
 	constructor: Deck,
 	dealRandomCard: function(){
@@ -204,6 +225,10 @@ Deck.prototype = {
 	}
 };
 
+/*
+  @james-huston so these things right now are kinda disparent "things" that just happen. These would be things
+  handled by your game controller constructor if you had one.
+*/
 var playerOne = new Player();
 var playerRender = new PlayerUI('John');
 
