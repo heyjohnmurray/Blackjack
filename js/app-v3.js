@@ -186,6 +186,8 @@ Deck.prototype = {
 	dealCards: function(user, number){
 		for (var i = 0; i < number; i++) {
 			this.dealRandomCard(user);
+
+			// this doesn't return correctly ... yet
 		}
 	}
 };
