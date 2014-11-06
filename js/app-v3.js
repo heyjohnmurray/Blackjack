@@ -1,27 +1,37 @@
 // constructor
-function Player(name) {
-	this.name = name;
+function Player() {
 	this.cards = [];
 	this.score = 0;
+	this.wager = 0;
 }
 
 // constructor
-function PlayerUI(){
+function PlayerUI(name){
+	this.name = name;
   	this.cardDom = undefined;
   	this.scoreDom = undefined;
 }
 
+function GameUI(){
+	this.dealButton = document.getElementById('deal-button');
+	this.hitButton = document.getElementById('hit-me');
+	this.stayButton = document.getElementById('stay');
+	this.resetButton = document.getElementById('reset');
+}
+
+// constructor
 function Card(definedCard) {
+	// this ensures that if we're not passed an object, we throw an error
 	if (definedCard !== undefined && 'object' !== typeof definedCard) {
 		throw new Error('');
 	}
 
-	this.suit = undefined;
-	this.symbol = undefined;
-	this.color = undefined;
-	this.face = undefined;
-	this.name = undefined;
-	this.value = undefined;
+	this.suit = definedCard.suit;
+	this.symbol = definedCard.symbol;
+	this.color = definedCard.color;
+	this.face = definedCard.face;
+	this.name = definedCard.name;
+	this.value = definedCard.value;
 }
 
 function Deck(){
@@ -139,25 +149,28 @@ function Deck(){
 }
 
 Deck.prototype.getRandomCard = function(){
-	var scope = this;
 	var suitType = Math.floor(Math.random() * 4);
 	var cardNumber = Math.floor(Math.random() * 13) + 1;
 
 	var randomCard = new Card({
-		suit: scope.suits[suitType].suit,
-		symbol: scope.suits[suitType].symbol,
-		color: scope.suits[suitType].color,
-		face: scope.cards[cardNumber].face,
-		name: scope.cards[cardNumber].name,
-		value: scope.cards[cardNumber].value
+		suit: this.suits[suitType].suit,
+		symbol: this.suits[suitType].symbol,
+		color: this.suits[suitType].color,
+		face: this.cards[cardNumber].face,
+		name: this.cards[cardNumber].name,
+		value: this.cards[cardNumber].value
 	});
 
-	console.log(suitType);
-	console.log(cardNumber);
-	console.log(randomCard);
+	// console.log(randomCard);
+	return randomCard;
 };
 
-var playerOne = new Player('John');
+var playerOne = new Player();
+var playerRender = new PlayerUI('John');
+
+var gameDealer = new Player();
+var dealerRender = new PlayerUI('Dealer');
+
 var myDeck = new Deck();
 
 myDeck.getRandomCard();
