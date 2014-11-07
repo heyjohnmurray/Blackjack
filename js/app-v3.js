@@ -74,9 +74,6 @@ function GameUI(){
 // attach all event listeners to this prototype
 GameUI.prototype = {
 	constructor: GameUI,
-	preventDefault: function(){
-		// modular e.preventDefault function
-	},
 	makeWager: function(){
 		// what happens when you click the chips?
 		for (var i = 0; i < betAnchors.length; i++) {
