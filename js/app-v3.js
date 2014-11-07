@@ -17,6 +17,40 @@
 // Overall, I feel confident with how and why my code needs to be structured this way. I understand why and how the code I've writtien
 // works. I just know that the decision-making and organization are skills that will come with time.
 
+// setCardDom method 
+// 		James, why does this need to be a method?
+//		Why can't it just be assigned like a variable?
+/*
+  @james-huston the reason to do this is so you have a chance to validate it and make sure that it is actually
+  a dom element you can manipulate. remember you don't have jquery doing all of it's "magical" silent checking
+  on elements when you try to modify them so you need to make sure you have a valid element that you can work
+  with whatever way you plan to work with it. Maybe not 100% relevent for your project but in shared/reusable
+  code it would be a good thing to be safe with.
+*/
+
+// James, I'm starting to combine methods under one prototype. I saw this syntax and it makes sense to me. It also 
+// kind of answers my question about the use of "constructor: 'constructorName' " as a syntax
+/*
+  @james-huston this if fine if you are more comfortable with it and working in your own project/setting your
+  own coding standards. Just make sure you are comfortable with other styles so you recognize them and can
+  work with other code comfortably and you are good.
+*/
+/*
+  @james-huston so these things right now are kinda disparent "things" that just happen. These would be things
+  handled by your game controller constructor if you had one.
+*/
+
+// create Player 1
+var playerOne = new Player();
+var playerRender = new PlayerUI('John');
+
+// create Dealer instance
+var gameDealer = new Player();
+var dealerRender = new PlayerUI('Dealer');
+
+// create Deck instance
+var myDeck = new Deck();
+
 // constructor
 function Player() {
 	this.cards = [];
@@ -35,16 +69,6 @@ function PlayerUI(name){
   	this.scoreDom = undefined;
 }
 
-// setCardDom method 
-// 		James, why does this need to be a method?
-//		Why can't it just be assigned like a variable?
-/*
-  @james-huston the reason to do this is so you have a chance to validate it and make sure that it is actually
-  a dom element you can manipulate. remember you don't have jquery doing all of it's "magical" silent checking
-  on elements when you try to modify them so you need to make sure you have a valid element that you can work
-  with whatever way you plan to work with it. Maybe not 100% relevent for your project but in shared/reusable
-  code it would be a good thing to be safe with.
-*/
 PlayerUI.prototype.setCardDom = function(element){
   	this.cardDom = element;
 };
@@ -52,6 +76,10 @@ PlayerUI.prototype.setCardDom = function(element){
 PlayerUI.prototype.setScoreDom = function(element){
   	this.scoreDom = element;
 };
+
+function GameController() {
+
+}
 
 // constructor
 function GameUI(){
@@ -191,13 +219,6 @@ function Deck(){
 	}; // close cards
 }
 
-// James, I'm starting to combine methods under one prototype. I saw this syntax and it makes sense to me. It also 
-// kind of answers my question about the use of "constructor: 'constructorName' " as a syntax
-/*
-  @james-huston this if fine if you are more comfortable with it and working in your own project/setting your
-  own coding standards. Just make sure you are comfortable with other styles so you recognize them and can
-  work with other code comfortably and you are good.
-*/
 Deck.prototype = {
 	constructor: Deck,
 	dealRandomCard: function(){
@@ -225,17 +246,7 @@ Deck.prototype = {
 	}
 };
 
-/*
-  @james-huston so these things right now are kinda disparent "things" that just happen. These would be things
-  handled by your game controller constructor if you had one.
-*/
-var playerOne = new Player();
-var playerRender = new PlayerUI('John');
 
-var gameDealer = new Player();
-var dealerRender = new PlayerUI('Dealer');
-
-var myDeck = new Deck();
 
 myDeck.dealRandomCard();
 myDeck.dealCards(Player, 2);
