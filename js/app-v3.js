@@ -1,3 +1,15 @@
+// James, I'm stopping here for the night because I don't really know
+// how to set up my game's initial events. For example, after the page
+// loads, the first user action is to click on the wager chips and set
+// a wager, this then triggers other events within the game and 
+// everything moves on as it should. But right now all I have are a 
+// group  of functions. NOTHING is initialized. So what code do I write
+// or how do I structure my code so that it starts to interact with my 
+// page. I need to get that figured out so I can start to go through 
+// my existing code and see if it works in the console or manipulates
+// the page in some way. After that I'll be able to continue writing my
+// game's functions and what not.
+
 ////////////////////////
 // :: PLAYER LOGIC :: //
 ////////////////////////
@@ -66,7 +78,6 @@ function GameController() {
 
 	// create Deck instance
 	var myDeck = new Deck();
-	myDeck.dealCards(Player, 2);
 }
 
 //////////////////////////
@@ -95,23 +106,27 @@ GameUI.prototype = {
 		// what happens when you click the chips?
 		for (var i = 0; i < this.betAnchors.length; i++) {
 			betAnchors[i].addEventListener('click', wagerEvents());
-			
-			// deal button shows
-			this.gameActions.classList.add('is-shown');
-			// calculations are done : methods related to Wager proto
 		}
 	},
 	wagerEvents: function(e){
 		console.log('wager event!'); // test msg
+		// NOTES:
+		// deal button shows
+		this.gameActions.classList.add('is-shown');
+		// calculations are done : methods related to Wager proto
+
+		// default behavior stopped
 		e.preventDefault();
 	},
 	dealAction: function(){
+		// NOTES:
 	  	// what happens when you click the deal button?
 	  	// other UI elements appear
 	  	// cards are dealt to player and dealer
 	  	// wagering is disabled
 	},
 	stayAction: function(){
+		// NOTES:
 	  	// what happens when you click the stay button 
 	  	// save user player points value
 		// give dealer a card then test whether it's greater or less than player's score
