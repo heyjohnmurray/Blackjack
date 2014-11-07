@@ -78,6 +78,26 @@ function GameUI(){
 	this.resetButton = document.getElementById('reset');
 }
 
+GameUI.prototype = {
+	constructor: GameUI,
+	makeWager: function(){
+		// what happens when you click the chips?
+		// deal button shows
+		// calculations are done : methods related to Wager proto
+	},
+	dealAction: function(){
+	  	// what happens when you click the deal button?
+	  	// other UI elements appear
+	  	// cards are dealt to player and dealer
+	  	// wagering is disabled
+	},
+	stayAction: function(){
+	  	// what happens when you click the stay button 
+	  	// save user player points value
+		// give dealer a card then test whether it's greater or less than player's score
+	}
+};
+
 // constructor
 function Card(definedCard) {
 	// this ensures that if we're not passed an object, we throw an error
