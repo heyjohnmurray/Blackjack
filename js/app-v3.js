@@ -74,6 +74,7 @@ function GameUI(){
 	this.stayButton = document.getElementById('stay');
 	this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
 	this.resetButton = document.getElementById('reset');
+	this.gameActions = document.querySelector('.js-actions').classList.add('is-shown');
 }
 
 // attach all event listeners to this prototype
@@ -82,9 +83,16 @@ GameUI.prototype = {
 	makeWager: function(){
 		// what happens when you click the chips?
 		for (var i = 0; i < this.betAnchors.length; i++) {
+			betAnchors[i].addEventListener('click', wagerEvents());
+			
 			// deal button shows
+			this.gameActions.classList.add('is-shown');
 			// calculations are done : methods related to Wager proto
 		}
+	},
+	wagerEvents: function(e){
+		console.log('wager event!'); // test msg
+		e.preventDefault();
 	},
 	dealAction: function(){
 	  	// what happens when you click the deal button?
