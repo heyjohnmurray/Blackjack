@@ -40,17 +40,6 @@
   handled by your game controller constructor if you had one.
 */
 
-// create Player 1
-var playerOne = new Player();
-var playerRender = new PlayerUI('John');
-
-// create Dealer instance
-var gameDealer = new Player();
-var dealerRender = new PlayerUI('Dealer');
-
-// create Deck instance
-var myDeck = new Deck();
-
 // constructor
 function Player() {
 	this.cards = [];
@@ -103,6 +92,11 @@ function Card(definedCard) {
 	this.name = definedCard.name;
 	this.value = definedCard.value;
 }
+
+Card.prototype = {
+	constructor: Card,
+	// card methods next ...
+};
 
 // constructor
 function Deck(){
@@ -234,19 +228,25 @@ Deck.prototype = {
 			value: this.cards[cardNumber].value
 		});
 
-		// console.log(randomCard);
+		console.log(randomCard);
 		return randomCard;
 	},
 	dealCards: function(user, number){
 		for (var i = 0; i < number; i++) {
 			this.dealRandomCard(user);
-			// James, I'm in the process of making this logic work. 
-			// this doesn't return correctly ... yet
 		}
 	}
 };
 
+// create Player 1
+var playerOne = new Player();
+var playerRender = new PlayerUI('John');
 
+// create Dealer instance
+var gameDealer = new Player();
+var dealerRender = new PlayerUI('Dealer');
 
+// create Deck instance
+var myDeck = new Deck();
 myDeck.dealRandomCard();
 myDeck.dealCards(Player, 2);
