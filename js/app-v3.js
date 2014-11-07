@@ -67,16 +67,22 @@ function GameUI(){
 	this.dealButton = document.getElementById('deal-button');
 	this.hitButton = document.getElementById('hit-me');
 	this.stayButton = document.getElementById('stay');
+	this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
 	this.resetButton = document.getElementById('reset');
 }
 
 // attach all event listeners to this prototype
 GameUI.prototype = {
 	constructor: GameUI,
+	preventDefault: function(){
+		// modular e.preventDefault function
+	},
 	makeWager: function(){
 		// what happens when you click the chips?
-		// deal button shows
-		// calculations are done : methods related to Wager proto
+		for (var i = 0; i < betAnchors.length; i++) {
+			// deal button shows
+			// calculations are done : methods related to Wager proto
+		}
 	},
 	dealAction: function(){
 	  	// what happens when you click the deal button?
