@@ -55,7 +55,18 @@ Betting.prototype = {
 };
 
 function GameController() {
+// plopping these here for now b/c this is where they should end up.
+	// create Player 1
+	var playerOne = new Player();
+	var playerRender = new PlayerUI('John');
 
+	// create Dealer instance
+	var gameDealer = new Player();
+	var dealerRender = new PlayerUI('Dealer');
+
+	// create Deck instance
+	var myDeck = new Deck();
+	myDeck.dealCards(Player, 2);
 }
 
 //////////////////////////
@@ -266,17 +277,3 @@ Deck.prototype = {
 		}
 	}
 };
-
-// NOTE:: Eventually add the below to the Game Controller
-
-// create Player 1
-var playerOne = new Player();
-var playerRender = new PlayerUI('John');
-
-// create Dealer instance
-var gameDealer = new Player();
-var dealerRender = new PlayerUI('Dealer');
-
-// create Deck instance
-var myDeck = new Deck();
-myDeck.dealCards(Player, 2);
