@@ -40,7 +40,7 @@
   handled by your game controller constructor if you had one.
 */
 
-// constructor
+// constructor :: controls Player and Dealer attributes
 function Player() {
 	this.cards = [];
 	this.score = 0;
@@ -64,6 +64,28 @@ PlayerUI.prototype.setCardDom = function(element){
 
 PlayerUI.prototype.setScoreDom = function(element){
   	this.scoreDom = element;
+};
+
+// constructor
+function Betting (){
+	this.maxCashToStart = 1500;
+	this.cashLeftOver = undefined;
+	this.playerWager = undefined;
+}
+
+// betting actions
+Betting.prototype = {
+	constructor: Betting,
+	disableBets: function(){
+		// rewrite this ...
+		newDiv.className ='bets-off';
+		var firstItem = document.querySelector('.bets').firstChild;
+		document.querySelector('.bets').insertBefore(newDiv, firstItem);
+	},
+	updateWager: function(){
+		// rewrite this ...
+		document.querySelector('.wager-total .bet').innerHTML = playerWager;
+	}
 };
 
 function GameController() {
@@ -268,5 +290,4 @@ var dealerRender = new PlayerUI('Dealer');
 
 // create Deck instance
 var myDeck = new Deck();
-myDeck.dealRandomCard();
 myDeck.dealCards(Player, 2);
