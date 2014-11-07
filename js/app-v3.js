@@ -63,6 +63,11 @@ function GameController() {
 //////////////////////////
 
 // constructor
+
+// James, these dom elements being assigned to the constructor are very specific
+// does it make sense for them to be more modular. should i being making them accept
+// a parameter of 'element' or something like that instead of just assigning a dom element
+// to them so explicitly? 
 function GameUI(){
 	this.dealButton = document.getElementById('deal-button');
 	this.hitButton = document.getElementById('hit-me');
@@ -76,7 +81,7 @@ GameUI.prototype = {
 	constructor: GameUI,
 	makeWager: function(){
 		// what happens when you click the chips?
-		for (var i = 0; i < betAnchors.length; i++) {
+		for (var i = 0; i < this.betAnchors.length; i++) {
 			// deal button shows
 			// calculations are done : methods related to Wager proto
 		}
