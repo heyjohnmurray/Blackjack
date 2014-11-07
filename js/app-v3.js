@@ -1,3 +1,7 @@
+////////////////////////
+// :: PLAYER LOGIC :: //
+////////////////////////
+
 // constructor :: controls Player and Dealer attributes
 function Player() {
 	this.cards = [];
@@ -24,6 +28,10 @@ PlayerUI.prototype.setScoreDom = function(element){
   	this.scoreDom = element;
 };
 
+///////////////////////
+// :: WAGER LOGIC :: //
+///////////////////////
+
 // constructor
 function Betting (){
 	this.maxCashToStart = 1500;
@@ -49,6 +57,10 @@ Betting.prototype = {
 function GameController() {
 
 }
+
+//////////////////////////
+// :: GAMEPLAY LOGIC :: //
+//////////////////////////
 
 // constructor
 function GameUI(){
