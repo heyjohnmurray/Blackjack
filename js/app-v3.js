@@ -189,6 +189,10 @@
 			return randomCard;
 		},
 		dealCards: function(user, number){
+			// James, this function needs to tie in 
+			// GameController's reference to Player1 and Dealer.
+			// How do I do this? I feel like I need to develop
+			// Game Controller a little more.
 			for (var i = 0; i < number; i++) {
 				this.dealRandomCard(user);
 			}
@@ -221,7 +225,17 @@
 		},
 		updateWager: function(){
 			// rewrite this ... used to be betUpdate
-			document.querySelector('.wager-total .bet').innerHTML = playerWager;
+			document.querySelector('.wager-total .bet').innerHTML = this.playerWager;
+		},
+		cashOnHand: function(number){
+			this.cashLeftOver = this.maxCashToStart - this.playerWager;
+			return cashLeftOver;
+		},
+		renderCashOnHand: function(number){
+		  	document.querySelector('.wager-total .cash').innerHTML = this.cashLeftOver;
+		},
+		renderStartingTotalCash: function(){
+		  	document.querySelector('.wager-total .cash').innerHTML = this.maxCashToStart;
 		}
 	};
 
@@ -246,11 +260,13 @@
 	function GameUI(){
 		// this gets the ball rolling
 		// a new instance of GameUI is called at the bottom of this page
+		var betObj = new Betting();
 		this.registerDomElements();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
+		betObj.renderStartingTotalCash();
 	}
 
 	// attach all event listeners to this prototype
@@ -300,7 +316,8 @@
 			// deal button shows
 			this.primaryButtonsShown();
 			// chip value is stored
-			chipValue = e.target.dataset.value;
+			var chipValue = e.target.dataset.value;
+			console.log(chipValue);
 			// change player wager value
 			// calculations are done : methods related to Wager proto
 			e.preventDefault();
