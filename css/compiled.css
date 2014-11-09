@@ -169,7 +169,7 @@ h2 {
 .secondary-actions {
   display: none; }
   .secondary-actions.is-shown {
-    display: block; }
+    display: inline; }
 
 a.chip {
   position: relative;

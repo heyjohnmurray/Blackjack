@@ -216,7 +216,8 @@
 			// newDiv.className ='bets-off';
 			// var firstItem = document.querySelector('.bets').firstChild;
 			// document.querySelector('.bets').insertBefore(newDiv, firstItem);
-			console.log("disable bets");
+
+			//console.log("disable bets");
 		},
 		updateWager: function(){
 			// rewrite this ... used to be betUpdate
@@ -248,7 +249,9 @@
 		// a new instance of this is called at the bottom of this page
 		this.registerDomElements();
 		this.registerWagerEvents();
-		this.registerDealButtonClick();
+		this.registerDealButtonEvent();
+		this.registerHitButtonEvent();
+		this.registerStayButtonEvent();
 	}
 
 	// attach all event listeners to this prototype
@@ -275,12 +278,26 @@
 				this.betAnchors[i].addEventListener('click', localWager);
 			}
 		},
-		registerDealButtonClick: function(){
+		registerDealButtonEvent: function(){
 			var scope = this;
-			function localDealClick(e){
-			  	scope.dealAction(e);
+			function localDealEvent(e){
+			  	scope.dealEvent(e);
 			}
-			this.dealButton.addEventListener('click', localDealClick);
+			this.dealButton.addEventListener('click', localDealEvent);
+		},
+		registerHitButtonEvent: function(){
+		  	var scope = this;
+		  	function localHitEvent(e){
+		  		scope.hitEvent(e);
+		  	}
+		  	this.hitButton.addEventListener('click', localHitEvent);
+		},
+		registerStayButtonEvent: function(){
+		  	var scope = this;
+		  	function localStayEvent(e){
+		  		scope.stayEvent(e);
+		  	}
+		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
 		wagerEvents: function(e){
 			// deal button shows
@@ -292,33 +309,30 @@
 			e.preventDefault();
 			return chipValue;
 		},
-		dealAction: function(){
+		dealEvent: function(e){
 			var betObj = new Betting();
-			// NOTES:
 		  	// what happens when you click the deal button?
-		  	this.dealButton.addEventListener('click', function(e){
-		  		// console.log(this);
-		  		// other UI elements appear
-		  		console.log(this);
-			  	this.secondaryButtonsShown();
-			  	//document.querySelector('.js-secondary-actions').classList.add('is-shown');
-			  	// cards are dealt to player and dealer
-			  	// wagering is disabled
-			  	betObj.disableBets();
-			  	console.log('deal action');
-		  	});
+	  		// other UI elements appear
+		  	// cards are dealt to player and dealer
+		  	// wagering is disabled
+		  	this.secondaryButtonsShown();
+		  	betObj.disableBets();
+		},
+		hitEvent: function(){
+			console.log('hit me!');
+		},
+		stayEvent: function(){
+			console.log('stay!');
+			// NOTES:
+		  	// what happens when you click the stay button 
+		  	// save user player points value
+			// give dealer a card then test whether it's greater or less than player's score
 		},
 		primaryButtonsShown: function(){
 			this.primaryButtons.classList.add('is-shown');
 		},
 		secondaryButtonsShown: function(){
 		  	this.secondaryButtons.classList.add('is-shown');
-		},
-		stayAction: function(){
-			// NOTES:
-		  	// what happens when you click the stay button 
-		  	// save user player points value
-			// give dealer a card then test whether it's greater or less than player's score
 		}
 	};
 
