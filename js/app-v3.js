@@ -225,14 +225,25 @@
 		},
 		updateWager: function(){
 			// rewrite this ... used to be betUpdate
+			
+		},
+		renderUpdatedWager: function(){
 			document.querySelector('.wager-total .bet').innerHTML = this.playerWager;
 		},
 		cashOnHand: function(number){
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
-			return cashLeftOver;
+			console.log('cash left over' + this.cashLeftOver);
+			//console.log('you have $' + this.cashLeftOver + ' left over!');
+			return this.cashLeftOver;
 		},
 		renderCashOnHand: function(number){
 		  	document.querySelector('.wager-total .cash').innerHTML = this.cashLeftOver;
+		},
+		updateCashLeftOver: function(){
+			
+		},
+		renderUpdatedCashLeftOver: function(){
+			
 		},
 		renderStartingTotalCash: function(){
 		  	document.querySelector('.wager-total .cash').innerHTML = this.maxCashToStart;
@@ -313,11 +324,24 @@
 		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
 		wagerEvents: function(e){
+			var betObj = new Betting();
+			var chipValue = e.target.dataset.value;
+
 			// deal button shows
 			this.primaryButtonsShown();
 			// chip value is stored
-			var chipValue = e.target.dataset.value;
-			console.log(chipValue);
+			betObj.playerWager += parseInt(chipValue, 10);
+			//console.log(betObj.playerWager);
+			//betObj.updateWager();
+			//betObj.cashOnHand();
+			betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
+
+			//CAN'T GET THIS TO WORK FOR SOME REASON
+
+
+
+			//betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
+			//console.log('cash left over ' + betObj.cashLeftOver);
 			// change player wager value
 			// calculations are done : methods related to Wager proto
 			e.preventDefault();
@@ -329,7 +353,7 @@
 	  		// other UI elements appear
 	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
-		  	Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
+		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
 		  	betObj.disableBets();
 		},
