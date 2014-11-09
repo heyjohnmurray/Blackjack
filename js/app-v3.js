@@ -225,8 +225,11 @@
 		}
 	};
 
+//////////////////////////
+// :: GAMEPLAY LOGIC :: //
+//////////////////////////
 	function GameController() {
-	// plopping these here for now b/c this is where they should end up.
+		// plopping these here for now b/c this is where they should end up.
 		// create Player 1
 		var playerOne = new Player();
 		var playerRender = new PlayerUI('John');
@@ -239,14 +242,10 @@
 		var myDeck = new Deck();
 	}
 
-//////////////////////////
-// :: GAMEPLAY LOGIC :: //
-//////////////////////////
-
 	// constructor
 	function GameUI(){
 		// this gets the ball rolling
-		// a new instance of this is called at the bottom of this page
+		// a new instance of GameUI is called at the bottom of this page
 		this.registerDomElements();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
@@ -267,13 +266,11 @@
 			this.secondaryButtons = document.querySelector('.js-secondary-actions');
 		},
 		registerWagerEvents: function(){
-			// helps keep the scope of this on the GameUI prototype 
-			// instead of the click target
+			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
 			function localWager(e) {
 				scope.wagerEvents(e);
 			}
-			// what happens when you click the chips?
 			for (var i = 0; i < this.betAnchors.length; i++) {
 				this.betAnchors[i].addEventListener('click', localWager);
 			}
@@ -313,13 +310,15 @@
 			var betObj = new Betting();
 		  	// what happens when you click the deal button?
 	  		// other UI elements appear
+	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
+		  	Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
-		  	this.secondaryButtonsShown();
 		  	betObj.disableBets();
 		},
 		hitEvent: function(){
 			console.log('hit me!');
+			// deal one card
 		},
 		stayEvent: function(){
 			console.log('stay!');
