@@ -1,15 +1,3 @@
-// James, I'm stopping here for the night because I don't really know
-// how to set up my game's initial events. For example, after the page
-// loads, the first user action is to click on the wager chips and set
-// a wager, this then triggers other events within the game and 
-// everything moves on as it should. But right now all I have are a 
-// group  of functions. NOTHING is initialized. So what code do I write
-// or how do I structure my code so that it starts to interact with my 
-// page. I need to get that figured out so I can start to go through 
-// my existing code and see if it works in the console or manipulates
-// the page in some way. After that I'll be able to continue writing my
-// game's functions and what not.
-
 ////////////////////////
 // :: PLAYER LOGIC :: //
 ////////////////////////
@@ -41,106 +29,9 @@
 	  	this.scoreDom = element;
 	};
 
-	///////////////////////
-	// :: WAGER LOGIC :: //
-	///////////////////////
-
-	// constructor
-	function Betting (){
-		this.maxCashToStart = 1500;
-		this.cashLeftOver = undefined;
-		this.playerWager = undefined;
-	}
-
-	// betting actions
-	Betting.prototype = {
-		constructor: Betting,
-		disableBets: function(){
-			// rewrite this ...
-			newDiv.className ='bets-off';
-			var firstItem = document.querySelector('.bets').firstChild;
-			document.querySelector('.bets').insertBefore(newDiv, firstItem);
-		},
-		updateWager: function(){
-			// rewrite this ...
-			document.querySelector('.wager-total .bet').innerHTML = playerWager;
-		}
-	};
-
-	function GameController() {
-	// plopping these here for now b/c this is where they should end up.
-		// create Player 1
-		var playerOne = new Player();
-		var playerRender = new PlayerUI('John');
-
-		// create Dealer instance
-		var gameDealer = new Player();
-		var dealerRender = new PlayerUI('Dealer');
-
-		// create Deck instance
-		var myDeck = new Deck();
-	}
-
-	//////////////////////////
-	// :: GAMEPLAY LOGIC :: //
-	//////////////////////////
-
-	// constructor
-	function GameUI(){
-		// this gets the ball rolling
-		// a new instance of this is called at the bottom of this page
-		this.registerDomElements();
-		this.registerWagerEvents();
-	}
-
-	// attach all event listeners to this prototype
-	GameUI.prototype = {
-		constructor: GameUI,
-		registerDomElements: function(){
-		  	this.dealButton = document.getElementById('deal-button');
-			this.hitButton = document.getElementById('hit-me');
-			this.stayButton = document.getElementById('stay');
-			this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
-			this.resetButton = document.getElementById('reset');
-			this.gameActions = document.querySelector('.js-actions');
-		},
-		registerWagerEvents: function(){
-			
-			// helps keep the scope of this on the GameUI prototype 
-			// instead of the click target
-			var scope = this;
-			function localWager(e) {
-				scope.wagerEvents(e);
-			}
-
-			// what happens when you click the chips?
-			for (var i = 0; i < this.betAnchors.length; i++) {
-				this.betAnchors[i].addEventListener('click', localWager);
-			}
-		},
-		wagerEvents: function(e){
-			// deal button shows
-			this.gameActions.classList.add('is-shown')
-			// calculations are done : methods related to Wager proto
-
-			// default behavior stopped
-			e.preventDefault();
-		},
-		dealAction: function(){
-			// NOTES:
-		  	// what happens when you click the deal button?
-		  	// other UI elements appear
-		  	// cards are dealt to player and dealer
-		  	// wagering is disabled
-		},
-		stayAction: function(){
-			// NOTES:
-		  	// what happens when you click the stay button 
-		  	// save user player points value
-			// give dealer a card then test whether it's greater or less than player's score
-		}
-	};
-
+//////////////////////
+// :: CARD LOGIC :: //
+//////////////////////
 	// constructor
 	function Card(definedCard) {
 		// this ensures that if we're not passed an object, we throw an error
@@ -161,6 +52,9 @@
 		// card methods next ...
 	};
 
+//////////////////////
+// :: DECK LOGIC :: //
+//////////////////////	
 	// constructor
 	function Deck(){
 		this.suits = {
@@ -298,6 +192,116 @@
 			for (var i = 0; i < number; i++) {
 				this.dealRandomCard(user);
 			}
+		}
+	};
+
+///////////////////////
+// :: WAGER LOGIC :: //
+///////////////////////
+
+	// constructor
+	function Betting (){
+		this.maxCashToStart = 1500;
+		this.cashLeftOver = undefined;
+		this.playerWager = 0;
+	}
+
+	// betting actions
+	Betting.prototype = {
+		constructor: Betting,
+		disableBets: function(){
+			// create new div element
+			// var newDiv = document.createElement('div');
+			// rewrite this ...
+			// newDiv.className ='bets-off';
+			// var firstItem = document.querySelector('.bets').firstChild;
+			// document.querySelector('.bets').insertBefore(newDiv, firstItem);
+			console.log("disable bets");
+		},
+		updateWager: function(){
+			// rewrite this ... used to be betUpdate
+			document.querySelector('.wager-total .bet').innerHTML = playerWager;
+		}
+	};
+
+	function GameController() {
+	// plopping these here for now b/c this is where they should end up.
+		// create Player 1
+		var playerOne = new Player();
+		var playerRender = new PlayerUI('John');
+
+		// create Dealer instance
+		var gameDealer = new Player();
+		var dealerRender = new PlayerUI('Dealer');
+
+		// create Deck instance
+		var myDeck = new Deck();
+	}
+
+//////////////////////////
+// :: GAMEPLAY LOGIC :: //
+//////////////////////////
+
+	// constructor
+	function GameUI(){
+		// this gets the ball rolling
+		// a new instance of this is called at the bottom of this page
+		this.registerDomElements();
+		this.registerWagerEvents();
+	}
+
+	// attach all event listeners to this prototype
+	GameUI.prototype = {
+		constructor: GameUI,
+		registerDomElements: function(){
+		  	this.dealButton = document.getElementById('deal-button');
+			this.hitButton = document.getElementById('hit-me');
+			this.stayButton = document.getElementById('stay');
+			this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
+			this.resetButton = document.getElementById('reset');
+			this.gameActions = document.querySelector('.js-actions');
+		},
+		registerWagerEvents: function(){
+			// helps keep the scope of this on the GameUI prototype 
+			// instead of the click target
+			var scope = this;
+			function localWager(e) {
+				scope.wagerEvents(e);
+			}
+
+			// what happens when you click the chips?
+			for (var i = 0; i < this.betAnchors.length; i++) {
+				this.betAnchors[i].addEventListener('click', localWager);
+			}
+		},
+		wagerEvents: function(e){
+			
+			// chip value is stored
+			chipValue = e.target.dataset.value;
+			// change player wager value
+			
+			// deal button shows
+			this.gameActions.classList.add('is-shown');
+			// calculations are done : methods related to Wager proto
+
+			// default behavior stopped
+			e.preventDefault();
+		},
+		dealAction: function(){
+			var betObj = new Betting();
+			// NOTES:
+		  	// what happens when you click the deal button?
+		  	// other UI elements appear
+		  	// cards are dealt to player and dealer
+
+		  	// wagering is disabled
+		  	betObj.disableBets();
+		},
+		stayAction: function(){
+			// NOTES:
+		  	// what happens when you click the stay button 
+		  	// save user player points value
+			// give dealer a card then test whether it's greater or less than player's score
 		}
 	};
 
