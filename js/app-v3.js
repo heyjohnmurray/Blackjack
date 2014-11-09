@@ -248,6 +248,7 @@
 		// a new instance of this is called at the bottom of this page
 		this.registerDomElements();
 		this.registerWagerEvents();
+		this.registerDealButtonClick();
 	}
 
 	// attach all event listeners to this prototype
@@ -259,7 +260,8 @@
 			this.stayButton = document.getElementById('stay');
 			this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
 			this.resetButton = document.getElementById('reset');
-			this.gameActions = document.querySelector('.js-actions');
+			this.primaryButtons = document.querySelector('.js-actions');
+			this.secondaryButtons = document.querySelector('.js-secondary-actions');
 		},
 		registerWagerEvents: function(){
 			// helps keep the scope of this on the GameUI prototype 
@@ -268,34 +270,49 @@
 			function localWager(e) {
 				scope.wagerEvents(e);
 			}
-
 			// what happens when you click the chips?
 			for (var i = 0; i < this.betAnchors.length; i++) {
 				this.betAnchors[i].addEventListener('click', localWager);
 			}
 		},
+		registerDealButtonClick: function(){
+			var scope = this;
+			function localDealClick(e){
+			  	scope.dealAction(e);
+			}
+			this.dealButton.addEventListener('click', localDealClick);
+		},
 		wagerEvents: function(e){
-			
+			// deal button shows
+			this.primaryButtonsShown();
 			// chip value is stored
 			chipValue = e.target.dataset.value;
 			// change player wager value
-			
-			// deal button shows
-			this.gameActions.classList.add('is-shown');
 			// calculations are done : methods related to Wager proto
-
-			// default behavior stopped
 			e.preventDefault();
+			return chipValue;
 		},
 		dealAction: function(){
 			var betObj = new Betting();
 			// NOTES:
 		  	// what happens when you click the deal button?
-		  	// other UI elements appear
-		  	// cards are dealt to player and dealer
-
-		  	// wagering is disabled
-		  	betObj.disableBets();
+		  	this.dealButton.addEventListener('click', function(e){
+		  		// console.log(this);
+		  		// other UI elements appear
+		  		console.log(this);
+			  	this.secondaryButtonsShown();
+			  	//document.querySelector('.js-secondary-actions').classList.add('is-shown');
+			  	// cards are dealt to player and dealer
+			  	// wagering is disabled
+			  	betObj.disableBets();
+			  	console.log('deal action');
+		  	});
+		},
+		primaryButtonsShown: function(){
+			this.primaryButtons.classList.add('is-shown');
+		},
+		secondaryButtonsShown: function(){
+		  	this.secondaryButtons.classList.add('is-shown');
 		},
 		stayAction: function(){
 			// NOTES:
