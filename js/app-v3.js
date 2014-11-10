@@ -207,7 +207,7 @@
 	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
-		this.playerWager = undefined;
+		this.playerWager = 0;
 	}
 
 	// betting actions
@@ -295,9 +295,9 @@
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
-			playerWager = 0;
-			function localWager(e) {
-				scope.wagerEvents(e);
+			// playerWager = 0; // works
+			function localWager(e,betObj) {
+				scope.wagerEvents(e,betObj);
 			}
 			for (var i = 0; i < this.betAnchors.length; i++) {
 				this.betAnchors[i].addEventListener('click', localWager);
@@ -324,33 +324,24 @@
 		  	}
 		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
-		wagerEvents: function(e){
-			var betObj = new Betting();
-			var chipValue = e.target.dataset.value;			
+		wagerEvents: function(e, betObj){
+			console.log(betObj);
+			var chipValue = e.target.dataset.value;
 			// deal button shows
 			this.primaryButtonsShown();
 			// chip value is stored
-			playerWager += parseInt(chipValue, 10);
-			console.log(playerWager);
-			//betObj.updateWager();
-			//betObj.cashOnHand();
-			betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
-			//betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
-			//console.log('cash left over ' + betObj.cashLeftOver);
 			// change player wager value
 			// calculations are done : methods related to Wager proto
 			e.preventDefault();
 			return chipValue;
 		},
 		dealEvent: function(e){
-			var betObj = new Betting();
 		  	// what happens when you click the deal button?
 	  		// other UI elements appear
 	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
 		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
-		  	betObj.disableBets();
 		},
 		hitEvent: function(){
 			console.log('hit me!');
