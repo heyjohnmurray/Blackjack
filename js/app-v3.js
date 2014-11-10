@@ -331,15 +331,9 @@
 			this.primaryButtonsShown();
 			// chip value is stored
 			betObj.playerWager += parseInt(chipValue, 10);
-			//console.log(betObj.playerWager);
 			//betObj.updateWager();
 			//betObj.cashOnHand();
 			betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
-
-			//CAN'T GET THIS TO WORK FOR SOME REASON
-
-
-
 			//betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
 			//console.log('cash left over ' + betObj.cashLeftOver);
 			// change player wager value
