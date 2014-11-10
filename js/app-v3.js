@@ -207,7 +207,7 @@
 	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
-		this.playerWager = 0;
+		this.playerWager = undefined;
 	}
 
 	// betting actions
@@ -295,6 +295,7 @@
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
+			playerWager = 0;
 			function localWager(e) {
 				scope.wagerEvents(e);
 			}
@@ -325,12 +326,12 @@
 		},
 		wagerEvents: function(e){
 			var betObj = new Betting();
-			var chipValue = e.target.dataset.value;
-
+			var chipValue = e.target.dataset.value;			
 			// deal button shows
 			this.primaryButtonsShown();
 			// chip value is stored
-			betObj.playerWager += parseInt(chipValue, 10);
+			playerWager += parseInt(chipValue, 10);
+			console.log(playerWager);
 			//betObj.updateWager();
 			//betObj.cashOnHand();
 			betObj.cashLeftOver = betObj.maxCashToStart - betObj.playerWager;
