@@ -225,8 +225,7 @@
 		},
 		cashOnHand: function(number){
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
-			console.log('cash left over' + this.cashLeftOver); // this works
-			// the value will be correct once this.playerWager updates correctly
+			console.log('cash left over' + this.cashLeftOver);
 			return this.cashLeftOver;
 		},
 		renderCashOnHand: function(number){
