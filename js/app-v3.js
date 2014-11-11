@@ -217,25 +217,17 @@
 		},
 		updateWager: function(value){
 			this.playerWager += parseInt(value, 10);
-			console.log(this.playerWager);
 			return this.playerWager;
 		},
 		renderUpdatedWager: function(){
 			document.querySelector('.wager-total .bet').innerHTML = this.playerWager;
 		},
-		cashOnHand: function(number){
+		cashOnHand: function(){
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
-			console.log('cash left over' + this.cashLeftOver);
 			return this.cashLeftOver;
 		},
-		renderCashOnHand: function(number){
+		renderCashOnHand: function(){
 		  	document.querySelector('.wager-total .cash').innerHTML = this.cashLeftOver;
-		},
-		updateCashLeftOver: function(){
-			
-		},
-		renderUpdatedCashLeftOver: function(){
-			
 		},
 		renderStartingTotalCash: function(){
 		  	document.querySelector('.wager-total .cash').innerHTML = this.maxCashToStart;
@@ -318,7 +310,9 @@
 			// deal button shows
 			this.primaryButtonsShown();  // this should be in gameUI
 			this.betObj.updateWager(chipValue); // this should be in controller
+			this.betObj.renderUpdatedWager();
 			this.betObj.cashOnHand(); // this should be in controller
+			this.betObj.renderCashOnHand();
 			e.preventDefault();
 		},
 		dealEvent: function(e){
