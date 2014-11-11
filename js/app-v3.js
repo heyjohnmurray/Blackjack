@@ -309,6 +309,17 @@
 			this.betObj.renderUpdatedWager();
 			this.betObj.cashOnHand(); // this should be in controller
 			this.betObj.renderCashOnHand();
+
+			if(this.betObj.cashLeftOver <= 0){
+				// if you don't have anymore money left ...
+				this.betObj.disableBets();
+
+				// this should probably be moved to game controller in the end. 
+				document.querySelector('.wager-total .cash').classList.add('warning');
+				document.querySelector('.wager-total .cash').innerHTML = 0;
+				document.querySelector('.wager-total .bet').innerHTML = this.betObj.maxCashToStart;
+			}
+
 			e.preventDefault();
 		},
 		dealEvent: function(e){
