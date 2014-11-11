@@ -3,29 +3,30 @@
 ////////////////////////
 (function(undefined){
 
-	function Player() {
+	function Player(name) {
+		this.name = name;
 		this.cards = [];
 		this.score = 0;
 		this.wager = 0;
+		this.playerUI = new PlayerUI();
 	}
 
-	Player.prototype.receiveCard = function(card){
-		this.card.push(card);
-	};
-
-	// constructor
-	function PlayerUI(name){
-		this.name = name;
+	function PlayerUI(){
 	  	this.cardDom = undefined;
 	  	this.scoreDom = undefined;
 	}
 
-	PlayerUI.prototype.setCardDom = function(element){
-	  	this.cardDom = element;
-	};
-
-	PlayerUI.prototype.setScoreDom = function(element){
-	  	this.scoreDom = element;
+	Player.prototype = {
+		constructor: Player,
+		receiveCard: function(card){
+			this.card.push(card);
+		},
+		setCardDom: function(element){
+		  	this.cardDom = element;
+		},
+		setScoreDom: function(element){
+		  	this.scoreDom = element;
+		}
 	};
 
 //////////////////////
@@ -235,30 +236,28 @@
 //////////////////////////
 // :: GAMEPLAY LOGIC :: //
 //////////////////////////
-	function GameController() {
-		// create Player 1
-		var playerOne = new Player();
-		var playerRender = new PlayerUI('John');
-		// create Dealer instance
-		var gameDealer = new Player();
-		var dealerRender = new PlayerUI('Dealer');
-		// create Deck instance
-		var myDeck = new Deck();
+	function GameController() { // make this a class.
+		// everything related to the game that doesn't directly touch the DOM
+		this.myDeck = new Deck();
+		this.betObj = new Betting();
+		this.playerOne = new Player();
+		this.playerRender = new PlayerUI();
+		this.gameDealer = new Player();
+		this.dealerRender = new PlayerUI();
 	}
 
 	function GameUI(){
 		// this gets the ball rolling
 		// a new instance of GameUI is called at the bottom of this page
+		this.gameController = new GameController();
 		this.registerDomElements();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
-		this.betObj = new Betting(); // this should be in controller after the functions are put there
-		this.betObj.renderStartingTotalCash(); // put a reference to game controller in here then move betting and its methods to game controller
+		this.gameController.betObj.renderStartingTotalCash();
 	}
 
-	// attach all event listeners to this prototype
 	GameUI.prototype = {
 		constructor: GameUI,
 		registerDomElements: function(){
@@ -302,13 +301,23 @@
 		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
 		wagerEvents: function(e){
-			var chipValue = e.target.dataset.value; // this should be in gameUI
-			// deal button shows
-			this.primaryButtonsShown();  // this should be in gameUI
-			this.betObj.updateWager(chipValue); // this should be in controller
-			this.betObj.renderUpdatedWager();
-			this.betObj.cashOnHand(); // this should be in controller
-			this.betObj.renderCashOnHand();
+			var chipValue = e.target.dataset.value;
+			// deal button becomes visible
+			this.primaryButtonsShown();
+			this.gameController.betObj.updateWager(chipValue);
+			this.gameController.betObj.renderUpdatedWager();
+			this.gameController.betObj.cashOnHand();
+			this.gameController.betObj.renderCashOnHand();
+
+			if(this.gameController.betObj.cashLeftOver <= 0){
+				// if you don't have any money left ...
+				this.gameController.betObj.disableBets();
+
+				document.querySelector('.wager-total .cash').classList.add('warning');
+				document.querySelector('.wager-total .cash').innerHTML = 0;
+				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.maxCashToStart;
+			}
+
 			e.preventDefault();
 		},
 		dealEvent: function(e){
@@ -316,9 +325,13 @@
 	  		// other UI elements appear
 	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
+<<<<<<< HEAD
 		  	//Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
+=======
+		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
+>>>>>>> test
 		  	// wagering is disabled
-		  	this.betObj.disableBets();
+		  	this.gameController.betObj.disableBets();
 		},
 		hitEvent: function(){
 			console.log('hit me!');
