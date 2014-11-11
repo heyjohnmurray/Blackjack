@@ -324,11 +324,8 @@
 	  		// other UI elements appear
 	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
-<<<<<<< HEAD
 		  	//Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
-=======
 		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
->>>>>>> test
 		  	// wagering is disabled
 		  	this.gameController.betObj.disableBets();
 		},
