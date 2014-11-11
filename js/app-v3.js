@@ -3,7 +3,6 @@
 ////////////////////////
 (function(undefined){
 
-	// constructor :: controls Player and Dealer attributes
 	function Player() {
 		this.cards = [];
 		this.score = 0;
@@ -32,7 +31,6 @@
 //////////////////////
 // :: CARD LOGIC :: //
 //////////////////////
-	// constructor
 	function Card(definedCard) {
 		// this ensures that if we're not passed an object, we throw an error
 		if (definedCard !== undefined && 'object' !== typeof definedCard) {
@@ -55,7 +53,6 @@
 //////////////////////
 // :: DECK LOGIC :: //
 //////////////////////	
-	// constructor
 	function Deck(){
 		this.suits = {
 			0: {
@@ -202,14 +199,12 @@
 // :: WAGER LOGIC :: //
 ///////////////////////
 
-	// constructor
 	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
 		this.playerWager = 0;
 	}
 
-	// betting actions
 	Betting.prototype = {
 		constructor: Betting,
 		disableBets: function(){
@@ -254,7 +249,6 @@
 // :: GAMEPLAY LOGIC :: //
 //////////////////////////
 	function GameController() {
-		// plopping these here for now b/c this is where they should end up.
 		// create Player 1
 		var playerOne = new Player();
 		var playerRender = new PlayerUI('John');
@@ -267,7 +261,6 @@
 		var myDeck = new Deck();
 	}
 
-	// constructor
 	function GameUI(){
 		// this gets the ball rolling
 		// a new instance of GameUI is called at the bottom of this page
@@ -277,9 +270,7 @@
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
 		this.betObj = new Betting(); // this should be in controller after the functions are put there
-
-		// put a reference to game controller in here then move betting and its methods to game controller
-		this.betObj.renderStartingTotalCash();
+		this.betObj.renderStartingTotalCash(); // put a reference to game controller in here then move betting and its methods to game controller
 	}
 
 	// attach all event listeners to this prototype
