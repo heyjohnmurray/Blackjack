@@ -185,7 +185,6 @@
 				value: this.cards[cardNumber].value
 			});
 
-			console.log(randomCard);
 			return randomCard;
 		},
 		dealCards: function(user, number){
@@ -220,20 +219,21 @@
 			// newDiv.className ='bets-off';
 			// var firstItem = document.querySelector('.bets').firstChild;
 			// document.querySelector('.bets').insertBefore(newDiv, firstItem);
-
-			//console.log("disable bets");
 		},
-		updateWager: function(){
-			// rewrite this ... used to be betUpdate
-			
+		updateWager: function(value){
+			this.playerWager += parseInt(value, 10);
+			console.log(this.playerWager);
+			// James, I have no idea why this the valud of
+			// this.playerWager is always zero in this function.
+			return this.playerWager;
 		},
 		renderUpdatedWager: function(){
 			document.querySelector('.wager-total .bet').innerHTML = this.playerWager;
 		},
 		cashOnHand: function(number){
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
-			console.log('cash left over' + this.cashLeftOver);
-			//console.log('you have $' + this.cashLeftOver + ' left over!');
+			// console.log('cash left over' + this.cashLeftOver); // this works
+			// the value will be correct once this.playerWager updates correctly
 			return this.cashLeftOver;
 		},
 		renderCashOnHand: function(number){
@@ -271,13 +271,15 @@
 	function GameUI(){
 		// this gets the ball rolling
 		// a new instance of GameUI is called at the bottom of this page
-		var betObj = new Betting();
 		this.registerDomElements();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
-		betObj.renderStartingTotalCash();
+		this.betObj = new Betting(); // this should be in controller after the functions are put there
+
+		// put a reference to game controller in here then move betting and its methods to game controller
+		this.betObj.renderStartingTotalCash();
 	}
 
 	// attach all event listeners to this prototype
@@ -295,9 +297,8 @@
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
-			// playerWager = 0; // works
-			function localWager(e,betObj) {
-				scope.wagerEvents(e,betObj);
+			function localWager(e) {
+				scope.wagerEvents(e);
 			}
 			for (var i = 0; i < this.betAnchors.length; i++) {
 				this.betAnchors[i].addEventListener('click', localWager);
@@ -324,16 +325,13 @@
 		  	}
 		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
-		wagerEvents: function(e, betObj){
-			console.log(betObj);
-			var chipValue = e.target.dataset.value;
+		wagerEvents: function(e){
+			var chipValue = e.target.dataset.value; // this should be in gameUI
 			// deal button shows
-			this.primaryButtonsShown();
-			// chip value is stored
-			// change player wager value
-			// calculations are done : methods related to Wager proto
+			this.primaryButtonsShown();  // this should be in gameUI
+			this.betObj.updateWager(chipValue); // this should be in controller
+			this.betObj.cashOnHand(); // this should be in controller
 			e.preventDefault();
-			return chipValue;
 		},
 		dealEvent: function(e){
 		  	// what happens when you click the deal button?
