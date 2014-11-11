@@ -208,7 +208,6 @@
 	Betting.prototype = {
 		constructor: Betting,
 		disableBets: function(){
-			// create new div element
 			var newDiv = document.createElement('div');
 			newDiv.className ='bets-off';
 			var firstItem = document.querySelector('.bets').firstChild;
@@ -317,7 +316,7 @@
 	  		// other UI elements appear
 	  		this.secondaryButtonsShown();
 		  	// cards are dealt to player and dealer
-		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
+		  	Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
 		  	this.betObj.disableBets();
 		},
