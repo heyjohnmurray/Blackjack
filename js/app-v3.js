@@ -209,11 +209,10 @@
 		constructor: Betting,
 		disableBets: function(){
 			// create new div element
-			// var newDiv = document.createElement('div');
-			// rewrite this ...
-			// newDiv.className ='bets-off';
-			// var firstItem = document.querySelector('.bets').firstChild;
-			// document.querySelector('.bets').insertBefore(newDiv, firstItem);
+			var newDiv = document.createElement('div');
+			newDiv.className ='bets-off';
+			var firstItem = document.querySelector('.bets').firstChild;
+			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
 		updateWager: function(value){
 			this.playerWager += parseInt(value, 10);
@@ -241,11 +240,9 @@
 		// create Player 1
 		var playerOne = new Player();
 		var playerRender = new PlayerUI('John');
-
 		// create Dealer instance
 		var gameDealer = new Player();
 		var dealerRender = new PlayerUI('Dealer');
-
 		// create Deck instance
 		var myDeck = new Deck();
 	}
@@ -322,6 +319,7 @@
 		  	// cards are dealt to player and dealer
 		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
+		  	this.betObj.disableBets();
 		},
 		hitEvent: function(){
 			console.log('hit me!');
