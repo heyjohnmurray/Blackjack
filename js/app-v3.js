@@ -3,31 +3,31 @@
 ////////////////////////
 (function(undefined){
 
-	function Player() {
+	function Player(name) {
+		this.name = name;
 		this.cards = [];
 		this.score = 0;
 		this.wager = 0;
+		this.playerUI = new PlayerUI();
 	}
 
-	Player.prototype.receiveCard = function(card){
-		this.card.push(card);
-	};
-
-	// constructor
-	function PlayerUI(name){
-		this.name = name;
+	function PlayerUI(){
 	  	this.cardDom = undefined;
 	  	this.scoreDom = undefined;
 	}
 
-	PlayerUI.prototype.setCardDom = function(element){
-	  	this.cardDom = element;
+	Player.prototype = {
+		constructor: Player,
+		receiveCard: function(card){
+			this.card.push(card);
+		},
+		setCardDom: function(element){
+		  	this.cardDom = element;
+		},
+		setScoreDom: function(element){
+		  	this.scoreDom = element;
+		}
 	};
-
-	PlayerUI.prototype.setScoreDom = function(element){
-	  	this.scoreDom = element;
-	};
-
 //////////////////////
 // :: CARD LOGIC :: //
 //////////////////////
@@ -235,15 +235,15 @@
 //////////////////////////
 // :: GAMEPLAY LOGIC :: //
 //////////////////////////
-	function GameController() {
-		// create Player 1
-		var playerOne = new Player();
-		var playerRender = new PlayerUI('John');
-		// create Dealer instance
-		var gameDealer = new Player();
-		var dealerRender = new PlayerUI('Dealer');
-		// create Deck instance
-		var myDeck = new Deck();
+	function GameController() { // make this a class.
+		// everything related to the game that doesn't touch the DOM
+		this.myDeck = new Deck();
+		this.betObj = new Betting();
+		this.playerOne = new Player();
+		this.playerRender = new PlayerUI();
+		this.gameDealer = new Player();
+		this.dealerRender = new PlayerUI();
+
 	}
 
 	function GameUI(){
@@ -254,8 +254,9 @@
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
-		this.betObj = new Betting(); // this should be in controller after the functions are put there
+		 // this should be in controller after the functions are put there
 		this.betObj.renderStartingTotalCash(); // put a reference to game controller in here then move betting and its methods to game controller
+		// this.gameController.betObj. ...
 	}
 
 	// attach all event listeners to this prototype
