@@ -28,6 +28,7 @@
 		  	this.scoreDom = element;
 		}
 	};
+
 //////////////////////
 // :: CARD LOGIC :: //
 //////////////////////
@@ -236,30 +237,27 @@
 // :: GAMEPLAY LOGIC :: //
 //////////////////////////
 	function GameController() { // make this a class.
-		// everything related to the game that doesn't touch the DOM
+		// everything related to the game that doesn't directly touch the DOM
 		this.myDeck = new Deck();
 		this.betObj = new Betting();
 		this.playerOne = new Player();
 		this.playerRender = new PlayerUI();
 		this.gameDealer = new Player();
 		this.dealerRender = new PlayerUI();
-
 	}
 
 	function GameUI(){
 		// this gets the ball rolling
 		// a new instance of GameUI is called at the bottom of this page
+		this.gameController = new GameController();
 		this.registerDomElements();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
-		 // this should be in controller after the functions are put there
-		this.betObj.renderStartingTotalCash(); // put a reference to game controller in here then move betting and its methods to game controller
-		// this.gameController.betObj. ...
+		this.gameController.betObj.renderStartingTotalCash();
 	}
 
-	// attach all event listeners to this prototype
 	GameUI.prototype = {
 		constructor: GameUI,
 		registerDomElements: function(){
@@ -303,22 +301,21 @@
 		  	this.stayButton.addEventListener('click', localStayEvent);
 		},
 		wagerEvents: function(e){
-			var chipValue = e.target.dataset.value; // this should be in gameUI
-			// deal button shows
-			this.primaryButtonsShown();  // this should be in gameUI
-			this.betObj.updateWager(chipValue); // this should be in controller
-			this.betObj.renderUpdatedWager();
-			this.betObj.cashOnHand(); // this should be in controller
-			this.betObj.renderCashOnHand();
+			var chipValue = e.target.dataset.value;
+			// deal button becomes visible
+			this.primaryButtonsShown();
+			this.gameController.betObj.updateWager(chipValue);
+			this.gameController.betObj.renderUpdatedWager();
+			this.gameController.betObj.cashOnHand();
+			this.gameController.betObj.renderCashOnHand();
 
-			if(this.betObj.cashLeftOver <= 0){
-				// if you don't have anymore money left ...
-				this.betObj.disableBets();
+			if(this.gameController.betObj.cashLeftOver <= 0){
+				// if you don't have any money left ...
+				this.gameController.betObj.disableBets();
 
-				// this should probably be moved to game controller in the end. 
 				document.querySelector('.wager-total .cash').classList.add('warning');
 				document.querySelector('.wager-total .cash').innerHTML = 0;
-				document.querySelector('.wager-total .bet').innerHTML = this.betObj.maxCashToStart;
+				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.maxCashToStart;
 			}
 
 			e.preventDefault();
@@ -330,7 +327,7 @@
 		  	// cards are dealt to player and dealer
 		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
 		  	// wagering is disabled
-		  	this.betObj.disableBets();
+		  	this.gameController.betObj.disableBets();
 		},
 		hitEvent: function(){
 			console.log('hit me!');
