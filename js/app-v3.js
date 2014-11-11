@@ -218,8 +218,6 @@
 		updateWager: function(value){
 			this.playerWager += parseInt(value, 10);
 			console.log(this.playerWager);
-			// James, I have no idea why this the valud of
-			// this.playerWager is always zero in this function.
 			return this.playerWager;
 		},
 		renderUpdatedWager: function(){
