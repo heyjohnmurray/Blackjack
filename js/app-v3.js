@@ -199,7 +199,6 @@
 ///////////////////////
 // :: WAGER LOGIC :: //
 ///////////////////////
-
 	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
@@ -236,7 +235,7 @@
 //////////////////////////
 // :: GAMEPLAY LOGIC :: //
 //////////////////////////
-	function GameController() { // make this a class.
+	function GameController() {
 		// everything related to the game that doesn't directly touch the DOM
 		this.myDeck = new Deck();
 		this.betObj = new Betting();
