@@ -313,23 +313,11 @@
 
 			e.preventDefault();
 		},
-<<<<<<< HEAD
-		dealEvent: function(e){
-		  	// what happens when you click the deal button?
-	  		// other UI elements appear
-	  		this.secondaryButtonsShown();
-		  	// cards are dealt to player and dealer
-		  	//Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
-		  	// Deck.dealRandomCard('Player',2); // this isn't working yet but i know why
-		  	// wagering is disabled
-		  	this.gameController.betObj.disableBets();
-=======
 		dealEvent: function(e){ // what happens when you click the deal button?
 	  		this.secondaryButtonsShown(); // other UI elements appear
 		  	this.gameController.myDeck.dealCards(this.gameController.playerOne,2); // cards are dealt to player and dealer
 		  	console.log(this.gameController.playerOne);
 		  	this.renderDisableBets();
->>>>>>> test
 		},
 		hitEvent: function(){
 			console.log('hit me!');
