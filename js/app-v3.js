@@ -18,7 +18,7 @@
 
 	Player.prototype = {
 		constructor: Player,
-		receiveCard: function(card){ // this should receive an object
+		receiveCard: function(card){ // this should receive an object.
 			this.card.push(card);
 		},
 		setCardDom: function(element){
