@@ -46,11 +46,6 @@
 		this.value = definedCard.value;
 	}
 
-	Card.prototype = {
-		constructor: Card,
-		// card methods next ...
-	};
-
 //////////////////////
 // :: DECK LOGIC :: //
 //////////////////////	
@@ -196,14 +191,14 @@
 ///////////////////////
 // :: WAGER LOGIC :: //
 ///////////////////////
-	function BettingUI (){
+	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
 		this.playerWager = 0;
 	}
 
-	BettingUI.prototype = {
-		constructor: BettingUI,
+	Betting.prototype = {
+		constructor: Betting,
 		updateWager: function(value){
 			this.playerWager += parseInt(value, 10);
 			return this.playerWager;
@@ -220,7 +215,7 @@
 	function GameController() {
 		// everything related to the game that doesn't directly touch the DOM
 		this.myDeck = new Deck();
-		this.betObj = new BettingUI();
+		this.betObj = new Betting();
 		this.playerOne = new Player('John');
 		this.playerRender = new PlayerUI();
 		this.gameDealer = new Player('Dealer');
