@@ -180,10 +180,11 @@
 
 			return randomCard;
 		},
+
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
 				this.dealRandomCard(user);
-				console.log(this.dealRandomCard(user));
+				console.log(this.dealRandomCard(user)); // shows how many cards the user is getting
 			}
 		}
 	};
@@ -291,6 +292,16 @@
 			var firstItem = document.querySelector('.bets').firstChild;
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
+		createCard: function(){
+		  	// this just creates the html card
+		  	var newDiv = document.createElement('div');
+		  	newDiv.className = 'card';
+		},
+		renderCard: function(){
+			console.log('render card');
+			// this should receive a card obj and render the values into the html
+		  	//<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>
+		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
 			this.primaryButtonsShown(); // deal button becomes visible
@@ -312,6 +323,7 @@
 	  		this.secondaryButtonsShown(); // other UI elements appear
 		  	this.gameController.myDeck.dealCards(this.gameController.playerOne,2); // cards are dealt to player and dealer
 		  	console.log(this.gameController.playerOne);
+		  	this.renderCard();
 		  	this.renderDisableBets();
 		},
 		hitEvent: function(){
