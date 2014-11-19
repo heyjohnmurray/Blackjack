@@ -165,7 +165,7 @@
 
 	Deck.prototype = {
 		constructor: Deck,
-		dealRandomCard: function(){
+		buildCard: function(){
 			var suitType = Math.floor(Math.random() * 4);
 			var cardNumber = Math.floor(Math.random() * 13) + 1;
 
@@ -177,14 +177,13 @@
 				name: this.cards[cardNumber].name,
 				value: this.cards[cardNumber].value
 			});
-
+			console.log(randomCard); // tells you about each card created :: HOW DO I ACCESS THIS VALUE
 			return randomCard;
 		},
 
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
-				this.dealRandomCard(user);
-				console.log(this.dealRandomCard(user)); // shows how many cards the user is getting
+				this.buildCard();
 			}
 		}
 	};
@@ -245,6 +244,10 @@
 			this.resetButton = document.getElementById('reset');
 			this.primaryButtons = document.querySelector('.js-actions');
 			this.secondaryButtons = document.querySelector('.js-secondary-actions');
+			this.gameController.playerOne.setCardDom('.player-cards');
+			this.gameController.playerOne.setScoreDom('.player-box .score');
+			this.gameController.gameDealer.setCardDom('.dealer-cards');
+			this.gameController.gameDealer.setScoreDom('.dealer-box .score');
 		},
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
@@ -292,15 +295,16 @@
 			var firstItem = document.querySelector('.bets').firstChild;
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
-		createCard: function(){
-		  	// this just creates the html card
+		createCard: function(){ // this just creates the html card in the DOM
 		  	var newDiv = document.createElement('div');
 		  	newDiv.className = 'card';
+		  	document.querySelector(this.gameController.playerOne.cardDom).appendChild(newDiv);
 		},
 		renderCard: function(){
-			console.log('render card');
-			// this should receive a card obj and render the values into the html
-		  	//<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>
+			// this should receive a card obj and render the values into the html. HOW DO I ACCESS THE CARD OBJECT FROM THE DECK?!?!?
+			//var cardValues = '<div class="number ' + obj.color + '">' + obj.face + '</div>' + '<div class="suit ' + obj.color +'">' + obj.symbol + '</div>';
+		  	this.createCard(); // builds physical card
+		  	//document.querySelector(this.gameController.playerOne.cardDom).lastChild.innerHTML = cardValues;
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -320,9 +324,8 @@
 			e.preventDefault();
 		},
 		dealEvent: function(e){ // what happens when you click the deal button?
-	  		this.secondaryButtonsShown(); // other UI elements appear
+	  		this.secondaryButtonsShown();
 		  	this.gameController.myDeck.dealCards(this.gameController.playerOne,2); // cards are dealt to player and dealer
-		  	console.log(this.gameController.playerOne);
 		  	this.renderCard();
 		  	this.renderDisableBets();
 		},
