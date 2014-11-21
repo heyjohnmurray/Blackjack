@@ -18,6 +18,9 @@
 
 	Player.prototype = {
 		constructor: Player,
+		getUserName: function(userName){ // i'm creating this in an attempt to pass the user name value from the dealCards method. shot in the dark, here.
+			this.name = this.userName; // i want this to be setting Player's this.name value to the value being passed from dealCards method.
+		},
 		receiveCard: function(card){ // this should receive an object.
 			this.cards.push(card);
 		},
@@ -180,11 +183,12 @@
 				name: this.cards[cardNumber].name,
 				value: this.cards[cardNumber].value
 			});
-			console.log("new card created: ", randomCard); // tells you about each card created :: HOW DO I ACCESS THIS VALUE?
+
 			return randomCard;
 		},
 
 		dealCards: function(user, number){
+			console.log(user.name); // this does tell us a user name
 			for (var i = 0; i < number; i++) {
 				user.receiveCard(this.buildCard());
 			}
@@ -222,9 +226,9 @@
 		this.myDeck = new Deck();
 		this.betObj = new Betting();
 		this.playerOne = new Player('John');
-		this.playerRender = new PlayerUI();
+		//this.playerRender = new PlayerUI(); // not sure why i created this. they don't do anything
 		this.gameDealer = new Player('Dealer');
-		this.dealerRender = new PlayerUI();
+		// this.dealerRender = new PlayerUI(); // not sure why i created this. they don't do anything
 	}
 
 	function GameUI(){
@@ -303,13 +307,16 @@
 		renderCard: function(){ // this just creates the html card in the DOM
 		  	var newDiv = document.createElement('div');
 		  	newDiv.className = 'card';
-		  	document.querySelector(this.gameController.playerOne.cardDom).appendChild(newDiv);
+		  	document.querySelector(this.gameController.playerOne.cardDom).appendChild(newDiv); // it's not playerOne. change this!
 		},
-		createCard: function(newCard){
-			// this should receive a card obj and render the values into the html. HOW DO I ACCESS THE CARD OBJECT FROM THE DECK?!?!?
+		createCard: function(newCard, user){
+			// somewhere in here we should probably also pass a parameter that tells us the user name
+			// dealCards does have a 'user' parameter. could we use that?
+			var userName = this.gameController.myDeck.user.name; 
 			var cardValues = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 		  	this.renderCard(); // builds physical card
-		  	document.querySelector(this.gameController.playerOne.cardDom).lastChild.innerHTML = cardValues;
+		  	// document.querySelector(this.gameController.playerOne.cardDom).lastChild.innerHTML = cardValues; // it's not playerOne. change this!
+		  	document.querySelector(this.gameController.userName.cardDom).lastChild.innerHTML = cardValues; // i feel like it should have this syntax 
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -328,12 +335,16 @@
 
 			e.preventDefault();
 		},
-		dealEvent: function(e){ // what happens when you click the deal button?
-			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
+		dealEvent: function(){ // what happens when you click the deal button?
 			var playerCards = this.gameController.playerOne.getCards();
+			var dealerCards = this.gameController.gameDealer.getCards();
+			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
+			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
 	  		this.secondaryButtonsShown();
 		  	this.createCard(playerCards[0]);
 		  	this.createCard(playerCards[1]);
+		  	this.createCard(dealerCards[0]);
+		  	// console.log(this.gameController.gameDealer.name); // this does give us a name
 		  	this.renderDisableBets();
 		},
 		hitEvent: function(){
