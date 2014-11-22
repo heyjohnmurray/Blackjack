@@ -345,7 +345,8 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			var lastCard = this.gameController.playerOne.getCards()[this.gameController.playerOne.getCards().length - 1]; // get the last element of the array
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
-			console.log(lastCard); // tell me about the last card dealt
+			this.createCard(lastCard, this.gameController.playerOne);
+			//console.log(lastCard); // tell me about the last card dealt
 		},
 		stayEvent: function(){ // what happens when you click the stay button 
 			console.log('stay!');
