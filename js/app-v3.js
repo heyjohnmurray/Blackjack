@@ -26,7 +26,7 @@
 			return this.cards;
 		},
 		getCardValue: function(card){
-			console.log(this.name + " has " + card.value + " points");
+			console.log(this.name + " has a " + card.name + " worth " + card.value + " points");
 			return card.value;
 		},
 		setCardDom: function(element){
