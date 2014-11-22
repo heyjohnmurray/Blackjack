@@ -25,6 +25,10 @@
 		getCards: function(){
 			return this.cards;
 		},
+		getCardValue: function(card){
+			console.log(card.value);
+			return card.value;
+		},
 		setCardDom: function(element){
 		  	this.cardDom = element;
 		},
@@ -181,16 +185,18 @@
 				name: this.cards[cardNumber].name,
 				value: this.cards[cardNumber].value
 			});
-
+			//console.log(randomCard.value); // individual card value :: this help me figure out how to set getCardValue
 			return randomCard;
 		},
 
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
-				user.receiveCard(this.buildCard());
+				user.receiveCard(this.buildCard()); // fyi, this.buildCard() == randomCard
 			}
 
 			return user;
+
+			// this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
 		}
 	};
 
@@ -307,9 +313,9 @@
 		  	document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
 		},
 		createCard: function(newCard, user){
-			var cardValues = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
+			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 		  	this.renderCard(user); // builds physical card
-		  	document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardValues;
+		  	document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -344,6 +350,7 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
+			this.gameController.playerOne.getCardValue(playerCards[playerCards.length-1]); // get the value of the last card
 		},
 		stayEvent: function(){ // what happens when you click the stay button 
 			console.log('stay!');
