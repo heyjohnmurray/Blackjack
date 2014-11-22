@@ -26,7 +26,7 @@
 			return this.cards;
 		},
 		getCardValue: function(card){
-			console.log(card.value);
+			console.log(this.name + " has " + card.value + " points");
 			return card.value;
 		},
 		setCardDom: function(element){
@@ -335,14 +335,26 @@
 			e.preventDefault();
 		},
 		dealEvent: function(){ // what happens when you click the deal button?
+			// get card arrays for each user
 			var playerCards = this.gameController.playerOne.getCards();
 			var dealerCards = this.gameController.gameDealer.getCards();
+
+			this.secondaryButtonsShown();
+
+			// deal cards for each user
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
-	  		this.secondaryButtonsShown();
+
+			// render cards for each user
 		  	this.createCard(playerCards[0], this.gameController.playerOne);
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
+
+		  	// record card value for each user
+		  	this.gameController.playerOne.getCardValue(playerCards[0]);
+		  	this.gameController.playerOne.getCardValue(playerCards[1]);
+		  	this.gameController.gameDealer.getCardValue(dealerCards[0]);
+
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
