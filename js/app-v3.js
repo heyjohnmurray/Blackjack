@@ -26,7 +26,7 @@
 			return this.cards;
 		},
 		getCardValue: function(card){
-			console.log(this.name + " has a " + card.name + " worth " + card.value + " points");
+			console.log(this.name + " has a " + card.name + " of " + card.suit + " worth "  + card.value + " points");
 			return card.value;
 		},
 		totalCardValues: function(card){
