@@ -19,9 +19,6 @@
 
 	Player.prototype = {
 		constructor: Player,
-		getName: function(userName){ // i'm creating this in an attempt to pass the user name value from the dealCards method. shot in the dark, here.
-			this.name = this.userName; // i want this to be setting Player's this.name value to the value being passed from dealCards method.
-		},
 		receiveCard: function(card){ // this should receive an object.
 			this.cards.push(card);
 		},
