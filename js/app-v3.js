@@ -341,6 +341,7 @@
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 		  	this.renderDisableBets();
+		  	this.dealButton.style.display = 'none';
 		},
 		hitEvent: function(){
 			// deal one card
