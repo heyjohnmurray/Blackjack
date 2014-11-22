@@ -341,12 +341,9 @@
 		  	this.dealButton.style.display = 'none';
 		},
 		hitEvent: function(){
-			// deal one card
 			var playerCards = this.gameController.playerOne.getCards();
-			var lastCard = this.gameController.playerOne.getCards()[this.gameController.playerOne.getCards().length - 1]; // get the last element of the array
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
-			this.createCard(lastCard, this.gameController.playerOne);
-			//console.log(lastCard); // tell me about the last card dealt
+			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 		},
 		stayEvent: function(){ // what happens when you click the stay button 
 			console.log('stay!');
