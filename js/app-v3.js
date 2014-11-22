@@ -3,8 +3,9 @@
 ////////////////////////
 (function(undefined){
 
-	function Player(name) {
+	function Player(name, id) {
 		this.name = name;
+		this.id = id;
 		this.cards = [];
 		this.score = 0;
 		this.wager = 0;
@@ -18,8 +19,14 @@
 
 	Player.prototype = {
 		constructor: Player,
+		getName: function(userName){ // i'm creating this in an attempt to pass the user name value from the dealCards method. shot in the dark, here.
+			this.name = this.userName; // i want this to be setting Player's this.name value to the value being passed from dealCards method.
+		},
 		receiveCard: function(card){ // this should receive an object.
-			this.card.push(card);
+			this.cards.push(card);
+		},
+		getCards: function(){
+			return this.cards;
 		},
 		setCardDom: function(element){
 		  	this.cardDom = element;
@@ -45,11 +52,6 @@
 		this.name = definedCard.name;
 		this.value = definedCard.value;
 	}
-
-	Card.prototype = {
-		constructor: Card,
-		// card methods next ...
-	};
 
 //////////////////////
 // :: DECK LOGIC :: //
@@ -170,7 +172,7 @@
 
 	Deck.prototype = {
 		constructor: Deck,
-		dealRandomCard: function(){
+		buildCard: function(){
 			var suitType = Math.floor(Math.random() * 4);
 			var cardNumber = Math.floor(Math.random() * 13) + 1;
 
@@ -185,25 +187,27 @@
 
 			return randomCard;
 		},
+
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
-				this.dealRandomCard(user);
-				console.log(this.dealRandomCard(user));
+				user.receiveCard(this.buildCard());
 			}
+
+			return user;
 		}
 	};
 
 ///////////////////////
 // :: WAGER LOGIC :: //
 ///////////////////////
-	function BettingUI (){
+	function Betting (){
 		this.maxCashToStart = 1500;
 		this.cashLeftOver = undefined;
 		this.playerWager = 0;
 	}
 
-	BettingUI.prototype = {
-		constructor: BettingUI,
+	Betting.prototype = {
+		constructor: Betting,
 		updateWager: function(value){
 			this.playerWager += parseInt(value, 10);
 			return this.playerWager;
@@ -220,11 +224,11 @@
 	function GameController() {
 		// everything related to the game that doesn't directly touch the DOM
 		this.myDeck = new Deck();
-		this.betObj = new BettingUI();
-		this.playerOne = new Player('John');
-		this.playerRender = new PlayerUI();
-		this.gameDealer = new Player('Dealer');
-		this.dealerRender = new PlayerUI();
+		this.betObj = new Betting();
+		this.playerOne = new Player('John','playerOne');
+		//this.playerRender = new PlayerUI(); // not sure why i created this. they don't do anything
+		this.gameDealer = new Player('Dealer','gameDealer');
+		// this.dealerRender = new PlayerUI(); // not sure why i created this. they don't do anything
 	}
 
 	function GameUI(){
@@ -249,6 +253,10 @@
 			this.resetButton = document.getElementById('reset');
 			this.primaryButtons = document.querySelector('.js-actions');
 			this.secondaryButtons = document.querySelector('.js-secondary-actions');
+			this.gameController.playerOne.setCardDom('.player-cards');
+			this.gameController.playerOne.setScoreDom('.player-box .score');
+			this.gameController.gameDealer.setCardDom('.dealer-cards');
+			this.gameController.gameDealer.setScoreDom('.dealer-box .score');
 		},
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
@@ -296,6 +304,16 @@
 			var firstItem = document.querySelector('.bets').firstChild;
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
+		renderCard: function(user){ // this just creates the html card in the DOM
+		  	var newDiv = document.createElement('div');
+		  	newDiv.className = 'card';
+		  	document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
+		},
+		createCard: function(newCard, user){
+			var cardValues = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
+		  	this.renderCard(user); // builds physical card
+		  	document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardValues;
+		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
 			this.primaryButtonsShown(); // deal button becomes visible
@@ -313,15 +331,20 @@
 
 			e.preventDefault();
 		},
-		dealEvent: function(e){ // what happens when you click the deal button?
-	  		this.secondaryButtonsShown(); // other UI elements appear
-		  	this.gameController.myDeck.dealCards(this.gameController.playerOne,2); // cards are dealt to player and dealer
-		  	console.log(this.gameController.playerOne);
+		dealEvent: function(){ // what happens when you click the deal button?
+			var playerCards = this.gameController.playerOne.getCards();
+			var dealerCards = this.gameController.gameDealer.getCards();
+			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
+			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
+	  		this.secondaryButtonsShown();
+		  	this.createCard(playerCards[0], this.gameController.playerOne);
+		  	this.createCard(playerCards[1], this.gameController.playerOne);
+		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 		  	this.renderDisableBets();
 		},
 		hitEvent: function(){
-			console.log('hit me!');
 			// deal one card
+			console.log('hit me!');
 		},
 		stayEvent: function(){ // what happens when you click the stay button 
 			console.log('stay!');
