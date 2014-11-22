@@ -19,7 +19,7 @@
 
 	Player.prototype = {
 		constructor: Player,
-		receiveCard: function(card){ // this should receive an object.
+		receiveCard: function(card){
 			this.cards.push(card);
 		},
 		getCards: function(){
@@ -31,7 +31,7 @@
 		},
 		totalCardValues: function(card){
 			this.score.push(card.value);
-			console.log("the score is " + this.score);
+			console.log("the score is " + getScore());
 		},
 		getScore: function(){
 			return this.score;
@@ -365,6 +365,7 @@
 		  	console.log(this.gameController.playerOne.getScore());	// right now this returns a value of 0, which is good b/c it means i wrote my method correctly.
 		  															// now consider adding .reduce() method to calculate the value
 		  															// maybe you need an updateValue method on player that runs this calculation
+		  															// or use totalCardValue for that work and then rename the method
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
@@ -374,7 +375,7 @@
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 			this.gameController.playerOne.getCardValue(playerCards[playerCards.length-1]); // get the value of the last card
 		},
-		stayEvent: function(){ // what happens when you click the stay button 
+		stayEvent: function(){
 			console.log('stay!');
 		  	// save user player points value
 			// give dealer a card then test whether it's greater or less than player's score
