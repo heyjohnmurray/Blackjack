@@ -29,6 +29,13 @@
 			console.log(this.name + " has a " + card.name + " worth " + card.value + " points");
 			return card.value;
 		},
+		totalCardValues: function(card){
+			this.score.push(card.value);
+			console.log("the score is " + this.score);
+		},
+		getScore: function(){
+			return this.score;
+		},
 		setCardDom: function(element){
 		  	this.cardDom = element;
 		},
@@ -355,6 +362,9 @@
 		  	this.gameController.playerOne.getCardValue(playerCards[1]);
 		  	this.gameController.gameDealer.getCardValue(dealerCards[0]);
 
+		  	console.log(this.gameController.playerOne.getScore());	// right now this returns a value of 0, which is good b/c it means i wrote my method correctly.
+		  															// now consider adding .reduce() method to calculate the value
+		  															// maybe you need an updateValue method on player that runs this calculation
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
