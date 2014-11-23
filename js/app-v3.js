@@ -7,7 +7,8 @@
 		this.name = name;
 		this.id = id;
 		this.cards = [];
-		this.score = [];
+		this.cardValues = [];
+		this.score = 0;
 		this.wager = 0;
 		this.playerUI = new PlayerUI();
 	}
@@ -23,19 +24,19 @@
 			this.cards.push(card);
 		},
 		getCards: function(){
-			//return this.cards;
+			return this.cards;
 		},
-		getCardValue: function(card){
-			console.log(this.name + " has a " + card.name + " of " + card.suit + " worth "  + card.value + " points");
-			return card.value;
+		totalCardValues: function(card){ // stores the values of all the cards a player has
+			this.cardValues.push(card.value);
 		},
-		totalCardValues: function(card, user){
-			//console.log(card, [user.score]);
-			//this.score.push(card.value);
-			//console.log("the score is " + getScore());
+		getCardValues: function(){ // returns the value of all the cards a player has
+			return this.cardValues;
 		},
-		getScore: function(){
-			return this.score;
+		getScore: function(){ // adds the values and reports the score
+			// this.cardValues.reduce(function(prev, curr){
+			//   	return prev + curr;
+			// });
+			console.log('hey');
 		},
 		setCardDom: function(element){
 		  	this.cardDom = element;
@@ -193,7 +194,7 @@
 				name: this.cards[cardNumber].name,
 				value: this.cards[cardNumber].value
 			});
-			//console.log(randomCard.value); // individual card value :: this help me figure out how to set getCardValue
+
 			return randomCard;
 		},
 
@@ -322,7 +323,8 @@
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
-			this.gameController[user.id].totalCardValues(newCard, user);
+			this.gameController[user.id].totalCardValues(newCard);
+			console.log("score: " + this.gameController.playerOne.getScore());
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -357,16 +359,6 @@
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 
-		  	// record card value for each user
-		  	this.gameController.playerOne.getCardValue(playerCards[0]);
-		  	this.gameController.playerOne.getCardValue(playerCards[1]);
-		  	this.gameController.gameDealer.getCardValue(dealerCards[0]);
-
-		  	//console.log(this.gameController.playerOne.getScore());	// right now this returns a value of 0, which is good b/c it means i wrote my method correctly.
-		  															// now consider adding .reduce() method to calculate the value
-		  															// maybe you need an updateValue method on player that runs this calculation
-		  															// or use totalCardValue for that work and then rename the method
-		  	//this.gameController.playerOne.totalCardValues();
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
