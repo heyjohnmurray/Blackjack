@@ -7,7 +7,7 @@
 		this.name = name;
 		this.id = id;
 		this.cards = [];
-		this.score = 0;
+		this.score = [];
 		this.wager = 0;
 		this.playerUI = new PlayerUI();
 	}
@@ -23,15 +23,16 @@
 			this.cards.push(card);
 		},
 		getCards: function(){
-			return this.cards;
+			//return this.cards;
 		},
 		getCardValue: function(card){
 			console.log(this.name + " has a " + card.name + " of " + card.suit + " worth "  + card.value + " points");
 			return card.value;
 		},
-		totalCardValues: function(card){
-			this.score.push(card.value);
-			console.log("the score is " + getScore());
+		totalCardValues: function(card, user){
+			//console.log(card, [user.score]);
+			//this.score.push(card.value);
+			//console.log("the score is " + getScore());
 		},
 		getScore: function(){
 			return this.score;
@@ -202,8 +203,6 @@
 			}
 
 			return user;
-
-			// this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
 		}
 	};
 
@@ -321,8 +320,9 @@
 		},
 		createCard: function(newCard, user){
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
-		  	this.renderCard(user); // builds physical card
-		  	document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
+			this.renderCard(user); // builds physical card
+			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
+			this.gameController[user.id].totalCardValues(newCard, user);
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -362,10 +362,11 @@
 		  	this.gameController.playerOne.getCardValue(playerCards[1]);
 		  	this.gameController.gameDealer.getCardValue(dealerCards[0]);
 
-		  	console.log(this.gameController.playerOne.getScore());	// right now this returns a value of 0, which is good b/c it means i wrote my method correctly.
+		  	//console.log(this.gameController.playerOne.getScore());	// right now this returns a value of 0, which is good b/c it means i wrote my method correctly.
 		  															// now consider adding .reduce() method to calculate the value
 		  															// maybe you need an updateValue method on player that runs this calculation
 		  															// or use totalCardValue for that work and then rename the method
+		  	//this.gameController.playerOne.totalCardValues();
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
