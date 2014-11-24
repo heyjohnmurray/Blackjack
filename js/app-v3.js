@@ -33,7 +33,7 @@
 			return this.cardValues;
 		},
 		getScore: function(){ // adds the values and reports the score
-			var score = this.cardValues.reduce(function(prev, curr){
+			var score = this.getCardValues().reduce(function(prev, curr){
 			  	return prev + curr;
 			});
 
