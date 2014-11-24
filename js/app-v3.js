@@ -325,6 +325,7 @@
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
 			this.gameController[user.id].totalCardValues(newCard);
+			this.gameController[user.id].getScore();
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -359,11 +360,8 @@
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 
-		  	this.gameController.playerOne.getScore();
-		  	this.gameController.gameDealer.getScore();
-
-		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
 		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points');
+		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
 
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
@@ -373,11 +371,8 @@
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 
-			this.gameController.playerOne.getScore();
-		  	this.gameController.gameDealer.getScore();
-
+			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points');
 		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
-		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points');
 		},
 		stayEvent: function(){
 			console.log('stay!');
