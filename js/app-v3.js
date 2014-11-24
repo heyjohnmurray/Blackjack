@@ -33,10 +33,11 @@
 			return this.cardValues;
 		},
 		getScore: function(){ // adds the values and reports the score
-			// this.cardValues.reduce(function(prev, curr){
-			//   	return prev + curr;
-			// });
-			console.log('hey');
+			var score = this.cardValues.reduce(function(prev, curr){
+			  	return prev + curr;
+			});
+
+			return score;
 		},
 		setCardDom: function(element){
 		  	this.cardDom = element;
@@ -324,7 +325,6 @@
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
 			this.gameController[user.id].totalCardValues(newCard);
-			console.log("score: " + this.gameController.playerOne.getScore());
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -359,6 +359,12 @@
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 
+		  	this.gameController.playerOne.getScore();
+		  	this.gameController.gameDealer.getScore();
+
+		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
+		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points');
+
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
@@ -366,7 +372,12 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
-			this.gameController.playerOne.getCardValue(playerCards[playerCards.length-1]); // get the value of the last card
+
+			this.gameController.playerOne.getScore();
+		  	this.gameController.gameDealer.getScore();
+
+		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
+		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points');
 		},
 		stayEvent: function(){
 			console.log('stay!');
