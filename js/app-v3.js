@@ -199,6 +199,10 @@
 			return randomCard;
 		},
 
+		checkCard: function(){
+			// this function will check the builtcard vs existing cards in the array and create another if there's a duplicate
+		},
+
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
 				user.receiveCard(this.buildCard()); // fyi, this.buildCard() == randomCard
@@ -315,6 +319,11 @@
 			var firstItem = document.querySelector('.bets').firstChild;
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
+		renderUpdatedScore: function(){
+			// use this to update the dom with the score
+			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = 'hello';
+			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = 'world';
+		},
 		renderCard: function(user){ // this just creates the html card in the DOM
 		  	var newDiv = document.createElement('div');
 		  	newDiv.className = 'card';
@@ -323,7 +332,7 @@
 		createCard: function(newCard, user){
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 			this.renderCard(user); // builds physical card
-			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes;
+			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
 			this.gameController[user.id].totalCardValues(newCard);
 			this.gameController[user.id].getScore();
 		},
@@ -360,6 +369,8 @@
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
 
+		  	this.renderUpdatedScore();
+
 		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
 		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
 
@@ -370,6 +381,8 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
+
+			this.renderUpdatedScore();
 
 			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
 		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
@@ -382,7 +395,8 @@
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
-			console.log(dealerCards);
+
+			this.renderUpdatedScore();
 		  	// save user player points value
 			// give dealer a card then test whether it's greater or less than player's score
 		},
