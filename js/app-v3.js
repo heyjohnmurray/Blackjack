@@ -1,7 +1,7 @@
 // still need to:
 	//	declare a winner (auto declare if one or more player goes over 21) -- game controller logic / game ui render
 	//	declare a draw if one occurs -- game controller logic / game ui render
-	//	manipulate dom after winner declared -- game 
+	//	manipulate dom after winner declared -- game ui
 	//	update player score after 'stay' is hit and winner is determined -- game ui logic
 	//	declare playerOne 'winner' if they draw 21 immediately after 'deal'
 	//	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
