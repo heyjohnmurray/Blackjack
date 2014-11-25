@@ -10,7 +10,7 @@
 	//		so : 	save user player points value
 	//				give dealer a card then test whether it's greater or less than player's score
 	//	enhance the UI a bit by  adding animations and stuff on the front end. basically, spruce it up a bit.
-
+	//	find a way to add/remove event listeners instead of ghetto disableBets() method. that way you can play several hands in a row much easier.
 ////////////////////////
 // :: PLAYER LOGIC :: //
 ////////////////////////
