@@ -368,17 +368,21 @@
 		},
 		hitEvent: function(){
 			var playerCards = this.gameController.playerOne.getCards();
-			var dealerCards = this.gameController.gameDealer.getCards();
-			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);
-			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
+			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
-			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 
 			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
 		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
 		},
 		stayEvent: function(){
-			console.log('stay!');
+			var dealerCards = this.gameController.gameDealer.getCards();
+
+			this.hitButton.style.display = 'none';
+			this.stayButton.style.display = 'none';
+			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
+			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
+			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
+			console.log(dealerCards);
 		  	// save user player points value
 			// give dealer a card then test whether it's greater or less than player's score
 		},
