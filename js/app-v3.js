@@ -3,7 +3,7 @@
 //	declare a draw if one occurs -- game controller logic / game ui render
 //	manipulate dom after winner declared -- game 
 //	update player score after 'stay' is hit and winner is determined -- game ui logic
-
+//	declare playerOne 'winner' if they draw 21 immediately after 'deal'
 //	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 //	if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
 //	make dealer ask for more cards if need be. right now he only ever gets one.
