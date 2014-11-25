@@ -1,3 +1,15 @@
+// still need to:
+//	declare a winner (auto declare if one or more player goes over 21) -- game controller logic / game ui render
+//	declare a draw if one occurs -- game controller logic / game ui render
+//	manipulate dom after winner declared -- game 
+//	update player score after 'stay' is hit and winner is determined -- game ui logic
+
+//	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
+//	if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
+//	make dealer ask for more cards if need be. right now he only ever gets one.
+//		so : 	save user player points value
+//				give dealer a card then test whether it's greater or less than player's score
+
 ////////////////////////
 // :: PLAYER LOGIC :: //
 ////////////////////////
@@ -320,9 +332,10 @@
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
 		renderUpdatedScore: function(){
-			// use this to update the dom with the score
-			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = 'hello';
-			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = 'world';
+			var playerScore = this.gameController.playerOne.getScore();
+			var dealerScore = this.gameController.gameDealer.getScore();
+			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = playerScore;
+			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = dealerScore;
 		},
 		renderCard: function(user){ // this just creates the html card in the DOM
 		  	var newDiv = document.createElement('div');
@@ -397,8 +410,6 @@
 			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
 
 			this.renderUpdatedScore();
-		  	// save user player points value
-			// give dealer a card then test whether it's greater or less than player's score
 		},
 		primaryButtonsShown: function(){
 			this.primaryButtons.classList.add('is-shown');
