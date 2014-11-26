@@ -256,9 +256,7 @@
 		this.gameDealer = new Player('Dealer','gameDealer');
 	}
 
-	function GameUI(){
-		// this gets the ball rolling
-		// a new instance of GameUI is called at the bottom of this page
+	function GameUI(){ // this gets the ball rolling a new instance of GameUI is called at the bottom of this page
 		this.gameController = new GameController();
 		this.registerDomElements();
 		this.registerWagerEvents();
@@ -266,6 +264,7 @@
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
 		this.renderStartingTotalCash();
+		this.registerWinnerDeclaration();
 	}
 
 	GameUI.prototype = {
