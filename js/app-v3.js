@@ -253,9 +253,7 @@
 		this.myDeck = new Deck();
 		this.betObj = new Betting();
 		this.playerOne = new Player('John','playerOne');
-		//this.playerRender = new PlayerUI(); // not sure why i created this. they don't do anything
 		this.gameDealer = new Player('Dealer','gameDealer');
-		// this.dealerRender = new PlayerUI(); // not sure why i created this. they don't do anything
 	}
 
 	function GameUI(){
@@ -288,6 +286,7 @@
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
+
 			function localWager(e) {
 				scope.wagerEvents(e);
 			}
@@ -297,6 +296,7 @@
 		},
 		registerDealButtonEvent: function(){
 			var scope = this;
+
 			function localDealEvent(e){
 			  	scope.dealEvent(e);
 			}
@@ -304,6 +304,7 @@
 		},
 		registerHitButtonEvent: function(){
 		  	var scope = this;
+
 		  	function localHitEvent(e){
 		  		scope.hitEvent(e);
 		  	}
@@ -311,6 +312,7 @@
 		},
 		registerStayButtonEvent: function(){
 		  	var scope = this;
+
 		  	function localStayEvent(e){
 		  		scope.stayEvent(e);
 		  	}
@@ -327,13 +329,15 @@
 		},
 		renderDisableBets: function(){
 			var newDiv = document.createElement('div');
-			newDiv.className ='bets-off';
 			var firstItem = document.querySelector('.bets').firstChild;
+
+			newDiv.className ='bets-off';
 			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
 		renderUpdatedScore: function(){
 			var playerScore = this.gameController.playerOne.getScore();
 			var dealerScore = this.gameController.gameDealer.getScore();
+
 			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = playerScore;
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = dealerScore;
 		},
@@ -350,6 +354,7 @@
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
+
 			this.primaryButtonsShown(); // deal button becomes visible
 			this.gameController.betObj.updateWager(chipValue);
 			this.renderUpdatedWager();
@@ -386,6 +391,7 @@
 		},
 		hitEvent: function(){
 			var playerCards = this.gameController.playerOne.getCards();
+
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 			this.renderUpdatedScore();
