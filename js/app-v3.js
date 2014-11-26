@@ -36,12 +36,10 @@
 		constructor: Player,
 		receiveCard: function(card){
 			this.cards.push(card);
+			this.cardValues.push(card.value); // use this value to track player card points and add them later
 		},
 		getCards: function(){
 			return this.cards;
-		},
-		totalCardValues: function(card){ // stores the values of all the cards a player has
-			this.cardValues.push(card.value);
 		},
 		getCardValues: function(){ // returns the value of all the cards a player has
 			return this.cardValues;
@@ -348,8 +346,7 @@
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
-			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues intot .receiveCard() instead. then call it then remove the next line of code.
-			this.gameController[user.id].getScore();
+			this.gameController[user.id].receiveCard(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -383,12 +380,7 @@
 		  	this.createCard(playerCards[0], this.gameController.playerOne);
 		  	this.createCard(playerCards[1], this.gameController.playerOne);
 		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
-
 		  	this.renderUpdatedScore();
-
-		  	console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
-		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
-
 		  	this.renderDisableBets();
 		  	this.dealButton.style.display = 'none';
 		},
@@ -396,11 +388,7 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
-
 			this.renderUpdatedScore();
-
-			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
-		  	console.log('Player One has ' + this.gameController.playerOne.getScore() + ' points.');
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
@@ -409,8 +397,6 @@
 			this.stayButton.style.display = 'none';
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
-			console.log('The Dealer has ' + this.gameController.gameDealer.getScore() + ' points.');
-
 			this.renderUpdatedScore();
 		},
 		primaryButtonsShown: function(){
