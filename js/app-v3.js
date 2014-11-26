@@ -348,7 +348,7 @@
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
-			this.gameController[user.id].totalCardValues(newCard);
+			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues intot .receiveCard() instead. then call it then remove the next line of code.
 			this.gameController[user.id].getScore();
 		},
 		wagerEvents: function(e){
