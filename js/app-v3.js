@@ -28,8 +28,8 @@
 	}
 
 	function PlayerUI(){
-	  	this.cardDom = undefined;
-	  	this.scoreDom = undefined;
+		this.cardDom = undefined;
+		this.scoreDom = undefined;
 	}
 
 	Player.prototype = {
@@ -298,34 +298,34 @@
 			var scope = this;
 
 			function localDealEvent(e){
-			  	scope.dealEvent(e);
+				scope.dealEvent(e);
 			}
 			this.dealButton.addEventListener('click', localDealEvent);
 		},
 		registerHitButtonEvent: function(){
-		  	var scope = this;
+			var scope = this;
 
-		  	function localHitEvent(e){
-		  		scope.hitEvent(e);
-		  	}
-		  	this.hitButton.addEventListener('click', localHitEvent);
+			function localHitEvent(e){
+				scope.hitEvent(e);
+			}
+			this.hitButton.addEventListener('click', localHitEvent);
 		},
 		registerStayButtonEvent: function(){
-		  	var scope = this;
+			var scope = this;
 
-		  	function localStayEvent(e){
-		  		scope.stayEvent(e);
-		  	}
-		  	this.stayButton.addEventListener('click', localStayEvent);
+			function localStayEvent(e){
+				scope.stayEvent(e);
+			}
+			this.stayButton.addEventListener('click', localStayEvent);
 		},
 		renderUpdatedWager: function(){
 			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
 		},
 		renderCashOnHand: function(){
-		  	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
 		},
 		renderStartingTotalCash: function(){
-		  	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
 		},
 		renderDisableBets: function(){
 			var newDiv = document.createElement('div');
@@ -342,12 +342,13 @@
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = dealerScore;
 		},
 		renderCard: function(user){ // this just creates the html card in the DOM
-		  	var newDiv = document.createElement('div');
-		  	newDiv.className = 'card';
-		  	document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
+			var newDiv = document.createElement('div');
+			newDiv.className = 'card';
+			document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
 		},
 		createCard: function(newCard, user){
 			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
+
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
 			this.gameController[user.id].receiveCard(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
@@ -382,12 +383,12 @@
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
 
 			// render cards for each user
-		  	this.createCard(playerCards[0], this.gameController.playerOne);
-		  	this.createCard(playerCards[1], this.gameController.playerOne);
-		  	this.createCard(dealerCards[0], this.gameController.gameDealer);
-		  	this.renderUpdatedScore();
-		  	this.renderDisableBets();
-		  	this.dealButton.style.display = 'none';
+			this.createCard(playerCards[0], this.gameController.playerOne);
+			this.createCard(playerCards[1], this.gameController.playerOne);
+			this.createCard(dealerCards[0], this.gameController.gameDealer);
+			this.renderUpdatedScore();
+			this.renderDisableBets();
+			this.dealButton.style.display = 'none';
 		},
 		hitEvent: function(){
 			var playerCards = this.gameController.playerOne.getCards();
@@ -409,7 +410,7 @@
 			this.primaryButtons.classList.add('is-shown');
 		},
 		secondaryButtonsShown: function(){
-		  	this.secondaryButtons.classList.add('is-shown');
+			this.secondaryButtons.classList.add('is-shown');
 		}
 	};
 
