@@ -36,12 +36,13 @@
 		constructor: Player,
 		receiveCard: function(card){
 			this.cards.push(card);
-			this.cardValues.push(card.value); // use this value to track player card points and add them later
+			// this.cardValues.push(card.value); // use this value to track player card points and add them later
 		},
 		getCards: function(){
 			return this.cards;
 		},
-		getCardValues: function(){ // returns the value of all the cards a player has
+		getCardValues: function(card){ // returns the value of all the cards a player has
+			this.cardValues.push(card.value);
 			return this.cardValues;
 		},
 		getScore: function(){ // adds the values and reports the score
@@ -264,7 +265,7 @@
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
 		this.renderStartingTotalCash();
-		this.registerWinnerDeclaration();
+		// this.registerWinnerDeclaration();
 	}
 
 	GameUI.prototype = {
@@ -293,6 +294,40 @@
 				this.betAnchors[i].addEventListener('click', localWager);
 			}
 		},
+		wagerEvents: function(e){
+			var chipValue = e.target.dataset.value;
+
+			this.primaryButtonsShown(); // deal button becomes visible
+			this.gameController.betObj.updateWager(chipValue);
+			this.renderUpdatedWager();
+			this.gameController.betObj.cashOnHand();
+			this.renderCashOnHand();
+
+			if(this.gameController.betObj.cashLeftOver <= 0){ // if you don't have any money left ...
+				this.renderDisableBets();
+				document.querySelector('.wager-total .cash').classList.add('warning');
+				document.querySelector('.wager-total .cash').innerHTML = 0;
+				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.maxCashToStart;
+			}
+
+			e.preventDefault();
+		},
+		renderUpdatedWager: function(){
+			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
+		},
+		renderCashOnHand: function(){
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
+		},
+		renderStartingTotalCash: function(){
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
+		},
+		renderDisableBets: function(){
+			var newDiv = document.createElement('div');
+			var firstItem = document.querySelector('.bets').firstChild;
+
+			newDiv.className ='bets-off';
+			document.querySelector('.bets').insertBefore(newDiv, firstItem);
+		},
 		registerDealButtonEvent: function(){
 			var scope = this;
 
@@ -317,22 +352,7 @@
 			}
 			this.stayButton.addEventListener('click', localStayEvent);
 		},
-		renderUpdatedWager: function(){
-			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
-		},
-		renderCashOnHand: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
-		},
-		renderStartingTotalCash: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
-		},
-		renderDisableBets: function(){
-			var newDiv = document.createElement('div');
-			var firstItem = document.querySelector('.bets').firstChild;
-
-			newDiv.className ='bets-off';
-			document.querySelector('.bets').insertBefore(newDiv, firstItem);
-		},
+		
 		renderUpdatedScore: function(){
 			var playerScore = this.gameController.playerOne.getScore();
 			var dealerScore = this.gameController.gameDealer.getScore();
@@ -352,24 +372,6 @@
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
 			this.gameController[user.id].receiveCard(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
 		},
-		wagerEvents: function(e){
-			var chipValue = e.target.dataset.value;
-
-			this.primaryButtonsShown(); // deal button becomes visible
-			this.gameController.betObj.updateWager(chipValue);
-			this.renderUpdatedWager();
-			this.gameController.betObj.cashOnHand();
-			this.renderCashOnHand();
-
-			if(this.gameController.betObj.cashLeftOver <= 0){ // if you don't have any money left ...
-				this.renderDisableBets();
-				document.querySelector('.wager-total .cash').classList.add('warning');
-				document.querySelector('.wager-total .cash').innerHTML = 0;
-				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.maxCashToStart;
-			}
-
-			e.preventDefault();
-		},
 		dealEvent: function(){ // what happens when you click the deal button?
 			// get card arrays for each user
 			var playerCards = this.gameController.playerOne.getCards();
@@ -388,6 +390,8 @@
 			this.renderUpdatedScore();
 			this.renderDisableBets();
 			this.dealButton.style.display = 'none';
+
+			console.log(this.gameController.playerOne.cardValues);
 		},
 		hitEvent: function(){
 			var playerCards = this.gameController.playerOne.getCards();
