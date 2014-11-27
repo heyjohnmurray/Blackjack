@@ -233,17 +233,19 @@
 		this.winner = undefined;
 		this.playerScore = undefined;
 		this.dealerScore = undefined;
+		this.playerOneName = undefined;
+		this.gameDealerName = undefined;
 	}
 
 	Result.prototype = {
 		constructor: Result,
 		decision: function(){
 			if (this.playerScore > this.dealerScore) {
-				this.winner = this.playerOne.name;
+				this.winner = this.playerOneName;
 			} else if (this.playerScore < this.dealerScore) {
-				this.winner = this.gameDealer.name;
+				this.winner = this.gameDealerName;
 			}
-			console.log(this.winner);
+
 			return this.winner;
 		}
 	};
@@ -446,13 +448,14 @@
 			this.stayButton.addEventListener('click', localStayEvent);
 		},
 		announceWinner: function(){
-			var winner = this.decideWinner();
+			var winner = this.gameController.result.decision();
 			document.querySelector('.winner-is p').innerHTML = winner;
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
-			var playerScore = this.gameController.playerOne.getScore();
-			var dealerScore = this.gameController.gameDealer.getScore();
+			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
+			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
+			this.gameController.result.playerOneName = this.gameController.playerOne.name;
 
 			this.hitButton.style.display = 'none';
 			this.stayButton.style.display = 'none';
@@ -460,6 +463,7 @@
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
 			this.gameController.result.decision();
+			this.announceWinner();
 		}
 	};
 
