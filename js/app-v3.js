@@ -266,7 +266,6 @@
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
 		this.renderStartingTotalCash();
-		// this.registerWinnerDeclaration();
 	}
 
 	GameUI.prototype = {
@@ -276,7 +275,6 @@
 			this.hitButton = document.getElementById('hit-me');
 			this.stayButton = document.getElementById('stay');
 			this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
-			this.resetButton = document.getElementById('reset');
 			this.primaryButtons = document.querySelector('.js-actions');
 			this.secondaryButtons = document.querySelector('.js-secondary-actions');
 			this.gameController.playerOne.setCardDom('.player-cards');
@@ -284,6 +282,34 @@
 			this.gameController.gameDealer.setCardDom('.dealer-cards');
 			this.gameController.gameDealer.setScoreDom('.dealer-box .score');
 		},
+		///////////////////////////////////
+		// :: SHARED BUTTON FUNCTIONS :: //
+		///////////////////////////////////
+		primaryButtonsShown: function(){
+			this.primaryButtons.classList.add('is-shown');
+		},
+		secondaryButtonsShown: function(){
+			this.secondaryButtons.classList.add('is-shown');
+		},
+		/////////////////////////////////
+		// :: SHARED CARD FUNCTIONS :: //
+		/////////////////////////////////
+		renderCard: function(user){ // this just creates the html card in the DOM
+			var newDiv = document.createElement('div');
+			newDiv.className = 'card';
+			document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
+		},
+		createCard: function(newCard, user){
+			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
+
+			this.renderCard(user); // builds physical card
+			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
+			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
+			this.gameController[user.id].getScore();
+		},
+		///////////////////////////
+		// :: WAGER FUNCTIONS :: //
+		///////////////////////////
 		registerWagerEvents: function(){
 			// keep 'this' scoped to GameUI prototype instead of the click target
 			var scope = this;
@@ -294,6 +320,22 @@
 			for (var i = 0; i < this.betAnchors.length; i++) {
 				this.betAnchors[i].addEventListener('click', localWager);
 			}
+		},
+		renderUpdatedWager: function(){
+			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
+		},
+		renderCashOnHand: function(){
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
+		},
+		renderStartingTotalCash: function(){
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
+		},
+		renderDisableBets: function(){
+			var newDiv = document.createElement('div');
+			var firstItem = document.querySelector('.bets').firstChild;
+
+			newDiv.className ='bets-off';
+			document.querySelector('.bets').insertBefore(newDiv, firstItem);
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
@@ -313,22 +355,19 @@
 
 			e.preventDefault();
 		},
-		renderUpdatedWager: function(){
-			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
-		},
-		renderCashOnHand: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
-		},
-		renderStartingTotalCash: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
-		},
-		renderDisableBets: function(){
-			var newDiv = document.createElement('div');
-			var firstItem = document.querySelector('.bets').firstChild;
+		/////////////////////////////
+		// :: SCORING FUNCTIONS :: //
+		/////////////////////////////
+		renderUpdatedScore: function(){
+			var playerScore = this.gameController.playerOne.getScore();
+			var dealerScore = this.gameController.gameDealer.getScore();
 
-			newDiv.className ='bets-off';
-			document.querySelector('.bets').insertBefore(newDiv, firstItem);
+			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = playerScore;
+			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = dealerScore;
 		},
+		/////////////////////////////////
+		// :: DEAL BUTTON FUNCTIONS :: //
+		/////////////////////////////////
 		registerDealButtonEvent: function(){
 			var scope = this;
 
@@ -337,43 +376,7 @@
 			}
 			this.dealButton.addEventListener('click', localDealEvent);
 		},
-		registerHitButtonEvent: function(){
-			var scope = this;
-
-			function localHitEvent(e){
-				scope.hitEvent(e);
-			}
-			this.hitButton.addEventListener('click', localHitEvent);
-		},
-		registerStayButtonEvent: function(){
-			var scope = this;
-
-			function localStayEvent(e){
-				scope.stayEvent(e);
-			}
-			this.stayButton.addEventListener('click', localStayEvent);
-		},
-		renderUpdatedScore: function(){
-			var playerScore = this.gameController.playerOne.getScore();
-			var dealerScore = this.gameController.gameDealer.getScore();
-
-			document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = playerScore;
-			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = dealerScore;
-		},
-		renderCard: function(user){ // this just creates the html card in the DOM
-			var newDiv = document.createElement('div');
-			newDiv.className = 'card';
-			document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
-		},
-		createCard: function(newCard, user){
-			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
-
-			this.renderCard(user); // builds physical card
-			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
-			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
-			this.gameController[user.id].getScore();
-		},
-		dealEvent: function(){ // what happens when you click the deal button?
+		dealEvent: function(){
 			// get card arrays for each user
 			var playerCards = this.gameController.playerOne.getCards();
 			var dealerCards = this.gameController.gameDealer.getCards();
@@ -390,12 +393,40 @@
 			this.renderDisableBets();
 			this.dealButton.style.display = 'none';
 		},
+		/////////////////////////////////
+		// :: HIT BUTTON FUNCTIONS :: //
+		/////////////////////////////////
+		registerHitButtonEvent: function(){
+			var scope = this;
+
+			function localHitEvent(e){
+				scope.hitEvent(e);
+			}
+			this.hitButton.addEventListener('click', localHitEvent);
+		},
 		hitEvent: function(){
 			var playerCards = this.gameController.playerOne.getCards();
 
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 			this.renderUpdatedScore();
+		},
+		/////////////////////////////////
+		// :: STAY BUTTON FUNCTIONS :: //
+		/////////////////////////////////
+		registerStayButtonEvent: function(){
+			var scope = this;
+
+			function localStayEvent(e){
+				scope.stayEvent(e);
+			}
+			this.stayButton.addEventListener('click', localStayEvent);
+		},
+		decideWinner: function(){
+			console.log('winner!');
+		},
+		announceWinner: function(){
+			console.log('manipulate the dom!');
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
@@ -405,12 +436,8 @@
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
-		},
-		primaryButtonsShown: function(){
-			this.primaryButtons.classList.add('is-shown');
-		},
-		secondaryButtonsShown: function(){
-			this.secondaryButtons.classList.add('is-shown');
+			this.decideWinner();
+			this.announceWinner();
 		}
 	};
 
