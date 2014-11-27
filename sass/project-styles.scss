@@ -242,4 +242,13 @@ a.chip {
 
 .winner-is {
 	margin: 20px 0;
+	background-color: yellow;
+	
+	p {
+		color: #016f30;
+		font-weight: bold;
+		text-align: center;
+		text-transform: uppercase;
+		line-height: 3;
+	}
 }

@@ -450,9 +450,9 @@
 			var playerScore = this.gameController.playerOne.getScore();
 			var dealerScore = this.gameController.gameDealer.getScore();
 			if (playerScore > dealerScore) {
-				winner = this.gameController.playerOne.name  + ' wins';
+				winner = this.gameController.playerOne.name  + ' wins!';
 			} else if (playerScore < dealerScore) {
-				winner = this.gameController.gameDealer.name  + ' wins';
+				winner = this.gameController.gameDealer.name  + ' wins!';
 			} else {
 				winner = 'Looks like it\'s a draw';
 			}
@@ -460,7 +460,7 @@
 		},
 		announceWinner: function(){
 			var winner = this.decideWinner();
-			document.querySelector('.winner-is').innerHTML = winner;
+			document.querySelector('.winner-is p').innerHTML = winner;
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
