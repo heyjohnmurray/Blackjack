@@ -247,8 +247,6 @@
 				winner = 'Looks like it\'s a draw';
 			}
 
-			//console.log("Dealer score on 'result': " + this.dealerScore);
-
 			return winner;
 		}
 	};
@@ -470,10 +468,6 @@
 			this.hitButton.style.display = 'none';
 			this.stayButton.style.display = 'none';
 			this.announceWinner();
-			// console.log("dealer score when 'hit': " + this.gameController.gameDealer.getScore());
-			// console.log("player: " + this.gameController.result.playerName + " " + this.gameController.result.playerScore);
-			// console.log("dealer: " + this.gameController.result.dealerName + " " + this.gameController.result.dealerScore);
-			// console.log("winner: " + winner);
 		}
 	};
 
