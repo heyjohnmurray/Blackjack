@@ -230,23 +230,26 @@
 // :: RESULTS LOGIC :: //
 /////////////////////////
 	function Result (){
-		this.winner = undefined;
 		this.playerScore = undefined;
 		this.dealerScore = undefined;
-		this.playerOneName = undefined;
-		this.gameDealerName = undefined;
+		this.playerName = undefined;
+		this.dealerName = undefined;
 	}
 
 	Result.prototype = {
 		constructor: Result,
 		decision: function(){
 			if (this.playerScore > this.dealerScore) {
-				this.winner = this.playerOneName;
+				winner = this.playerName + " wins!";
 			} else if (this.playerScore < this.dealerScore) {
-				this.winner = this.gameDealerName;
+				winner = this.dealerName + " wins!";
+			} else {
+				winner = 'Looks like it\'s a draw';
 			}
 
-			return this.winner;
+			//console.log("Dealer score on 'result': " + this.dealerScore);
+
+			return winner;
 		}
 	};
 
@@ -453,17 +456,24 @@
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
-			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
-			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
-			this.gameController.result.playerOneName = this.gameController.playerOne.name;
-
-			this.hitButton.style.display = 'none';
-			this.stayButton.style.display = 'none';
+			
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
-			this.gameController.result.decision();
+
+			// need to assign these variables after the final card has been dealt to the dealer otherwise it won't register all the dealer's points and player one will always win.
+			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
+			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
+			this.gameController.result.playerName = this.gameController.playerOne.name;
+			this.gameController.result.dealerName = this.gameController.gameDealer.name;
+
+			this.hitButton.style.display = 'none';
+			this.stayButton.style.display = 'none';
 			this.announceWinner();
+			// console.log("dealer score when 'hit': " + this.gameController.gameDealer.getScore());
+			// console.log("player: " + this.gameController.result.playerName + " " + this.gameController.result.playerScore);
+			// console.log("dealer: " + this.gameController.result.dealerName + " " + this.gameController.result.dealerScore);
+			// console.log("winner: " + winner);
 		}
 	};
 
