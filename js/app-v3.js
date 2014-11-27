@@ -243,6 +243,10 @@
 				winner = this.playerName + " wins!";
 			} else if (this.playerScore < this.dealerScore) {
 				winner = this.dealerName + " wins!";
+			} else if (this.playerScore > 21){
+				winner = this.dealerName + " wins!";
+			} else if (this.dealerScore > 21){
+				winner = this.playerName + " wins!";
 			} else {
 				winner = 'Looks like it\'s a draw';
 			}
