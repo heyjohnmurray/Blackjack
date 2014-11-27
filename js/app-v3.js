@@ -239,6 +239,7 @@
 	Result.prototype = {
 		constructor: Result,
 		decision: function(){
+			// the comparisons to 21 seemed to have to be added first for this logic to work as desired. strange!
 			if (this.playerScore > 21) {
 				winner = this.dealerName + " wins!";
 			} else if (this.dealerScore > 21) {
