@@ -35,14 +35,15 @@
 	Player.prototype = {
 		constructor: Player,
 		receiveCard: function(card){
+			this.cardValues.push(card.value);
 			this.cards.push(card);
 		},
 		getCards: function(){
 			return this.cards;
 		},
-		totalCardValues: function(card){
-			this.cardValues.push(card.value); // use this value to track player card points and add them later
-		},
+		// totalCardValues: function(card){
+		// 	this.cardValues.push(card.value);
+		// },
 		getCardValues: function(){ // returns the value of all the cards a player has
 			return this.cardValues;
 		},
@@ -371,8 +372,7 @@
 
 			this.renderCard(user); // builds physical card
 			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
-			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
-			this.gameController[user.id].getScore();
+			this.gameController[user.id].receiveCard(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
 		},
 		dealEvent: function(){ // what happens when you click the deal button?
 			// get card arrays for each user
