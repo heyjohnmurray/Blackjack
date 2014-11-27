@@ -353,7 +353,6 @@
 			}
 			this.stayButton.addEventListener('click', localStayEvent);
 		},
-		
 		renderUpdatedScore: function(){
 			var playerScore = this.gameController.playerOne.getScore();
 			var dealerScore = this.gameController.gameDealer.getScore();
@@ -380,11 +379,9 @@
 			var dealerCards = this.gameController.gameDealer.getCards();
 
 			this.secondaryButtonsShown();
-
 			// deal cards for each user
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
-
 			// render cards for each user
 			this.createCard(playerCards[0], this.gameController.playerOne);
 			this.createCard(playerCards[1], this.gameController.playerOne);
