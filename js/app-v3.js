@@ -226,6 +226,28 @@
 		}
 	};
 
+/////////////////////////
+// :: RESULTS LOGIC :: //
+/////////////////////////
+	// function Result (){
+	// 	this.winner = undefined;
+	// 	this.playerScore = undefined;
+	// 	this.dealerScore = undefined;
+	// }
+
+	// Result.prototype = {
+	// 	constructor: Result,
+	// 	decision: function(){
+	// 		if (this.playerScore > this.dealerScore) {
+	// 			this.winner = this.playerOne.name;
+	// 		} else if (this.playerScore < this.dealerScore) {
+	// 			this.winner = this.gameDealer.name;
+	// 		}
+	// 		console.log(this.winner);
+	// 		return this.winner;
+	// 	}
+	// };
+
 ///////////////////////
 // :: WAGER LOGIC :: //
 ///////////////////////
@@ -256,6 +278,7 @@
 		this.betObj = new Betting();
 		this.playerOne = new Player('John','playerOne');
 		this.gameDealer = new Player('Dealer','gameDealer');
+		//this.result = new Result();
 	}
 
 	function GameUI(){ // this gets the ball rolling a new instance of GameUI is called at the bottom of this page
@@ -423,19 +446,33 @@
 			this.stayButton.addEventListener('click', localStayEvent);
 		},
 		decideWinner: function(){
-			console.log('winner!');
+			var winner;
+			var playerScore = this.gameController.playerOne.getScore();
+			var dealerScore = this.gameController.gameDealer.getScore();
+			if (playerScore > dealerScore) {
+				winner = this.gameController.playerOne.name  + ' wins';
+			} else if (playerScore < dealerScore) {
+				winner = this.gameController.gameDealer.name  + ' wins';
+			} else {
+				winner = 'Looks like it\'s a draw';
+			}
+			return winner;
 		},
 		announceWinner: function(){
-			console.log('manipulate the dom!');
+			var winner = this.decideWinner();
+			document.querySelector('.winner-is').innerHTML = winner;
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
+			// var playerScore = this.gameController.playerOne.getScore();
+			// var dealerScore = this.gameController.gameDealer.getScore();
 
 			this.hitButton.style.display = 'none';
 			this.stayButton.style.display = 'none';
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
+			//this.gameController.result.decision();
 			this.decideWinner();
 			this.announceWinner();
 		}
