@@ -562,7 +562,8 @@
 			this.secondaryButtonsHidden();
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
-			document.querySelector('.wager-total .bet').innerHTML = 0;
+			this.gameController.betting.playerWager = 0;
+			this.renderUpdatedWager();
 			// take the cards off the table
 		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = '';
