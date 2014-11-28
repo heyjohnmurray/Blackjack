@@ -1,13 +1,13 @@
 // still need to:
-	//	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
+	//	* remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
-	//	if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
-	//	make dealer ask for more cards if need be. right now he only ever gets one.
-	//	prompt user for name so you can write it on the table and pass it around for the winner-is value
+	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
+	//	* make dealer ask for more cards if need be. right now he only ever gets one.
+	//	* prompt user for name so you can write it on the table and pass it around for the winner-is value
 	//		so : 	save user player points value
 	//				give dealer a card then test whether it's greater or less than player's score
-	//	enhance the UI a bit by  adding animations and stuff on the front end. basically, spruce it up a bit.
-	//	find a way to add/remove event listeners instead of ghetto disableBets() method. that way you can play several hands in a row much easier.
+	//	* enhance the UI a bit by  adding animations and stuff on the front end. basically, spruce it up a bit.
+	//	* find a way to add/remove event listeners instead of ghetto disableBets() method. that way you can play several hands in a row much easier.
 
 ////////////////////////
 // :: PLAYER LOGIC :: //
