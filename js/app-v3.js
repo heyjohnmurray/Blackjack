@@ -294,25 +294,16 @@
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
 			return this.cashLeftOver;
 		},
-
-		// renderUpdatedWager: function(){
-		// 	document.querySelector('.wager-total .bet').innerHTML = this.gameController.betting.playerWager;
-		// },
-		// renderCashOnHand: function(){
-		// 	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.cashLeftOver;
-		// },
-		// renderStartingTotalCash: function(){
-		// 	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.maxCashToStart;
-		// },
-
 		wagerWin: function(){
 			this.maxCashToStart = this.playerWager + this.maxCashToStart;
 			this.cashLeftOver = this.maxCashToStart;
 			return this.cashLeftOver;
-		}//,
-		// wagerLose: function(){
-		// 	console.log('wager lose!');
-		// },
+		},
+		wagerLose: function(){
+			//this.cashLeftOver = this.maxCashToStart;
+			console.log(this.cashLeftOver);
+			return this.cashLeftOver;
+		},
 	};
 
 //////////////////////////
@@ -330,7 +321,7 @@
 	function GameUI(){ // this gets the ball rolling a new instance of GameUI is called at the bottom of this page
 		this.gameController = new GameController();
 		this.registerDomElements();
-		//this.renderStartingTotalCash();
+		this.renderStartingTotalCash();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
@@ -539,12 +530,16 @@
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
-				//this.renderStartingTotalCash();
-				// this.gameController.beting.cashLeftOver = this.gameController.betting.maxCashToStart;
-				console.log('wiiiiin!');
+				this.renderStartingTotalCash();
+				this.gameController.betting.cashLeftOver = this.gameController.betting.maxCashToStart;
 			} else {
-				//this.gameController.betting.wagerLose();
+				this.gameController.betting.wagerLose();
+				this.renderCashOnHand();
+				this.gameController.betting.cashLeftOver = this.gameController.betting.maxCashToStart;
 			}
+
+			this.gameController.betting.playerWager = 0;
+			this.renderUpdatedWager();
 		},
 		//////////////////////////////
 		// :: NEW GAME FUNCTIONS :: //
@@ -562,8 +557,6 @@
 			this.secondaryButtonsHidden();
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
-			this.gameController.betting.playerWager = 0;
-			this.renderUpdatedWager();
 			// take the cards off the table
 		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = '';
