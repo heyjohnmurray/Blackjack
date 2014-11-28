@@ -295,7 +295,9 @@
 			return this.cashLeftOver;
 		},
 		wagerWin: function(){
-			console.log('wager win!');
+			console.log(this.cashLeftOver);
+			this.cashLeftOver = this.playerWager + this.cashLeftOver;
+			console.log(this.cashLeftOver);
 		},
 		wagerLose: function(){
 			console.log('wager lose!');
@@ -508,11 +510,9 @@
 			this.announceWinner();
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
-				this.gameController.betting.wagerWin();
-				console.log('player wins');
+				this.gameController.betting.wagerWin(); // make sure you need this function and that you keep wagerEvents() resusable.
 			} else {
 				this.gameController.betting.wagerLose();
-				console.log('dealer wins');
 			}
 		},
 		//////////////////////////////
@@ -527,6 +527,8 @@
 		  	this.newGameButton.addEventListener('click', localNewGameEvent);
 		},
 		newGameEvent: function(){
+			this.newGameButton.style.display = 'none'; // this button flow works for now but needs to be redone in the end.
+			this.dealButton.style.display = 'block';
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
 			// take the cards off the table
