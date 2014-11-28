@@ -301,11 +301,13 @@
 		// renderCashOnHand: function(){
 		// 	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.cashLeftOver;
 		// },
+		// renderStartingTotalCash: function(){
+		// 	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.maxCashToStart;
+		// },
 
 		wagerWin: function(){
-			console.log(this.cashLeftOver);
-			this.cashLeftOver = this.playerWager + this.cashLeftOver;
-			console.log(this.cashLeftOver);
+			this.maxCashToStart = this.playerWager + this.maxCashToStart;
+			this.cashLeftOver = this.maxCashToStart;
 			return this.cashLeftOver;
 		}//,
 		// wagerLose: function(){
@@ -328,7 +330,7 @@
 	function GameUI(){ // this gets the ball rolling a new instance of GameUI is called at the bottom of this page
 		this.gameController = new GameController();
 		this.registerDomElements();
-		this.renderStartingTotalCash();
+		//this.renderStartingTotalCash();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
@@ -537,7 +539,9 @@
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
-				this.renderCashOnHand();
+				//this.renderStartingTotalCash();
+				// this.gameController.beting.cashLeftOver = this.gameController.betting.maxCashToStart;
+				console.log('wiiiiin!');
 			} else {
 				//this.gameController.betting.wagerLose();
 			}
@@ -558,6 +562,7 @@
 			this.secondaryButtonsHidden();
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
+			document.querySelector('.wager-total .bet').innerHTML = 0;
 			// take the cards off the table
 		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = '';
