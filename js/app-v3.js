@@ -253,22 +253,22 @@
 			// the comparisons to 21 seemed to have to be added first for this logic to work as desired. strange!
 			if (this.playerScore > 21) {
 
-				winner = this.dealerName + " wins!";
+				winner = this.dealerName;
 
 			} else if (this.dealerScore > 21) {
 
-				winner = this.playerName + " wins!";
+				winner = this.playerName;
 
 			} else if (this.playerScore < this.dealerScore) {
 
-				winner = this.dealerName + " wins!";
+				winner = this.dealerName;
 
 			} else if (this.playerScore > this.dealerScore){
 
-				winner = this.playerName + " wins!";
+				winner = this.playerName;
 
 			} else {
-				winner = 'Looks like it\'s a draw';
+				winner = false;
 			}
 
 			return winner;
@@ -295,10 +295,10 @@
 			return this.cashLeftOver;
 		},
 		wagerWin: function(){
-
+			console.log('wager win!');
 		},
 		wagerLose: function(){
-
+			console.log('wager lose!');
 		},
 	};
 
@@ -482,7 +482,11 @@
 		},
 		announceWinner: function(){
 			var winner = this.gameController.result.decision();
-			document.querySelector('.winner-is p').innerHTML = winner;
+			if (winner === false) {
+				document.querySelector('.winner-is p').innerHTML = 'Looks like it\'s a draw';
+			} else {
+				document.querySelector('.winner-is p').innerHTML = winner + ' wins!';
+			}
 		},
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
@@ -502,6 +506,14 @@
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
 			this.announceWinner();
+			// update wagers
+			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
+				this.gameController.betting.wagerWin();
+				console.log('player wins');
+			} else {
+				this.gameController.betting.wagerLose();
+				console.log('dealer wins');
+			}
 		},
 		//////////////////////////////
 		// :: NEW GAME FUNCTIONS :: //
