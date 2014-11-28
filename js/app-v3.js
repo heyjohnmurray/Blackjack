@@ -1,5 +1,4 @@
 // still need to:
-	//	declare playerOne 'winner' if they draw 21 immediately after 'deal'
 	//	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//	if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
 	//	make dealer ask for more cards if need be. right now he only ever gets one.
@@ -425,11 +424,6 @@
 			this.createCard(playerCards[1], this.gameController.playerOne);
 			this.createCard(dealerCards[0], this.gameController.gameDealer);
 			this.renderUpdatedScore();
-			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
-			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
-			this.gameController.result.playerName = this.gameController.playerOne.name;
-			this.gameController.result.dealerName = this.gameController.gameDealer.name;
-			this.announceWinner();
 			this.renderDisableBets();
 			this.dealButton.style.display = 'none';
 		},
@@ -469,6 +463,8 @@
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
 			
+			this.hitButton.style.display = 'none';
+			this.stayButton.style.display = 'none';
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
@@ -479,9 +475,6 @@
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
 			this.announceWinner();
-
-			this.hitButton.style.display = 'none';
-			this.stayButton.style.display = 'none';
 		}
 	};
 
