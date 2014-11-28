@@ -339,12 +339,12 @@
 	GameUI.prototype = {
 		constructor: GameUI,
 		registerDomElements: function(){
+			this.actionButtons 		= document.querySelector('.js-actions');
 		  	this.dealButton			= document.getElementById('deal-button');
 			this.hitButton 			= document.getElementById('hit-me');
 			this.stayButton 		= document.getElementById('stay');
 			this.newGameButton 		= document.getElementById('new-game');
 			this.betAnchors 		= document.querySelector('.bets').getElementsByTagName('a');
-			this.primaryButtons 	= document.querySelector('.js-actions');
 			this.secondaryButtons 	= document.querySelector('.js-secondary-actions');
 			this.gameController.playerOne.setCardDom('.player-cards');
 			this.gameController.playerOne.setScoreDom('.player-box .score');
@@ -354,17 +354,29 @@
 		///////////////////////////////////
 		// :: SHARED BUTTON FUNCTIONS :: //
 		///////////////////////////////////
-		primaryButtonsShown: function(){
-			this.primaryButtons.classList.add('is-shown');
+		actionButtonsShown: function(){
+			this.actionButtons.classList.add('is-shown');
 		},
-		primaryButtonsHidden: function(){
-			this.primaryButtons.classList.remove('is-shown');
+		actionButtonsHidden: function(){
+			this.actionButtons.classList.remove('is-shown');
+		},
+		dealButtonShown: function(){
+			this.dealButton.classList.add('is-shown');
+		},
+		dealButtonHidden: function(){
+			this.dealButton.classList.remove('is-shown');
 		},
 		secondaryButtonsShown: function(){
 			this.secondaryButtons.classList.add('is-shown');
 		},
 		secondaryButtonsHidden: function(){
 			this.secondaryButtons.classList.remove('is-shown');
+		},
+		newGameButtonShown: function(){
+		  	this.newGameButton.classList.add('is-shown');
+		},
+		newGameButtonHidden: function(){
+		  	this.newGameButton.classList.remove('is-shown');
 		},
 		///////////////////////////
 		// :: WAGER FUNCTIONS :: //
@@ -399,7 +411,8 @@
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
 
-			this.primaryButtonsShown(); // deal button becomes visible
+			this.actionButtonsShown();
+			this.dealButtonShown();
 			this.gameController.betting.updateWager(chipValue);
 			this.renderUpdatedWager();
 			this.gameController.betting.cashOnHand();
@@ -456,6 +469,7 @@
 			var playerCards = this.gameController.playerOne.getCards();
 			var dealerCards = this.gameController.gameDealer.getCards();
 			
+			this.dealButtonHidden();
 			this.secondaryButtonsShown();
 			// deal cards for each user
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
@@ -466,7 +480,6 @@
 			this.createCard(dealerCards[0], this.gameController.gameDealer);
 			this.renderUpdatedScore();
 			this.renderDisableBets();
-			this.dealButton.style.display = 'none';
 		},
 		/////////////////////////////////
 		// :: HIT BUTTON FUNCTIONS :: //
@@ -508,12 +521,9 @@
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
 
-			// i don't really care when these buttons appear/disappear b/c the whole event happens so fast.
-			// just putting them up top for organization. they could use 'is-shown' classes later
-			// this.hitButton.style.display = 'none';
-			// this.stayButton.style.display = 'none';
+			this.dealButtonHidden();
 			this.secondaryButtonsHidden();
-			this.newGameButton.style.display = 'block';
+			this.newGameButtonShown();
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
@@ -544,8 +554,8 @@
 		  	this.newGameButton.addEventListener('click', localNewGameEvent);
 		},
 		newGameEvent: function(){
-			this.newGameButton.style.display = 'none'; // this button flow works for now but needs to be redone in the end.
-			this.dealButton.style.display = 'block';
+			this.newGameButtonHidden();
+			this.secondaryButtonsHidden();
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
 			// take the cards off the table

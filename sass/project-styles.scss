@@ -75,9 +75,14 @@ h2 {
 
 .deal-button {
 	background: #ff0;
+	display: none;
 
 	&:hover {
 		cursor: pointer;
+	}
+
+	&.is-shown {
+		display: inline-block;
 	}
 
 	&.is-hidden {
@@ -256,4 +261,8 @@ a.chip {
 
 .new-game-button {
 	display: none;
+
+	&.is-shown {
+		display: inline-block;
+	}
 }
