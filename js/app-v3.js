@@ -320,12 +320,13 @@
 	GameUI.prototype = {
 		constructor: GameUI,
 		registerDomElements: function(){
-		  	this.dealButton = document.getElementById('deal-button');
-			this.hitButton = document.getElementById('hit-me');
-			this.stayButton = document.getElementById('stay');
-			this.betAnchors = document.querySelector('.bets').getElementsByTagName('a');
-			this.primaryButtons = document.querySelector('.js-actions');
-			this.secondaryButtons = document.querySelector('.js-secondary-actions');
+		  	this.dealButton			= document.getElementById('deal-button');
+			this.hitButton 			= document.getElementById('hit-me');
+			this.stayButton 		= document.getElementById('stay');
+			this.newGameButton 		= document.getElementById('new-game');
+			this.betAnchors 		= document.querySelector('.bets').getElementsByTagName('a');
+			this.primaryButtons 	= document.querySelector('.js-actions');
+			this.secondaryButtons 	= document.querySelector('.js-secondary-actions');
 			this.gameController.playerOne.setCardDom('.player-cards');
 			this.gameController.playerOne.setScoreDom('.player-box .score');
 			this.gameController.gameDealer.setCardDom('.dealer-cards');
