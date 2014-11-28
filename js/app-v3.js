@@ -294,6 +294,12 @@
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
 			return this.cashLeftOver;
 		},
+		wagerWin: function(){
+
+		},
+		wagerLose: function(){
+
+		},
 	};
 
 //////////////////////////
@@ -302,7 +308,7 @@
 	function GameController() {
 		// everything related to the game that doesn't directly touch the DOM
 		this.myDeck = new Deck();
-		this.betObj = new Betting();
+		this.betting = new Betting();
 		this.playerOne = new Player('John','playerOne');
 		this.gameDealer = new Player('Dealer','gameDealer');
 		this.result = new Result();
@@ -358,13 +364,13 @@
 			}
 		},
 		renderUpdatedWager: function(){
-			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.playerWager;
+			document.querySelector('.wager-total .bet').innerHTML = this.gameController.betting.playerWager;
 		},
 		renderCashOnHand: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.cashLeftOver;
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.cashLeftOver;
 		},
 		renderStartingTotalCash: function(){
-			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betObj.maxCashToStart;
+			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.maxCashToStart;
 		},
 		renderDisableBets: function(){
 			var newDiv = document.createElement('div');
@@ -377,16 +383,16 @@
 			var chipValue = e.target.dataset.value;
 
 			this.primaryButtonsShown(); // deal button becomes visible
-			this.gameController.betObj.updateWager(chipValue);
+			this.gameController.betting.updateWager(chipValue);
 			this.renderUpdatedWager();
-			this.gameController.betObj.cashOnHand();
+			this.gameController.betting.cashOnHand();
 			this.renderCashOnHand();
 
-			if(this.gameController.betObj.cashLeftOver <= 0){ // if you don't have any money left ...
+			if(this.gameController.betting.cashLeftOver <= 0){ // if you don't have any money left ...
 				this.renderDisableBets();
 				document.querySelector('.wager-total .cash').classList.add('warning');
 				document.querySelector('.wager-total .cash').innerHTML = 0;
-				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betObj.maxCashToStart;
+				document.querySelector('.wager-total .bet').innerHTML = this.gameController.betting.maxCashToStart;
 			}
 
 			e.preventDefault();
