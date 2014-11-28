@@ -1,5 +1,4 @@
 // still need to:
-	//	add play again logic
 	//  add wager math for future hands
 			/*
 				click stay
