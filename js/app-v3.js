@@ -294,14 +294,23 @@
 			this.cashLeftOver = this.maxCashToStart - this.playerWager;
 			return this.cashLeftOver;
 		},
+
+		// renderUpdatedWager: function(){
+		// 	document.querySelector('.wager-total .bet').innerHTML = this.gameController.betting.playerWager;
+		// },
+		// renderCashOnHand: function(){
+		// 	document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.cashLeftOver;
+		// },
+
 		wagerWin: function(){
 			console.log(this.cashLeftOver);
 			this.cashLeftOver = this.playerWager + this.cashLeftOver;
 			console.log(this.cashLeftOver);
-		},
-		wagerLose: function(){
-			console.log('wager lose!');
-		},
+			return this.cashLeftOver;
+		}//,
+		// wagerLose: function(){
+		// 	console.log('wager lose!');
+		// },
 	};
 
 //////////////////////////
@@ -348,8 +357,14 @@
 		primaryButtonsShown: function(){
 			this.primaryButtons.classList.add('is-shown');
 		},
+		primaryButtonsHidden: function(){
+			this.primaryButtons.classList.remove('is-shown');
+		},
 		secondaryButtonsShown: function(){
 			this.secondaryButtons.classList.add('is-shown');
+		},
+		secondaryButtonsHidden: function(){
+			this.secondaryButtons.classList.remove('is-shown');
 		},
 		///////////////////////////
 		// :: WAGER FUNCTIONS :: //
@@ -440,7 +455,7 @@
 			// get card arrays for each user
 			var playerCards = this.gameController.playerOne.getCards();
 			var dealerCards = this.gameController.gameDealer.getCards();
-
+			
 			this.secondaryButtonsShown();
 			// deal cards for each user
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
@@ -495,8 +510,9 @@
 
 			// i don't really care when these buttons appear/disappear b/c the whole event happens so fast.
 			// just putting them up top for organization. they could use 'is-shown' classes later
-			this.hitButton.style.display = 'none';
-			this.stayButton.style.display = 'none';
+			// this.hitButton.style.display = 'none';
+			// this.stayButton.style.display = 'none';
+			this.secondaryButtonsHidden();
 			this.newGameButton.style.display = 'block';
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
@@ -510,9 +526,10 @@
 			this.announceWinner();
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
-				this.gameController.betting.wagerWin(); // make sure you need this function and that you keep wagerEvents() resusable.
+				this.gameController.betting.wagerWin();
+				this.renderCashOnHand();
 			} else {
-				this.gameController.betting.wagerLose();
+				//this.gameController.betting.wagerLose();
 			}
 		},
 		//////////////////////////////
@@ -538,6 +555,8 @@
 			document.querySelector(this.gameController.gameDealer.cardDom).innerHTML = '';
 			this.gameController.playerOne.cards = []; // empty out card arrays
 			this.gameController.gameDealer.cards = []; // for each user
+			this.gameController.playerOne.cardValues = []; // empty card value arrays
+			this.gameController.gameDealer.cardValues = []; // for each
 		}
 	};
 
