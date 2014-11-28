@@ -509,7 +509,14 @@
 		  	this.newGameButton.addEventListener('click', localNewGameEvent);
 		},
 		newGameEvent: function(){
-		  	console.log('new game, please.');
+			document.querySelector('.winner-is p').innerHTML = '';
+			// take the cards off the table
+		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
+			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = '';
+			document.querySelector(this.gameController.playerOne.cardDom).innerHTML = '';
+			document.querySelector(this.gameController.gameDealer.cardDom).innerHTML = '';
+			this.gameController.playerOne.cards = []; // empty out card arrays
+			this.gameController.gameDealer.cards = []; // for each user
 		}
 	};
 
