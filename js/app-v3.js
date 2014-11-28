@@ -509,6 +509,7 @@
 		  	this.newGameButton.addEventListener('click', localNewGameEvent);
 		},
 		newGameEvent: function(){
+			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
 			// take the cards off the table
 		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
