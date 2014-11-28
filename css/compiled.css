@@ -235,3 +235,6 @@ a.chip {
     text-align: center;
     text-transform: uppercase;
     line-height: 3; }
+
+.new-game-button {
+  display: none; }

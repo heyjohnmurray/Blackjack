@@ -1,4 +1,5 @@
 // still need to:
+	//	add play again logic
 	//  add wager math for future hands
 			/*
 				click stay
@@ -310,11 +311,12 @@
 	function GameUI(){ // this gets the ball rolling a new instance of GameUI is called at the bottom of this page
 		this.gameController = new GameController();
 		this.registerDomElements();
+		this.renderStartingTotalCash();
 		this.registerWagerEvents();
 		this.registerDealButtonEvent();
 		this.registerHitButtonEvent();
 		this.registerStayButtonEvent();
-		this.renderStartingTotalCash();
+		this.registerNewGameEvent();
 	}
 
 	GameUI.prototype = {
@@ -479,8 +481,11 @@
 		stayEvent: function(){
 			var dealerCards = this.gameController.gameDealer.getCards();
 
+			// i don't really care when these buttons appear/disappear b/c the whole event happens so fast.
+			// just putting them up top for organization. they could use 'is-shown' classes later
 			this.hitButton.style.display = 'none';
 			this.stayButton.style.display = 'none';
+			this.newGameButton.style.display = 'block';
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
 			this.renderUpdatedScore();
@@ -491,6 +496,20 @@
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
 			this.announceWinner();
+		},
+		//////////////////////////////
+		// :: NEW GAME FUNCTIONS :: //
+		//////////////////////////////
+		registerNewGameEvent: function(){
+		  	var scope = this;
+
+		  	function localNewGameEvent(e){
+				scope.newGameEvent(e);
+		  	}
+		  	this.newGameButton.addEventListener('click', localNewGameEvent);
+		},
+		newGameEvent: function(){
+		  	console.log('new game, please.');
 		}
 	};
 
