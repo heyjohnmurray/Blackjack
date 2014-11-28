@@ -1,18 +1,4 @@
 // still need to:
-	//  add wager math for future hands
-			/*
-				click stay
-					if win:
-						* read saved bet value
-						* add bet value to cash
-						* update bet value
-						* render new bet value to cash div
-					if lose:
-						* read saved bet value
-						* subtract bet value from cash
-						* update be value
-						* render new bet value to cash div
-			*/
 	//	remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
 	//	if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
@@ -300,8 +286,6 @@
 			return this.cashLeftOver;
 		},
 		wagerLose: function(){
-			//this.cashLeftOver = this.maxCashToStart;
-			console.log(this.cashLeftOver);
 			return this.cashLeftOver;
 		},
 	};
@@ -527,6 +511,7 @@
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
 			this.announceWinner();
+
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
