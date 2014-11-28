@@ -237,13 +237,21 @@
 		decision: function(){
 			// the comparisons to 21 seemed to have to be added first for this logic to work as desired. strange!
 			if (this.playerScore > 21) {
+
 				winner = this.dealerName + " wins!";
+
 			} else if (this.dealerScore > 21) {
+
 				winner = this.playerName + " wins!";
+
 			} else if (this.playerScore < this.dealerScore) {
+
 				winner = this.dealerName + " wins!";
+
 			} else if (this.playerScore > this.dealerScore){
+
 				winner = this.playerName + " wins!";
+
 			} else {
 				winner = 'Looks like it\'s a draw';
 			}
@@ -318,22 +326,6 @@
 		secondaryButtonsShown: function(){
 			this.secondaryButtons.classList.add('is-shown');
 		},
-		/////////////////////////////////
-		// :: SHARED CARD FUNCTIONS :: //
-		/////////////////////////////////
-		renderCard: function(user){ // this just creates the html card in the DOM
-			var newDiv = document.createElement('div');
-			newDiv.className = 'card';
-			document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
-		},
-		createCard: function(newCard, user){
-			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
-
-			this.renderCard(user); // builds physical card
-			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
-			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
-			this.gameController[user.id].getScore();
-		},
 		///////////////////////////
 		// :: WAGER FUNCTIONS :: //
 		///////////////////////////
@@ -382,6 +374,22 @@
 
 			e.preventDefault();
 		},
+		/////////////////////////////////
+		// :: SHARED CARD FUNCTIONS :: //
+		/////////////////////////////////
+		renderCard: function(user){ // this just creates the html card in the DOM
+			var newDiv = document.createElement('div');
+			newDiv.className = 'card';
+			document.querySelector(this.gameController[user.id].cardDom).appendChild(newDiv);
+		},
+		createCard: function(newCard, user){
+			var cardAttributes = '<div class="number ' + newCard.color + '">' + newCard.face + '</div>' + '<div class="suit ' + newCard.color +'">' + newCard.symbol + '</div>';
+
+			this.renderCard(user); // builds physical card
+			document.querySelector(this.gameController[user.id].cardDom).lastChild.innerHTML = cardAttributes; // applies card attribute to physical card
+			this.gameController[user.id].totalCardValues(newCard); // put totalCardValues into .receiveCard() instead. then call it then remove the next line of code.
+			this.gameController[user.id].getScore();
+		},
 		/////////////////////////////
 		// :: SCORING FUNCTIONS :: //
 		/////////////////////////////
@@ -417,6 +425,11 @@
 			this.createCard(playerCards[1], this.gameController.playerOne);
 			this.createCard(dealerCards[0], this.gameController.gameDealer);
 			this.renderUpdatedScore();
+			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
+			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
+			this.gameController.result.playerName = this.gameController.playerOne.name;
+			this.gameController.result.dealerName = this.gameController.gameDealer.name;
+			this.announceWinner();
 			this.renderDisableBets();
 			this.dealButton.style.display = 'none';
 		},
@@ -465,10 +478,10 @@
 			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
+			this.announceWinner();
 
 			this.hitButton.style.display = 'none';
 			this.stayButton.style.display = 'none';
-			this.announceWinner();
 		}
 	};
 
