@@ -1,4 +1,5 @@
 // still need to:
+	//	* add auto win if a user gets to 21
 	//	* remove warning for subsequent hands
 	//	* remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
@@ -287,6 +288,9 @@
 			return this.cashLeftOver;
 		},
 		wagerLose: function(){
+			// the subtraction is already done when cashOnHand (line 281) gets run in 
+			// wagerEvents (line 393) so you just need to overwrite maxCashToStart
+			this.maxCashToStart = this.cashLeftOver;
 			return this.cashLeftOver;
 		},
 	};
@@ -388,7 +392,6 @@
 		},
 		wagerEvents: function(e){
 			var chipValue = e.target.dataset.value;
-
 			this.actionButtonsShown();
 			this.dealButtonShown();
 			this.gameController.betting.updateWager(chipValue);
@@ -521,7 +524,6 @@
 			} else {
 				this.gameController.betting.wagerLose();
 				this.renderCashOnHand();
-				this.gameController.betting.cashLeftOver = this.gameController.betting.maxCashToStart;
 			}
 
 			this.gameController.betting.playerWager = 0;
