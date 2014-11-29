@@ -507,25 +507,29 @@
 			this.newGameButtonShown();
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1);
 			this.createCard(dealerCards[dealerCards.length-1], this.gameController.gameDealer);
-			this.renderUpdatedScore();
-
-			// need to assign these variables after the final card has been dealt to the dealer otherwise it won't register all the dealer's points and player one will always win.
+			// need to change these variable values before renderUpdateScore() 
+			// after the final card has been dealt to the dealer 
+			// otherwise it won't register all the dealer's points and player one will always win.
 			this.gameController.result.playerScore = this.gameController.playerOne.getScore();
-			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();
+			this.gameController.result.dealerScore = this.gameController.gameDealer.getScore();			
+			
+			// pass each player name so you can post winner's name in .winner-is
 			this.gameController.result.playerName = this.gameController.playerOne.name;
 			this.gameController.result.dealerName = this.gameController.gameDealer.name;
+
+			this.renderUpdatedScore();
 			this.announceWinner();
 
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
-				this.renderStartingTotalCash();
-				this.gameController.betting.cashLeftOver = this.gameController.betting.maxCashToStart;
+				this.renderCashOnHand();
 			} else {
 				this.gameController.betting.wagerLose();
 				this.renderCashOnHand();
 			}
 
+			// reset .bet value to 0 for the next hand
 			this.gameController.betting.playerWager = 0;
 			this.renderUpdatedWager();
 		},
@@ -545,6 +549,7 @@
 			this.secondaryButtonsHidden();
 			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
 			document.querySelector('.winner-is p').innerHTML = '';
+			
 			// take the cards off the table
 		  	document.querySelector(this.gameController.playerOne.scoreDom).innerHTML = '';
 			document.querySelector(this.gameController.gameDealer.scoreDom).innerHTML = '';
