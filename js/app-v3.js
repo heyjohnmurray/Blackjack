@@ -1,11 +1,23 @@
 // still need to:
 	//	* prevent duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
+	//		so: 	after a card is created, but before it is rendered, 
+	//				look into each player's this.cards array (so this.gameController.playerOne.getCards() and this.gameController.gameDealer.getCards())
+	//				and use .reduce to check the name and suit of each card drawn to the name and suit of each card already in the .cards array
+	//				if there are any matches, then run dealCards again to deal a single card for the user (whether it's the player or the dealer)
+	//				then check the new card to cards already in the array. if it's unique then add it to the .cards array
 	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
 	//	* make dealer ask for more cards if need be. right now he only ever gets one.
+	//		so : 	save user player points value (this is taken card of when 'stay' is clicked)
+	//				give dealer a card then test whether it's value is greater or less than player's score
+	//				keep giving the dealer a card as long as (while statement?) his score is less than 21
+	//				once his score is greater than 21, pop off the last card that made it go over 21
+	//				then add all the remaining cards in the array and print their value
+	//				this will be the dealer's value that you will record and render.
+	//
+	//				note :: don't render cards for the user until after the last card has been popped off and the final score has been totalled.
+	//
 	//	* prompt user for name so you can write it on the table and pass it around for the winner-is value
-	//		so : 	save user player points value
-	//				give dealer a card then test whether it's greater or less than player's score
 	//	* enhance the UI a bit by  adding animations and stuff on the front end. basically, spruce it up a bit.
 	//	* find a way to add/remove event listeners instead of ghetto disableBets() method. that way you can play several hands in a row much easier.
 
@@ -247,7 +259,6 @@
 
 			} else if (this.playerScore == 21) {
 
-				console.log('exactly 21!');
 				winner = this.playerName;
 
 			} else if (this.playerScore < this.dealerScore) {
@@ -261,8 +272,6 @@
 			} else {
 				winner = false;
 			}
-
-			console.log("result decision player score: " + this.playerScore);
 
 			return winner;
 		}
@@ -457,7 +466,7 @@
 			// get card arrays for each user
 			var playerCards = this.gameController.playerOne.getCards();
 			var dealerCards = this.gameController.gameDealer.getCards();
-			
+
 			this.dealButtonHidden();
 			this.secondaryButtonsShown();
 			// deal cards for each user
