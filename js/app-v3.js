@@ -1,6 +1,5 @@
 // still need to:
 	//	* add auto win if a user gets to 21
-	//	* remove warning for subsequent hands
 	//	* remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
 	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
@@ -383,6 +382,9 @@
 		renderStartingTotalCash: function(){
 			document.querySelector('.wager-total .cash').innerHTML = this.gameController.betting.maxCashToStart;
 		},
+		renderEnableBets: function(){
+			document.querySelector('.bets').removeChild(document.querySelector('.bets-off'));
+		},
 		renderDisableBets: function(){
 			var newDiv = document.createElement('div');
 			var firstItem = document.querySelector('.bets').firstChild;
@@ -523,6 +525,10 @@
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
+				if (this.gameController.betting.cashLeftOver > 0) {
+					this.renderEnableBets();
+					document.querySelector('.wager-total .cash').classList.remove('warning');
+				}
 				this.renderCashOnHand();
 			} else {
 				this.gameController.betting.wagerLose();
@@ -547,7 +553,7 @@
 		newGameEvent: function(){
 			this.newGameButtonHidden();
 			this.secondaryButtonsHidden();
-			document.querySelector('.bets').removeChild(document.querySelector('.bets-off')); // re-enable bets
+			this.renderEnableBets();
 			document.querySelector('.winner-is p').innerHTML = '';
 			
 			// take the cards off the table
