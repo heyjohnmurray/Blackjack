@@ -1,5 +1,5 @@
 // still need to:
-	//	* remove duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
+	//	* prevent duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/a/23663867/945517
 	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
 	//	* make dealer ask for more cards if need be. right now he only ever gets one.
