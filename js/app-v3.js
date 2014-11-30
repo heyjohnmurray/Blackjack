@@ -246,6 +246,11 @@
 
 				winner = this.playerName;
 
+			} else if (this.playerScore == 21) {
+
+				console.log('exactly 21!');
+				winner = this.playerName;
+
 			} else if (this.playerScore < this.dealerScore) {
 
 				winner = this.dealerName;
@@ -257,6 +262,8 @@
 			} else {
 				winner = false;
 			}
+
+			console.log("result decision player score: " + this.playerScore);
 
 			return winner;
 		}
@@ -461,6 +468,15 @@
 			this.createCard(playerCards[0], this.gameController.playerOne);
 			this.createCard(playerCards[1], this.gameController.playerOne);
 			this.createCard(dealerCards[0], this.gameController.gameDealer);
+
+			if (this.gameController.playerOne.getScore() == 21) {
+				// it took forever to get it to assigne the .playerScore value correct.
+				// always assign values where they are defined, not in the function they're used in.
+				// i was trying to do this.gameController.result.decision.playerScore = 21. WRONG!
+				this.gameController.result.playerScore = this.gameController.playerOne.getScore();
+				this.gameController.result.playerName = this.gameController.playerOne.name;
+				this.announceWinner();
+			}
 			this.renderUpdatedScore();
 			this.renderDisableBets();
 		},
