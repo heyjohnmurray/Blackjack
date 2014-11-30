@@ -525,7 +525,7 @@
 			// update wagers
 			if (this.gameController.result.decision() != this.gameController.gameDealer.name) {
 				this.gameController.betting.wagerWin();
-				if (this.gameController.betting.cashLeftOver > 0) {
+				if (this.gameController.betting.cashLeftOver > 0 && document.querySelector('.wager-total .cash').classList.contains('warning')) {
 					this.renderEnableBets();
 					document.querySelector('.wager-total .cash').classList.remove('warning');
 				}
