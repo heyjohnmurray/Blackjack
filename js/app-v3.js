@@ -1,11 +1,14 @@
 // still need to:
 	//	* prevent duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
-	//		source: http://stackoverflow.com/a/23663867/945517
+	//		source: http://stackoverflow.com/questions/237104/array-containsobj-in-javascript
+	//				http://stackoverflow.com/questions/6116474/how-to-find-if-an-array-contains-a-specific-string-in-javascript-jquery
+	//
 	//		so: 	after a card is created, but before it is rendered, 
 	//				look into each player's this.cards array (so this.gameController.playerOne.getCards() and this.gameController.gameDealer.getCards())
 	//				and use .reduce to check the name and suit of each card drawn to the name and suit of each card already in the .cards array
 	//				if there are any matches, then run dealCards again to deal a single card for the user (whether it's the player or the dealer)
 	//				then check the new card to cards already in the array. if it's unique then add it to the .cards array
+	//
 	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
 	//	* make dealer ask for more cards if need be. right now he only ever gets one.
 	//		so : 	save user player points value (this is taken card of when 'stay' is clicked)
@@ -222,8 +225,14 @@
 			return randomCard;
 		},
 
-		checkCard: function(){
+		checkCard: function(object){
 			// this function will check the builtcard vs existing cards in the array and create another if there's a duplicate
+			// not making this part of dealCards b/c it seems like the dealCards has to run once before you can run checkCard
+			for (var key in object) {
+				console.log(object[key].face);
+				console.log(object[key].suit);
+			}
+			console.log(object);
 		},
 
 		dealCards: function(user, number){
@@ -472,6 +481,9 @@
 			// deal cards for each user
 			this.gameController.myDeck.dealCards(this.gameController.gameDealer,1); 
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,2); 
+			// check for duplicate cards
+			this.gameController.myDeck.checkCard(dealerCards);
+			this.gameController.myDeck.checkCard(playerCards);
 			// render cards for each user
 			this.createCard(playerCards[0], this.gameController.playerOne);
 			this.createCard(playerCards[1], this.gameController.playerOne);
