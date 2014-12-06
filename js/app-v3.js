@@ -478,7 +478,7 @@
 			this.createCard(dealerCards[0], this.gameController.gameDealer);
 
 			if (this.gameController.playerOne.getScore() == 21) {
-				// it took forever to get it to assigne the .playerScore value correct.
+				// it took forever to get it to assign the .playerScore value correct.
 				// always assign values where they are defined, not in the function they're used in.
 				// i was trying to do this.gameController.result.decision.playerScore = 21. WRONG!
 				this.gameController.result.playerScore = this.gameController.playerOne.getScore();
