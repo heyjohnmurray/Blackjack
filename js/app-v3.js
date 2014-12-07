@@ -225,14 +225,16 @@
 			return randomCard;
 		},
 
-		checkCard: function(object){
+		checkCard: function(array){
 			// this function will check the builtcard vs existing cards in the array and create another if there's a duplicate
 			// not making this part of dealCards b/c it seems like the dealCards has to run once before you can run checkCard
-			for (var key in object) {
-				console.log(object[key].face);
-				console.log(object[key].suit);
-			}
-			console.log(object);
+			// for (var key in array) {
+			// var face = array[key].face;
+			// var suit = array[key].suit;
+			// console.log(array); // references the array of cards
+			// console.log(array[key]); // references a card object inside of the array
+			// console.log(array[i]);
+			// }
 		},
 
 		dealCards: function(user, number){
