@@ -93,118 +93,132 @@
 //////////////////////
 // :: DECK LOGIC :: //
 //////////////////////	
+
+// this.cards will hold all 52 cards. each number 0-51 will be a key that matches a corresponding card object.
+// loop through object.keys of this.suits and for each suit, loop through object.keys of this.cardValues
+
+
 	function Deck(){
-		this.suits = {
-			0: {
+		this.suits = [ // this is an array now
+			{
 				'suit': 'diamonds',
 				'symbol': '&diamondsuit;',
 				'color': 'red'
 			},
 
-			1: {
+			{
 				'suit': 'hearts',
 				'symbol': '&heartsuit;',
 				'color': 'red'
 			},
 
-			2: {
+			{
 				'suit': 'clubs',
 				'symbol': '&clubsuit;',
 				'color': 'black'
 			},
 
-			3: {
+			{
 				'suit': 'spades',
 				'symbol': '&spadesuit;',
 				'color': 'black'
 			}
-		}; // close suits
+		]; // close suits
 
-		this.cards = {
-			1: {
+		this.cards = [ // change to this.cardValues
+			{
 				'name': 'ace',
 				'face': 'A',
 				'value': 1
 			},
 
-			2: {
+			{
 				'name': 'two',
 				'face': '2',
 				'value': 2
 			},
 
-			3: {
+			{
 				'name': 'three',
 				'face': 3,
 				'value': 3
 			},
 
-			4: {
+			{
 				'name': 'four',
 				'face': '4',
 				'value': 4
 			},
 
-			5: {
+			{
 				'name': 'five',
 				'face': '5',
 				'value': 5
 			},
 
-			6: {
+			{
 				'name': 'six',
 				'face': '6',
 				'value': 6
 			},
 
-			7: {
+			{
 				'name': 'seven',
 				'face': '7',
 				'value': 7
 			},
 
-			8: {
+			{
 				'name': 'eight',
 				'face': '8',
 				'value': 8
 			},
 
-			9: {
+			{
 				'name': 'nine',
 				'face': '9',
 				'value': 9
 			},
 
-			10: {
+			{
 				'name': 'ten',
 				'face': '10',
 				'value': 10
 			},
 
-			11: {
+			{
 				'name': 'jack',
 				'face': 'J',
 				'value': 10
 			},
 
-			12: {
+			{
 				'name': 'queen',
 				'face': 'Q',
 				'value': 10
 			},
 
-			13: {
+			{
 				'name': 'king',
 				'face': 'K',
 				'value': 10
-			},
-
-			14: {
-				'name': 'ace',
-				'face': 'A',
-				'value': 11
 			}
-		}; // close cards
+		]; // close cards
+
+		this.cards = [];
+
+		this.suits.forEach(function(currentSuit){
+		  	this.cardValues.forEach(function(currentValue){
+				randomCard = new Card({
+					suit: ,
+					symbol: ,
+					color: ,
+					face: ,
+					name: ,
+					value: ,
+				});
+		  	});
+		});
 	}
 
 	Deck.prototype = {
@@ -224,21 +238,31 @@
 
 			return randomCard;
 		},
-
+						//playerCards
 		checkCard: function(array){
 			// this function will check the builtcard vs existing cards in the array and create another if there's a duplicate
 			// not making this part of dealCards b/c it seems like the dealCards has to run once before you can run checkCard
-			var out = [];
-			var obj = {};
 
+			// possible arrays :: an array of objects
+			/////////////////////
+			// var playerCards = this.gameController.playerOne.getCards(); 
+			// var dealerCards = this.gameController.gameDealer.getCards();
+			/////////////////////
+
+			var out = []; // new array
+			var obj = {}; // new object
+								// 2
 			for (i = 0; i < array.length; i++) {
-				obj[array[i]]=0;
+				obj[array[i]]=0; 
 			}
+
+			console.log(obj);
 
 			for (i in obj) {
 				out.push(i);
 			}
-			//console.log(out);
+			console.log(out);
+
 			return out;
 		},
 
