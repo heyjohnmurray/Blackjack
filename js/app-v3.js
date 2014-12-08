@@ -228,13 +228,18 @@
 		checkCard: function(array){
 			// this function will check the builtcard vs existing cards in the array and create another if there's a duplicate
 			// not making this part of dealCards b/c it seems like the dealCards has to run once before you can run checkCard
-			// for (var key in array) {
-			// var face = array[key].face;
-			// var suit = array[key].suit;
-			// console.log(array); // references the array of cards
-			// console.log(array[key]); // references a card object inside of the array
-			// console.log(array[i]);
-			// }
+			var out = [];
+			var obj = {};
+
+			for (i = 0; i < array.length; i++) {
+				obj[array[i]]=0;
+			}
+
+			for (i in obj) {
+				out.push(i);
+			}
+			//console.log(out);
+			return out;
 		},
 
 		dealCards: function(user, number){
@@ -519,6 +524,12 @@
 			this.gameController.myDeck.dealCards(this.gameController.playerOne,1);  // deal playerOne another card
 			this.createCard(playerCards[playerCards.length-1], this.gameController.playerOne); // render a card for the last item created in the array
 			this.renderUpdatedScore();
+
+			if (this.gameController.playerOne.getScore() > 21) {
+				this.gameController.result.playerScore = this.gameController.playerOne.getScore();
+				this.gameController.result.dealerName = this.gameController.gameDealer.name;
+				this.announceWinner();
+			}
 		},
 		/////////////////////////////////
 		// :: STAY BUTTON FUNCTIONS :: //
