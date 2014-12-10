@@ -1,25 +1,3 @@
-// check out NG boilerplate
-
-// still need to:
-	//	* prevent duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
-	//		source: http://stackoverflow.com/questions/237104/array-containsobj-in-javascript
-	//				http://stackoverflow.com/questions/6116474/how-to-find-if-an-array-contains-a-specific-string-in-javascript-jquery
-	//
-	//	* if ace exists in the array, then make second ace worth 1 point (either that or prompt player for desired value -- 11 or 1?)
-	//	* make dealer ask for more cards if need be. right now he only ever gets one.
-	//		so : 	save user player points value (this is taken card of when 'stay' is clicked)
-	//				give dealer a card then test whether it's value is greater or less than player's score
-	//				keep giving the dealer a card as long as (while statement?) his score is less than 21
-	//				once his score is greater than 21, pop off the last card that made it go over 21
-	//				then add all the remaining cards in the array and print their value
-	//				this will be the dealer's value that you will record and render.
-	//
-	//				note :: don't render cards for the user until after the last card has been popped off and the final score has been totalled.
-	//
-	//	* prompt user for name so you can write it on the table and pass it around for the winner-is value
-	//	* enhance the UI a bit by  adding animations and stuff on the front end. basically, spruce it up a bit.
-	//	* find a way to add/remove event listeners instead of ghetto disableBets() method. that way you can play several hands in a row much easier.
-
 ////////////////////////
 // :: PLAYER LOGIC :: //
 ////////////////////////
