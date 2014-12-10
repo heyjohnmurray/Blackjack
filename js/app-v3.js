@@ -214,7 +214,7 @@
 				});
 				console.log(randomCard);
 				// push to this.cards
-				// this.cards.push(randomCard);
+				this.cards.push(randomCard);
 		  	});
 		}, this);
 	}
