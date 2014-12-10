@@ -1,3 +1,5 @@
+// check out NG boilerplate
+
 // still need to:
 	//	* prevent duplicate card creation (check suit and face or name of each card in the array to the one created, force new card creation if duplicate) -- game controller logic / game ui render
 	//		source: http://stackoverflow.com/questions/237104/array-containsobj-in-javascript
@@ -91,7 +93,6 @@
 // this.cards will hold all 52 cards. each number 0-51 will be a key that matches a corresponding card object.
 // loop through object.keys of this.suits and for each suit, loop through object.keys of this.cardValues
 
-
 	function Deck(){
 		this.suits = [ // this is an array now
 			{
@@ -119,7 +120,7 @@
 			}
 		]; // close suits
 
-		this.cards = [ // change to this.cardValues
+		this.cardValues = [
 			{
 				'name': 'ace',
 				'face': 'A',
@@ -134,7 +135,7 @@
 
 			{
 				'name': 'three',
-				'face': 3,
+				'face': '3',
 				'value': 3
 			},
 
@@ -197,40 +198,52 @@
 				'face': 'K',
 				'value': 10
 			}
-		]; // close cards
+		]; // close cardValues
 
 		this.cards = [];
 
 		this.suits.forEach(function(currentSuit){
 		  	this.cardValues.forEach(function(currentValue){
-				randomCard = new Card({
-					suit: ,
-					symbol: ,
-					color: ,
-					face: ,
-					name: ,
-					value: ,
+				var randomCard = new Card({
+					suit: currentSuit.suit,
+					symbol: currentSuit.symbol,
+					color: currentSuit.color,
+					face: currentValue.face,
+					name: currentValue.name,
+					value: currentValue.value
 				});
+				console.log(randomCard);
+				// push to this.cards
+				// this.cards.push(randomCard);
 		  	});
-		});
+		}, this);
 	}
 
 	Deck.prototype = {
 		constructor: Deck,
 		buildCard: function(){
-			var suitType = Math.floor(Math.random() * 4);
-			var cardNumber = Math.floor(Math.random() * 13) + 1;
+			// this will go away
 
-			var randomCard = new Card({
-				suit: this.suits[suitType].suit,
-				symbol: this.suits[suitType].symbol,
-				color: this.suits[suitType].color,
-				face: this.cards[cardNumber].face,
-				name: this.cards[cardNumber].name,
-				value: this.cards[cardNumber].value
-			});
+			// var suitType = Math.floor(Math.random() * 4);
+			// var cardNumber = Math.floor(Math.random() * 13) + 1;
 
-			return randomCard;
+			// var randomCard = new Card({
+			// 	suit: this.suits[suitType].suit,
+			// 	symbol: this.suits[suitType].symbol,
+			// 	color: this.suits[suitType].color,
+			// 	face: this.cards[cardNumber].face,
+			// 	name: this.cards[cardNumber].name,
+			// 	value: this.cards[cardNumber].value
+			// });
+
+			math.floor(math.random() * this.cards.length) // gets a card between 0 and the # of cards left
+
+			// once you have that randomly generated number
+			// get the card whose key matches that number. 
+			// pull that card out of this.cards using, probably splice()
+			// then return that card
+
+			//return randomCard;
 		},
 
 		dealCards: function(user, number){
