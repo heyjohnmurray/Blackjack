@@ -180,9 +180,9 @@
 			}
 		]; // close cardValues
 
-		scope.cards = [];
+		scope.cards = []; // this array holds the deck we create
 
-		scope.suits.forEach(function(currentSuit){
+		scope.suits.forEach(function(currentSuit){ // this creates the whole deck
 
 		  	scope.cardValues.forEach(function(currentValue){
 				var randomCard = new Card({
@@ -194,7 +194,6 @@
 					value: currentValue.value
 				});
 
-				//console.log(randomCard);
 				scope.cards.push(randomCard);
 		  	});
 		});
@@ -203,20 +202,6 @@
 	Deck.prototype = {
 		constructor: Deck,
 		buildCard: function(){
-			// this will go away
-
-			// var suitType = Math.floor(Math.random() * 4);
-			// var cardNumber = Math.floor(Math.random() * 13) + 1;
-
-			// var randomCard = new Card({
-			// 	suit: this.suits[suitType].suit,
-			// 	symbol: this.suits[suitType].symbol,
-			// 	color: this.suits[suitType].color,
-			// 	face: this.cards[cardNumber].face,
-			// 	name: this.cards[cardNumber].name,
-			// 	value: this.cards[cardNumber].value
-			// });
-
 			Math.floor(Math.random() * this.cards.length) // gets a card between 0 and the # of cards left
 
 			// once you have that randomly generated number
