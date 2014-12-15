@@ -197,25 +197,34 @@
 				scope.cards.push(createdCard); // after each card is created, add it to the deck
 		  	});
 		});
+		console.log('starting deck ');
+		console.log(scope.cards);
 	}
 
 	Deck.prototype = {
 		constructor: Deck,
 		buildCard: function(){
-			var cardKey = Math.floor(Math.random() * this.cards.length); // generates a number that matches a card's key value in our deck
-
-			return this.cards[cardKey]; // we've got the card that matches the randomly generated number
-
 			// once you have that randomly generated number
 			// get the card whose key matches that number. 
 			// pull that card out of this.cards using, probably splice()
 			// then return that card
+
+			var cardKey = Math.floor(Math.random() * this.cards.length); // generates a number that matches a card's key value in our deck
+			console.log('the randomly drawn key value is: ' + cardKey);
+			console.log('the rendered card associated with that key value is :');
+			console.log(this.cards[cardKey]);
+			this.cards.splice(cardKey, 1);
+
+			return this.cards[cardKey]; // we've got the card that matches the randomly generated number
 		},
 
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
 				user.receiveCard(this.buildCard());
 			}
+
+			console.log('cards left in deck: ' + this.cards.length);
+			console.log(this.cards);
 
 			return user;
 		}

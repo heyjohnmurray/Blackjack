@@ -145,8 +145,11 @@ h2 {
 }
 
 .actions {
+	position: absolute;
+	left: 0;
 	z-index: 5;
-	width: 100%;
+	// width: 100%;
+	width: 300px;
 	display: none;
 
 	&.is-shown {
