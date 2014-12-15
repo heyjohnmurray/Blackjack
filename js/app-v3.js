@@ -194,7 +194,7 @@
 					value: currentValue.value
 				});
 
-				scope.cards.push(createdCard);
+				scope.cards.push(createdCard); // after each card is created, add it to the deck
 		  	});
 		});
 	}
