@@ -72,7 +72,9 @@
 // loop through object.keys of this.suits and for each suit, loop through object.keys of this.cardValues
 
 	function Deck(){
-		this.suits = [ // this is an array now
+		var scope = this;
+
+		scope.suits = [ // this is an array now
 			{
 				'suit': 'diamonds',
 				'symbol': '&diamondsuit;',
@@ -98,7 +100,7 @@
 			}
 		]; // close suits
 
-		this.cardValues = [
+		scope.cardValues = [
 			{
 				'name': 'ace',
 				'face': 'A',
@@ -178,10 +180,11 @@
 			}
 		]; // close cardValues
 
-		this.cards = [];
+		scope.cards = [];
 
-		this.suits.forEach(function(currentSuit){
-		  	this.cardValues.forEach(function(currentValue){
+		scope.suits.forEach(function(currentSuit){
+
+		  	scope.cardValues.forEach(function(currentValue){
 				var randomCard = new Card({
 					suit: currentSuit.suit,
 					symbol: currentSuit.symbol,
@@ -190,11 +193,11 @@
 					name: currentValue.name,
 					value: currentValue.value
 				});
-				console.log(randomCard);
-				// push to this.cards
-				this.cards.push(randomCard);
+
+				//console.log(randomCard);
+				scope.cards.push(randomCard);
 		  	});
-		}, this);
+		});
 	}
 
 	Deck.prototype = {
@@ -214,7 +217,7 @@
 			// 	value: this.cards[cardNumber].value
 			// });
 
-			math.floor(math.random() * this.cards.length) // gets a card between 0 and the # of cards left
+			Math.floor(Math.random() * this.cards.length) // gets a card between 0 and the # of cards left
 
 			// once you have that randomly generated number
 			// get the card whose key matches that number. 
