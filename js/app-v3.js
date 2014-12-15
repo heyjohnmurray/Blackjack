@@ -185,7 +185,7 @@
 		scope.suits.forEach(function(currentSuit){ // this creates the whole deck
 
 		  	scope.cardValues.forEach(function(currentValue){
-				var randomCard = new Card({
+				var createdCard = new Card({
 					suit: currentSuit.suit,
 					symbol: currentSuit.symbol,
 					color: currentSuit.color,
@@ -194,7 +194,7 @@
 					value: currentValue.value
 				});
 
-				scope.cards.push(randomCard);
+				scope.cards.push(createdCard);
 		  	});
 		});
 	}
@@ -214,7 +214,7 @@
 
 		dealCards: function(user, number){
 			for (var i = 0; i < number; i++) {
-				user.receiveCard(this.buildCard()); // fyi, this.buildCard() == randomCard
+				user.receiveCard(this.buildCard());
 			}
 
 			return user;
