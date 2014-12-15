@@ -202,14 +202,12 @@
 	Deck.prototype = {
 		constructor: Deck,
 		buildCard: function(){
-			Math.floor(Math.random() * this.cards.length) // gets a card between 0 and the # of cards left
+			Math.floor(Math.random() * this.cards.length); // generates a number that matches a card's key value in our deck
 
 			// once you have that randomly generated number
 			// get the card whose key matches that number. 
 			// pull that card out of this.cards using, probably splice()
 			// then return that card
-
-			//return randomCard;
 		},
 
 		dealCards: function(user, number){
