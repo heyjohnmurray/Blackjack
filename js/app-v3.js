@@ -202,7 +202,9 @@
 	Deck.prototype = {
 		constructor: Deck,
 		buildCard: function(){
-			Math.floor(Math.random() * this.cards.length); // generates a number that matches a card's key value in our deck
+			var cardKey = Math.floor(Math.random() * this.cards.length); // generates a number that matches a card's key value in our deck
+
+			return this.cards[cardKey]; // we've got the card that matches the randomly generated number
 
 			// once you have that randomly generated number
 			// get the card whose key matches that number. 
